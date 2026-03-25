@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "include": ["src"],
+  "exclude": ["src/**/*.stories.ts"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@rollout/ui-kit": ["../ui-kit/src/index.ts"],
+      "@rollout/ui-kit/*": ["../ui-kit/src/*"]
+    }
+  }
+}
