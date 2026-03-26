@@ -2,18 +2,11 @@
   "name": "@rollout/ui-kit",
   "version": "0.0.2",
   "description": "Shared React UI kit for Rollout applications",
-  "keywords": [
-    "rollout",
-    "ui-kit",
-    "react",
-    "components",
-    "design-system",
-    "typescript"
-  ],
   "author": "rollout",
   "license": "MIT",
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": ["**/*.css"],
+  "files": ["dist", "README.md", "CHANGELOG.md", "LICENSE.md"],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -22,7 +15,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./styles.css": "./dist/styles.css"
   },
   "scripts": {
     "build": "tsup",
@@ -42,5 +36,13 @@
     "react-dom": "^19.2.4",
     "tailwindcss": "^4.2.2",
     "tsup": "^8.5.1"
-  }
+  },
+  "keywords": [
+    "rollout",
+    "ui-kit",
+    "react",
+    "components",
+    "design-system",
+    "typescript"
+  ]
 }

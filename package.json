@@ -8,9 +8,11 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "storybook": "turbo run storybook --filter=@rollout/storybook"
+    "storybook": "turbo run storybook --filter=@rollout/storybook",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
-  "author": "rolloutrf",
+  "author": "rollout",
   "license": "MIT",
   "packageManager": "pnpm@10.32.1",
   "devDependencies": {
@@ -19,7 +21,8 @@
     "eslint": "^9.39.4",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.5.2",
-    "turbo": "latest",
+    "prettier": "^3.6.2",
+    "turbo": "2.8.17",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.56.1"
   }

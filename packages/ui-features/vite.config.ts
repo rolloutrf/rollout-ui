@@ -5,14 +5,17 @@ import { resolve } from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), dts({
-    exclude: [
-      'vite.config.ts',
-      'src/**/*.stories.ts',
-      'src/**/*.stories.tsx',
-      'src/**/*.stories.d.ts',
-    ],
-  }),],
+  plugins: [
+    react(),
+    dts({
+      exclude: [
+        'vite.config.ts',
+        'src/**/*.stories.ts',
+        'src/**/*.stories.tsx',
+        'src/**/*.stories.d.ts',
+      ],
+    }),
+  ],
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),

@@ -1,7 +1,3 @@
 export const Asd = () => {
-  return (
-    <div>
-      шшвгргршгршгр
-    </div>
-  );
-};
+  return <div>шшвгргршгршгр</div>
+}
