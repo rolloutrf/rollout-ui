@@ -1,6 +1,17 @@
 {
   "name": "@rollout/ui-features",
-  "version": "0.0.1",
+  "description": "Feature-level React UI components built on @rollout/ui-kit",
+  "keywords": [
+    "rollout",
+    "ui-features",
+    "react",
+    "components",
+    "blocks",
+    "typescript"
+  ],
+  "author": "rollout",
+  "license": "MIT",
+  "version": "0.0.2",
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",
@@ -15,11 +26,9 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc -b tsconfig.build.json && vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@rollout/ui-kit": "workspace:*"

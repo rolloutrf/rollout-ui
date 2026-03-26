@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "vite.config.ts",
+    "src/**/*.stories.ts",
+    "src/**/*.stories.tsx",
+    "src/**/*.stories.d.ts",
+    "src/**/*.mdx",
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ]
+}

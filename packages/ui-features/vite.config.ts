@@ -8,8 +8,8 @@ export default defineConfig({
   plugins: [react(), dts({
     exclude: [
       'vite.config.ts',
-      '.storybook/**',
       'src/**/*.stories.ts',
+      'src/**/*.stories.tsx',
       'src/**/*.stories.d.ts',
     ],
   }),],

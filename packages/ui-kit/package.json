@@ -1,6 +1,17 @@
 {
   "name": "@rollout/ui-kit",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "description": "Shared React UI kit for Rollout applications",
+  "keywords": [
+    "rollout",
+    "ui-kit",
+    "react",
+    "components",
+    "design-system",
+    "typescript"
+  ],
+  "author": "rollout",
+  "license": "MIT",
   "type": "module",
   "sideEffects": false,
   "main": "./dist/index.js",

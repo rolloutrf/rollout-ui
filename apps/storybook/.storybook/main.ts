@@ -10,7 +10,8 @@ const __dirname = dirname(__filename);
 
 const config: StorybookConfig = {
   "stories": [
-    "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
+    "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+    "../../../packages/**/src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
   "addons": ["@storybook/addon-essentials"],
   "framework": "@storybook/react-vite",
@@ -18,10 +19,8 @@ const config: StorybookConfig = {
     return mergeConfig(config, {
       resolve: {
         alias: {
-          "@rollout/ui-kit": resolve(
-            __dirname,
-            "../../ui-kit/src/index.ts"
-          ),
+          "@rollout/ui-kit": resolve(__dirname, "../../../packages/ui-kit/src/index.ts"),
+          "@rollout/ui-features": resolve(__dirname, "../../../packages/ui-features/src/index.ts"),
         },
       },
     });

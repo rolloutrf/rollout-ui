@@ -1,0 +1,26 @@
+{
+  "name": "@rollout/storybook",
+  "version": "0.0.2",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@rollout/ui-features": "workspace:*",
+    "@rollout/ui-kit": "workspace:*"
+  },
+  "devDependencies": {
+    "@storybook/react-vite": "^10.2.18",
+    "@types/react": "^19.2.14",
+    "@types/node": "^24.12.0",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.0",
+    "eslint-plugin-storybook": "^10.2.18",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "storybook": "^10.2.18",
+    "vite": "^8.0.0"
+  }
+}
