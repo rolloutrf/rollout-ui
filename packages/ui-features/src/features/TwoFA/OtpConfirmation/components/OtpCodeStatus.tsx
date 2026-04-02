@@ -14,8 +14,9 @@ export const OtpCodeStatus = ({
   resendText,
   getTimerText,
   resendErrorText,
+  resetSeconds = 59,
 }: OtpCodeStatusProps) => {
-  const { time, restart, isRunning } = useTimer({ startValueMs: 10_000, minValueMs, tickMs: 1000 })
+  const { time, restart, isRunning } = useTimer({ startValueMs: resetSeconds * 1000, minValueMs, tickMs: 1000 })
   const [resendError, setResendError] = useState<React.ReactNode>(undefined)
 
   const onInnerResend = useCallback(
@@ -43,5 +44,9 @@ export const OtpCodeStatus = ({
     )
   }
 
-  return <Notice>{getTimerText(formatMsToTime(time, false))}</Notice>
+  if (getTimerText === undefined) {
+    return formatMsToTime(time)
+  }
+
+  return <Notice>{getTimerText?.(formatMsToTime(time, false))}</Notice>
 }

@@ -12,6 +12,7 @@ const meta = {
     policy: { control: false },
     resendText: { control: 'text' },
     resendErrorText: { control: 'text' },
+    resetSeconds: { control: 'number' },
   },
 } satisfies Meta<typeof OtpConfirmation>
 
@@ -24,5 +25,6 @@ export const Primary: Story = {
     title: 'Подтвердите телефон и платите кошельком',
     subTitle: 'Введите код из смс, мы отправили его на номер +7 999 999-99-99',
     policy: 'Вводя код вы соглашаетесь с офертой банка',
+    resetSeconds: 30,
   },
 }

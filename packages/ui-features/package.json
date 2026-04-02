@@ -3,6 +3,14 @@
   "description": "Feature-level React UI components built on @rollout/ui-kit",
   "author": "rollout",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rolloutrf/rollout-ui"
+  },
+  "homepage": "https://github.com/rolloutrf/rollout-ui",
+  "bugs": {
+    "url": "https://github.com/rolloutrf/rollout-ui/issues"
+  },
   "version": "0.0.2",
   "type": "module",
   "sideEffects": [

@@ -10,7 +10,7 @@ export const PhoneEntry = ({
   subTitle = 'Мы привяжем его к кошельку и в случае чего отправим смс с кодом. Например, если решите закрыть баланс для покупок.',
 }: PhoneEntryProps) => {
   return (
-    <div className={'space-y-7 max-w-xs w-full'}>
+    <div className={'flex flex-col space-y-7'}>
       <Heading subTitle={subTitle} title={title} />
       <Input type="tel" placeholder="+7 (900) 123-4567" />
       <Button className={'w-full'}>Дальше</Button>

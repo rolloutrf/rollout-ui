@@ -14,7 +14,7 @@ const config: StorybookConfig = {
     '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
     '../../../packages/**/src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
-  addons: ['@storybook/addon-essentials', 'storybook-dark-mode'],
+  addons: ['storybook-dark-mode'],
   framework: '@storybook/react-vite',
   viteFinal: async (config) => {
     return mergeConfig(config, {

@@ -1,13 +1,10 @@
 # Rollout UI
 
-Rollout UI is a `pnpm` monorepo for reusable React UI packages.
+Open Source UI Components for fintech applications.
 
-The repository is organized around two library layers:
+## Storybook
 
-- `@rollout/ui-kit` — the base UI layer with low-level reusable UI primitives and shared styling foundations.
-- `@rollout/ui-features` — a higher-level library with feature and composite components built on top of `@rollout/ui-kit`.
-
-In addition to the libraries, the monorepo contains a dedicated Storybook app used to develop, preview, and document components across packages.
+https://rolloutrf.github.io/rollout-ui
 
 ## Figma
 
@@ -84,6 +81,12 @@ If you want to import Rollout styles, you can do it like this:
 ```
 
 ## Feature development
+
+The repository is organized around two library layers:
+
+- `@rollout/ui-kit` — the base UI layer with low-level reusable UI primitives and shared styling foundations.
+- `@rollout/ui-features` — a higher-level library with feature and composite components built on top of `@rollout/ui-kit`.
+
 
 ### Commands
 
