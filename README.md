@@ -87,8 +87,8 @@ The repository is organized around two library layers:
 - `@rollout/ui-kit` — the base UI layer with low-level reusable UI primitives and shared styling foundations.
 - `@rollout/ui-features` — a higher-level library with feature and composite components built on top of `@rollout/ui-kit`.
 
+[CONTRIBUTING.md](CONTRIBUTING.md) has detailed contribution guidelines, but here are the main commands you will need for development:
 
-### Commands
 
 ```bash
 pnpm install # install dependencies (run in root)
@@ -98,7 +98,7 @@ pnpm build # Mandatory before publishing
 
 Features are built on top of the base components from `ui-kit`. If the required component is not there, you need to add it to `ui-kit` using the `shadcn/ui` utility, and then use it in `ui-features`.
 
-### How to add a component from `shadcn/ui`?
+### How to add a component from `shadcn/ui`
 
 #### The list of shadcn components is available here: https://ui.shadcn.com/docs/components.
 
