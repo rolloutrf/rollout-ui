@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@ui-kit/*": ["../../packages/ui-kit/src/*"],
       "@rollout/ui-kit": ["../../packages/ui-kit/src/index.ts"],
       "@rollout/ui-kit/*": ["../../packages/ui-kit/src/*"],
       "@rollout/ui-features": ["../../packages/ui-features/src/index.ts"],

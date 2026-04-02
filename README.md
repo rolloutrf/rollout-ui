@@ -13,6 +13,61 @@ In addition to the libraries, the monorepo contains a dedicated Storybook app us
 
 https://rolloutblocks.tilda.ws/libraries
 
+## How to use
+
+### Requirements
+
+- tailwindcss v4
+- React 18+
+- TypeScript 5+
+
+### Important note on usage
+
+There is two ways to consume the packages: via `@rollout/ui-kit` and `@rollout/ui-features` npm packages, or by copying the source code through shadcn's `add` utility (**recommended!**).
+
+## Usage via npm packages
+
+### Installation
+
+```bash
+npm install @rollout/ui-kit @rollout/ui-features
+```
+
+### Setup
+
+Add the package to your Tailwind CSS source scanning in your main CSS file (`app.css` / `globals.css` / `styles.css`):
+
+```css
+@import 'tailwindcss';
+@source "@rollout/ui-kit";
+@source "@rollout/ui-features";
+```
+
+### Usage
+
+```tsx
+import { Button } from '@rollout/ui-kit'
+;<Button variant="default" size="lg">
+  Click me
+</Button>
+```
+
+### Rollout styles and Tailwind
+
+If you want to import Rollout styles, you can do it like this:
+
+```css
+@import 'tailwindcss';
+@import '@rollout/ui-kit/styles.css'; /* rollout theme */
+@import '@rollout/ui-features/styles.css'; /* rollout theme */
+@source "@rollout/ui-kit";
+@source "@rollout/ui-features";
+```
+
+## Usage via shadcn/ui registry
+
+... to be added soon
+
 ## Repository structure
 
 ```text
@@ -28,29 +83,7 @@ https://rolloutblocks.tilda.ws/libraries
 └── turbo.json              # Turbo pipeline configuration
 ```
 
-## Packages
-
-### `packages/ui-kit`
-
-Base package for shared UI elements, styling primitives, and future shadcn-based foundational components.
-
-Typical responsibilities:
-
-- design tokens and shared styles
-- low-level UI primitives
-- reusable building blocks used by other packages
-
-### `packages/ui-features`
-
-Package for more complex, composed UI pieces that depend on `@rollout/ui-kit`.
-
-Typical responsibilities:
-
-- business-ready UI blocks
-- composed feature components
-- higher-level patterns assembled from base UI-kit parts
-
-## Getting started
+## Feature development
 
 ### Commands
 
@@ -60,12 +93,34 @@ pnpm storybook # Storybook for local development
 pnpm build # Mandatory before publishing
 ```
 
-## Notes on styling
+Features are built on top of the base components from `ui-kit`. If the required component is not there, you need to add it to `ui-kit` using the `shadcn/ui` utility, and then use it in `ui-features`.
 
-The repository is being prepared for Tailwind + shadcn-based distribution. At the moment, the monorepo already reflects the intended layering:
+### How to add a component from `shadcn/ui`?
 
-- `ui-kit` for the base design system and reusable primitives
-- `ui-features` for composed feature components that consume the base layer
+#### The list of shadcn components is available here: https://ui.shadcn.com/docs/components.
+
+1. Add the component primitive (using the `Button` component as an example):
+
+```bash
+cd packages/ui-kit
+pnpm dlx shadcn@latest add button
+```
+
+or with a single command
+
+```bash
+shadcn add button -c packages/ui-kit
+```
+
+2. During installation, the utility may ask you to choose **Radix UI** or **Base UI** — you must choose **Base UI**
+
+_The utility will create the primitive (which you should not forget to add to git!), according to `packages/ui-kit/components.json`_
+
+3. Add the export to `packages/ui-kit/src/index.ts`
+
+```tsx
+export { Button } from './components/button'
+```
 
 ## License
 

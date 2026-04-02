@@ -8,6 +8,14 @@
     "typecheck": {
       "dependsOn": ["^typecheck"]
     },
+    "lint": {
+      "dependsOn": ["^lint"],
+      "outputs": []
+    },
+    "lint:fix": {
+      "dependsOn": ["^lint:fix"],
+      "outputs": []
+    },
     "dev": {
       "cache": false,
       "persistent": true
@@ -19,7 +27,11 @@
     },
     "build-storybook": {
       "dependsOn": ["^build"],
-      "outputs": [".storybook/storybook-static/**"]
+      "outputs": ["storybook-static/**"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": []
     }
   }
 }

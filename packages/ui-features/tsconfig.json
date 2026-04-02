@@ -1,10 +1,11 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src", "vite.config.ts"],
+  "include": ["src", "vite.config.ts", "vitest.config.ts"],
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
+      "@features-src/*": ["./src/*"],
+      "@ui-kit/*": ["../ui-kit/src/*"],
       "@rollout/ui-kit": ["../ui-kit/src/index.ts"],
       "@rollout/ui-kit/*": ["../ui-kit/src/*"]
     }

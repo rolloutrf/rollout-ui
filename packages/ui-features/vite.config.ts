@@ -1,7 +1,9 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import dts from 'vite-plugin-dts'
 import { resolve } from 'path'
+
+import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
+import dts from 'vite-plugin-dts'
+
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -10,6 +12,7 @@ export default defineConfig({
     dts({
       exclude: [
         'vite.config.ts',
+        'vitest.config.ts',
         'src/**/*.stories.ts',
         'src/**/*.stories.tsx',
         'src/**/*.stories.d.ts',
