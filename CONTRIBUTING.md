@@ -72,8 +72,6 @@ shadcn/ui (Input, Button, ...) -> @rollout/ui-kit (Input, Button, CustomButton, 
 - Системы управления состоянием (`redux`, `mobx`, `zustand` и т.д.)
 - Библиотеки для менеджмента форм (`react-hook-form`, `formik` и т.д.)
 
----
-
 ### Разработка и тестирование
 
 - Все компоненты `ui-features` должны иметь сторибук.
