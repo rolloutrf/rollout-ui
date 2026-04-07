@@ -25,18 +25,20 @@
 
 ### Компоненты и дизайн
 
-Репозиторий состоит из двух слоев: `ui-kit` и `ui-features`. `ui-kit` - это базовый слой с низкоуровневыми UI-примитивами, а `ui-features` - это слой с более высокоуровневыми фитчами и составными компонентами, построенными поверх `ui-kit`.
+Монорепозиторий состоит из двух пакетов: `ui-kit` (базовый) и `ui-features` (более сложный).
+
 Код написан на стеке React + TypeScript + Tailwind CSS + shadcn/ui.
 
-- Компоненты в `ui-kit` - это базовые UI примитивы shadcn (`Button`, `Input`, `Modal`) + наши базовые UI компоненты.
+- Компоненты в `ui-kit` - это базовые UI примитивы [shadcn](https://ui.shadcn.com/docs/components) (`Button`, `Input`, `Modal`, ...) + наши базовые UI примитивы.
 - Компоненты в `ui-features` строятся на основе компонентов из `ui-kit`.
-
-Если в `ui-kit` нет нужного примитива, его нужно [добавить в проект](#shadcn-components) из репозитория [shadcn/ui](https://ui.shadcn.com/docs/components) (или написать свой, если нет в shadcn/ui).
-**При добавлении исходный код компонента из shadcn/ui копируется в `ui-kit`.**
 
 ```
 shadcn/ui (Input, Button, ...) -> @rollout/ui-kit (Input, Button, CustomButton, ...) -> @rollout/ui-features (LoginForm, ...)
 ```
+
+Если в `ui-features` требуется примитив, которого нет в `ui-kit`, его нужно [добавить в проект](#shadcn-components) из репозитория [shadcn/ui](https://ui.shadcn.com/docs/components) или написать свой, если нужного нет в shadcn/ui.
+
+При добавлении исходный код компонента из shadcn/ui копируется в `ui-kit`.
 
 #### Структура фитчей
 Дальше речь пойдет только про пакет `ui-features`.
