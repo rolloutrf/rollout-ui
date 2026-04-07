@@ -10,6 +10,8 @@ const meta = {
     title: { control: 'text' },
     subTitle: { control: 'text' },
     policy: { control: false },
+    inputOtpProps: { control: false },
+    inputOtpDotProps: { control: false },
   },
 } satisfies Meta<typeof DotPassword>
 
@@ -23,3 +25,23 @@ export const Primary: Story = {
     subTitle: 'Тот же, который используете при входе\u00A0в баланс для покупок',
   },
 }
+
+export const InvalidPassword: Story = {
+  args: {
+    ...Primary.args,
+    policy: 'Введите корректный код подтверждения.',
+    onComplete: async () => {
+      throw new Error('Пароль не совпадает')
+    },
+  },
+}
+
+export const DisabledInput: Story = {
+  args: {
+    ...Primary.args,
+    inputOtpProps: {
+      disabled: true,
+    },
+  },
+}
+

@@ -179,20 +179,12 @@ export const PrefectWidget = (props: PrefectWidgetProps) => {
 
 ---
 
-
 ## <a href="shadcn-components">Как добавить компонент из shadcn/ui</a>
 **мини-гайд**
 
 #### Список shadcn-компонентов доступен здесь: https://ui.shadcn.com/docs/components.
 
 1. Добавьте примитив компонента (на примере компонента `Button`):
-
-```bash
-cd packages/ui-kit
-pnpm dlx shadcn@latest add button
-```
-
-или одной командой
 
 ```bash
 shadcn add button -c packages/ui-kit

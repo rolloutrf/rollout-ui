@@ -1,4 +1,6 @@
-import { Button, Input } from '@rollout/ui-kit'
+import { Button, Input, Field } from '@rollout/ui-kit'
+
+import { cn } from '@ui-kit/lib/utils'
 
 import type { PhoneEntryProps } from '@features-src/features/TwoFA/PhoneEntry/types/PhoneEntry.types'
 import { Heading } from '@features-src/features/TwoFA/shared/ui/Heading'
@@ -8,12 +10,30 @@ export const PhoneEntry = ({
   policy,
   title = 'Укажите номер телефона',
   subTitle = 'Мы привяжем его к кошельку и в случае чего отправим смс с кодом. Например, если решите закрыть баланс для покупок.',
+  buttonText = 'Дальше',
+  fieldProps,
+  inputProps,
+  buttonProps,
 }: PhoneEntryProps) => {
+  const { className: buttonClassName, ...restButtonProps } = buttonProps ?? {}
+
   return (
     <div className={'flex flex-col space-y-7'}>
       <Heading subTitle={subTitle} title={title} />
-      <Input type="tel" placeholder="+7 (900) 123-4567" />
-      <Button className={'w-full'}>Дальше</Button>
+      <Field {...fieldProps}>
+        <Input
+          type="tel"
+          placeholder="+7 (900) 123-4567"
+          aria-label="Phone number"
+          {...inputProps}
+        />
+      </Field>
+      <Button
+        className={cn('w-full', buttonClassName)}
+        {...restButtonProps}
+      >
+        {buttonText}
+      </Button>
       <Notice>{policy}</Notice>
     </div>
   )

@@ -4,9 +4,7 @@ import type { Preview } from '@storybook/react-vite'
 import '../src/styles.css'
 
 const preview: Preview = {
-  decorators: [
-    (Story) => createElement('div', { className: 'max-w-xs w-full' }, createElement(Story)),
-  ],
+  decorators: [(story) => createElement('div', { className: 'max-w-xs w-full' }, createElement(story))],
   parameters: {
     darkMode: {
       current: 'light',

@@ -50,3 +50,10 @@
   --border: #27272a;
   --ring: #d4d4d8;
 }
+
+@layer components {
+  .text-error {
+    @apply text-red-500;
+  }
+}
+

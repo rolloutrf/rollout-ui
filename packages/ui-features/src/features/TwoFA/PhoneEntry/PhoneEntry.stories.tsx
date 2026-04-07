@@ -8,7 +8,11 @@ const meta = {
   argTypes: {
     title: { control: 'text' },
     subTitle: { control: 'text' },
+    buttonText: { control: 'text' },
     policy: { control: false },
+    fieldProps: { control: false },
+    inputProps: { control: false },
+    buttonProps: { control: false },
   },
 } satisfies Meta<typeof PhoneEntry>
 
@@ -26,5 +30,34 @@ export const Primary: Story = {
         оператору услуг информационного обмена РОЛЛАУТ в целях запуска идентификации банком
       </div>
     ),
+    buttonText: 'Дальше',
+  },
+}
+
+export const InvalidPhoneInput: Story = {
+  args: {
+    ...Primary.args,
+    buttonText: 'Исправить номер',
+    inputProps: {
+      type: 'tel',
+      defaultValue: '+7 (900) 12',
+      'aria-invalid': true,
+      'aria-label': 'Phone number',
+    },
+  },
+}
+
+export const DisabledSubmit: Story = {
+  args: {
+    ...Primary.args,
+    buttonText: 'Проверьте номер',
+    inputProps: {
+      type: 'tel',
+      defaultValue: '+7 (900) 123-4567',
+      'aria-invalid': true,
+    },
+    buttonProps: {
+      disabled: true,
+    },
   },
 }

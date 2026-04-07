@@ -2,6 +2,10 @@
 
 import React, { useCallback, useState } from 'react'
 
+import { Button } from '@rollout/ui-kit'
+
+import { cn } from '@ui-kit/lib/utils'
+
 import type { OtpCodeStatusProps } from '@features-src/features/TwoFA/OtpConfirmation/types/OtpCodeStatus.types'
 import { useTimer } from '@features-src/features/TwoFA/shared/hooks/useTimer'
 import { Notice } from '@features-src/features/TwoFA/shared/ui/Notice'
@@ -15,13 +19,15 @@ export const OtpCodeStatus = ({
   getTimerText,
   resendErrorText,
   resetSeconds = 59,
+  buttonProps,
 }: OtpCodeStatusProps) => {
+  const { className: buttonClassName, ...restButtonProps } = buttonProps ?? {}
+  const [resendError, setResendError] = useState<React.ReactNode>(undefined)
   const { time, restart, isRunning } = useTimer({
     startValueMs: resetSeconds * 1000,
     minValueMs,
     tickMs: 1000,
   })
-  const [resendError, setResendError] = useState<React.ReactNode>(undefined)
 
   const onInnerResend = useCallback(
     async (e: React.MouseEvent) => {
@@ -40,10 +46,15 @@ export const OtpCodeStatus = ({
   if (!isRunning) {
     return (
       <div className={'flex flex-col space-y-2'}>
-        <a className={'text-sm underline cursor-pointer'} onClick={onInnerResend}>
+        <Button
+          variant="link"
+          className={cn('text-sm p-0 h-auto', buttonClassName)}
+          {...restButtonProps}
+          onClick={onInnerResend}
+        >
           {resendText}
-        </a>
-        {resendError && <Notice className={'text-red-500'}>{resendError}</Notice>}
+        </Button>
+        {resendError && <Notice className={'text-error'}>{resendError}</Notice>}
       </div>
     )
   }

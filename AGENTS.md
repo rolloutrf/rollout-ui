@@ -4,17 +4,17 @@
 
 - Read [README.md](README.md) for context on the repository structure and development process.
 
-- Review [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines and best practices.
+- Read [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines and best practices. Use it as your primary reference for development standards and workflow. Skip the section related to "Using AI" as it is only relevant for human contributors.
 
-- In the files listed above, skip all sections related to "Using AI" or "AI Agents" as they are not relevant for human contributors.
-
-- **eslint.config.js** and **prettier.config.js** are set up to enforce consistent code style and formatting across the repository. Please ensure your code adheres to these standards.
+- Use **eslint.config.js** and **prettier.config.js** as your main reference for code formatting and linting rules. Make sure to follow these rules to maintain code consistency across the repository.
 
 ---
 
 ## 1. Repository Rules
 
 - Default package manager: pnpm - prefer `pnpm` over `npm` or other package managers. Do not mix pnpm and other package managers in the same branch
+- For running tests, agents must use only `pnpm test`
+- For adding primitives in `packages/ui-kit`, agents must use only `pnpm shadcn:add [component-name]`
 
 ---
 
@@ -44,6 +44,7 @@
 **Important:**
 
 - If parent component is a client component, child components do NOT need to be client components unless they also use client-side features. Use component composition to minimize the number of client components.
+- For stateful components (e.g. forms or OTP), move state logic (`useState`, completion handlers, timers) into a dedicated client child component. Keep the parent component stateless when possible.
 
 **Examples:**
 
@@ -73,30 +74,22 @@ export default function Particle() {
 
 ## 4. Import Patterns
 
+**UI Components (from @rollout/ui-kit):**
+
+- All shadcn-based UI components (Button, Input, Field, Label, etc.) are imported from `@rollout/ui-kit`
+- Always import specific components, never the entire library namespace
+
+```tsx
+import { Button, Input, Field, FieldLabel, FieldError } from '@rollout/ui-kit'
+```
+
 **External Libraries:**
 
 - Always import specific components/hooks from libraries, never the entire library namespace.
 
 ### React
 
-**Always use named imports for React hooks:**
-
-```tsx
-import { useState, useEffect, useId, useRef, useCallback, useMemo } from 'react'
-```
-
-**Then use hooks directly:**
-
-```tsx
-const id = useId()
-const [state, setState] = useState(false)
-const ref = useRef(null)
-```
-
-**Never:**
-
-- Import React namespace (`import * as React`) - always use named imports
-- Import React for stateless components (components without hooks or state)
+**Always import specific components/hooks from libraries, never the entire library namespace.**
 
 ---
 
@@ -112,6 +105,11 @@ const ref = useRef(null)
 - When state is needed, use React hooks. Use descriptive state variable names.
 - In case of complex state logic, consider extracting it to a custom hook in `hooks/` folder (e.g. `useParticleLogic.ts`) and importing it into the component.
 - Use context providers/consumers when you need to share state across multiple components, but keep the particle focused on demonstrating one pattern or feature. Avoid adding complex state management logic that detracts from the main purpose of the particle.
+- For reusable particles, expose passthrough props for UI primitives (`inputProps`, `buttonProps`, `inputOtpProps`, etc.) so consumers can customize primitive behavior without editing the particle internals.
+- Passthrough `*Props` groups should target interactive elements only (for example, `Input`, `Button`, `Field`, `InputOTP`, `form`), not non-interactive wrappers like `div`/`span`.
+- Passthrough props that are destructured (`...buttonProps`, `...inputProps`, etc.) should be spread at the end of component props by default (for example, `<Button variant="link" {...buttonProps}>`).
+- Exception: if a local prop is critical for predictable component behavior, keep that local prop non-overridable by placing it after the spread (for example, internal `onClick`, required fixed variants, enforced colors for semantic wrappers).
+- If a component already has a dedicated value prop/variable (`buttonText`, `resendText`, `title`, etc.), do not source the same value from passthrough props (for example, do not read `buttonProps.children`).
 
 ## 5. Accessibility Best Practices
 
@@ -250,12 +248,34 @@ When using Field components, place the checkbox/radio inside `FieldLabel`:
 **Use Field components for proper form structure:**
 
 ```tsx
+import { Field, FieldLabel, FieldError, Input } from '@rollout/ui-kit';
+
+// Pattern 1: With FieldLabel (when you want to show the label)
 <Field>
   <FieldLabel>Password</FieldLabel>
   <Input type="password" required />
   <FieldError>Please fill out this field.</FieldError>
 </Field>
+
+// Pattern 2: Field without FieldLabel (when label is hidden via aria-label)
+<Field>
+  <Input type="email" placeholder="your@email.com" aria-label="Email address" />
+  <FieldError>Invalid email format.</FieldError>
+</Field>
+
+// Pattern 3: Field without FieldError (optional - only if you don't need error display)
+<Field>
+  <FieldLabel>Name</FieldLabel>
+  <Input type="text" placeholder="Enter name" />
+</Field>
 ```
+
+**Important:**
+
+- `FieldLabel` is optional — only use it when you want to display a visible label
+- Use `aria-label` on Input when you skip `FieldLabel` for accessibility
+- `FieldError` is optional — only use it when you need error state display
+- `Field` wrapper is always recommended for proper form structure and styling consistency
 
 ---
 
@@ -290,5 +310,4 @@ When using Field components, place the checkbox/radio inside `FieldLabel`:
 - ✅ Use consistent icon opacity and accessibility patterns
 - ✅ Match the styling approach of similar particles
 - ✅ Use the same import patterns
-
----
+- ✅ In story files, include a `Primary` scenario and at least one negative/error scenario for inputs (invalid state, disabled action, or failed async action)

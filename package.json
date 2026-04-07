@@ -14,7 +14,8 @@
     "storybook": "turbo run storybook --filter=@rollout/storybook",
     "build-storybook": "turbo run build-storybook --filter=@rollout/storybook",
     "format": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "format:fix": "prettier --write .",
+    "shadcn:add": "pnpm dlx shadcn@latest add -c packages/ui-kit"
   },
   "author": "rollout",
   "license": "MIT",

@@ -13,6 +13,9 @@ const meta = {
     resendText: { control: 'text' },
     resendErrorText: { control: 'text' },
     resetSeconds: { control: 'number' },
+    inputOtpProps: { control: false },
+    inputOtpSlotProps: { control: false },
+    buttonProps: { control: false },
   },
 } satisfies Meta<typeof OtpConfirmation>
 
@@ -28,3 +31,32 @@ export const Primary: Story = {
     resetSeconds: 30,
   },
 }
+
+export const ResendErrorState: Story = {
+  args: {
+    ...Primary.args,
+    resetSeconds: 0,
+    resendText: 'Отправить код еще раз',
+    resendErrorText: 'Сервис недоступен. Попробуйте через минуту.',
+    onResend: async () => {
+      throw new Error('Network error')
+    },
+    buttonProps: {
+      className: 'justify-start',
+    },
+  },
+}
+
+export const InvalidOtpInput: Story = {
+  args: {
+    ...Primary.args,
+    inputOtpProps: {
+      'aria-invalid': true,
+      defaultValue: '12',
+    },
+    inputOtpSlotProps: {
+      className: 'border-destructive',
+    },
+  },
+}
+
