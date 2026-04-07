@@ -102,8 +102,6 @@ pnpm storybook # Storybook for local development
 pnpm build # Mandatory before publishing
 ```
 
----
-
 ### Структура фитчей и компонентов
 
 В `ui-features` используется структура, вдохновленная **Feature-Sliced Architecture**: фича — это изолированный модуль с явным публичным API. Внутри фитчей могут быть слайсы, которые могут включать свои компоненты, хуки, типы и утилиты.
