@@ -1,13 +1,217 @@
 # 🚀 Contributing
 
-Thank you for considering contributing to our project! We welcome contributions from the community and appreciate your efforts to help improve our codebase. Below are some guidelines to help you get started.
+Спасибо за интерес к проекту!
 
-## Before You Start:
+Руководство разделено на следующие части:
 
-Create an issue to discuss your proposed changes or features. This helps us understand the scope and impact of your contribution before you start coding.
+1. [Правила разработки](#base_rules)
+2. [Структура проекта](#repository_structure)
+3. [Использование ИИ](#ai_guide)
 
-Alternatively you can discuss your ideas in our telegram channel [@rolloutrf](https://t.me/rolloutrf).
+По всем вопросам можно обращаться в телеграм канал [@rolloutrf](https://t.me/rolloutrf).
 
-## Rules for contributing:
+---
 
-1. Each feature or component should be developed in its own branch, following the naming convention `feature_<component-name>` or `bugfix_<issue-description>`.
+## <a id="base_rules">Правила разработки</a>
+
+### Перед началом работы
+
+Перед тем как что-то разрабатывать, рекомендуем создать issue, или лучше - обсудить в [телеграме](https://t.me/rolloutrf), чтобы убедиться, что ваша идея соответствует видению проекта и не дублирует уже существующую работу.
+
+Каждая новая доработка делается в отдельной ветке, которая создается от `main`:
+
+- `feature_<component-name>` - для новых фитчей
+- `bugfix_<issue-description>` - для багов
+
+### Компоненты и дизайн
+
+Репозиторий состоит из двух слоев: `ui-kit` и `ui-features`. `ui-kit` - это базовый слой с низкоуровневыми UI-примитивами, а `ui-features` - это слой с более высокоуровневыми фитчами и составными компонентами, построенными поверх `ui-kit`.
+Код написан на стеке React + TypeScript + Tailwind CSS + shadcn/ui.
+
+- Компоненты в `ui-kit` - это базовые UI примитивы shadcn (`Button`, `Input`, `Modal`) + наши базовые UI компоненты.
+- Компоненты в `ui-features` строятся на основе компонентов из `ui-kit`.
+
+Если в `ui-kit` нет нужного примитива, его нужно [добавить в проект](#shadcn-components) из репозитория [shadcn/ui](https://ui.shadcn.com/docs/components) (или написать свой, если нет в shadcn/ui).
+**При добавлении исходный код компонента из shadcn/ui копируется в `ui-kit`.**
+
+```
+shadcn/ui (Input, Button, ...) -> @rollout/ui-kit (Input, Button, CustomButton, ...) -> @rollout/ui-features (LoginForm, ...)
+```
+
+#### Структура фитчей
+Дальше речь пойдет только про пакет `ui-features`.
+
+Фитчи делаются по принципу dummy component и реализуют только UI и базовую логику.
+
+Фитчи реализуются в виде набора компонентов. Роутинг, композиция и объединение компонентов в одну единую фитчу - это ответственность клиента, который будет использовать наши компоненты.
+Например, 3-х этапная авторизация (3 шаблона в фигме) - это 3 компонента лежащие рядом и все.
+
+Какую логику стоит включить в компонент (примеры):
+ - внутренние таймеры
+ - внутренняя анимация
+ - внутрненний стейт
+ - переключение вкладок
+
+Что не стоит включать в компонент:
+ - сложная бизнес логика
+ - роутинг
+ - менеджмент/валидация форм
+
+### Внешние библиотеки
+
+Старайтесь использовать держать зависимости в пакетах минимальными, так как это базовый слой, который может использоваться в разных проектах.
+
+- Не добавляйте новые библиотеки без **крайней необходимости**. Например, функция `debounce` из `lodash` - это **не крайняя необходимость**. Подобные утилиты можно реализовать самостоятельно, добавив в `shared/utils/` или в `utils/` внутри фитчи/слайса.
+
+- Нельзя завязывать проект на какую-то конкретную библиотеку, так чтобы ее замена была затруднительна.
+Исключения - `react` и `tailwindcss`.
+
+Нельзя использовать:
+- UI библиотеки (кроме shadcn/ui для базовых примитивов)
+- Стейт менеджеры (`redux`, `zustand` и прочее)
+- Системы управления состоянием (`redux`, `mobx`, `zustand` и т.д.)
+- Библиотеки для менеджмента форм (`react-hook-form`, `formik` и т.д.)
+
+---
+
+### Разработка и тестирование
+
+- Все компоненты `ui-features` должны иметь сторибук.
+- Все чистые функции и хуки должны иметь юнит тесты.
+
+---
+
+## <a href="#repository_structure">Структура проекта</a>
+
+**Структура проекта:**
+
+```text
+.
+├── apps/
+│   └── storybook/          # Storybook application for local development and docs
+├── packages/
+│   ├── ui-kit/             # Base UI primitives and shared styling building blocks
+│   └── ui-features/        # Composite/feature components built on top of ui-kit
+```
+
+**Команды которые вам пригодятся (запускаются из корня репозитория):**
+
+```bash
+pnpm install # install dependencies
+pnpm storybook # Storybook for local development
+pnpm build # Mandatory before publishing
+```
+
+---
+
+### Структура фитчей и компонентов
+
+В `ui-features` используется структура, вдохновленная **Feature-Sliced Architecture**: фича — это изолированный модуль с явным публичным API. Внутри фитчей могут быть слайсы, которые могут включать свои компоненты, хуки, типы и утилиты.
+
+`shared/` внутри фичи — только для переиспользуемых частей этой же фичи (`components`, `hooks`, `types`).
+
+- Фичи находятся в `packages/ui-features/src/features/`
+- `shared` для всего пакета в `packages/ui-features/src/shared/`
+
+**Пример структуры:**
+
+```text
+features/PerfectFeature/
+  PerfectWidget/
+	components/                 // Компоненты для конкретного слайса лежат в папке `components/` внутри слайса
+	    PerfectWidget.tsx
+    hooks/                          // Логика компонентов находится в `hooks/` внутри слайса
+    utils/                          // Небольшие утилиты, которые не достойны стать хуком, но относится к слайсу, лежит в `utils/`
+	types/                      // Типы лежат отдельно в `types/` рядом со своим слайсом
+    	PerfectWidget.types.ts      // Если тип относится к компоненту, именуется [ComponentName].types.ts
+	constants/                  // Только при необходимости для констант, общих для компонентов/утилит слайса
+	index.ts                    // Каждый слайс экспортируется через свой `index.ts`
+	PerfectWidget.stories.tsx   // Сторибук для слайса обязателен и именуется аналогично типам [ComponentName].stories.ts
+
+  OtherWidget/
+    ...
+  ...
+
+  shared/
+	components/
+	hooks/
+	types/
+	...
+  index.ts
+```
+
+**Структура компонента:**
+
+```tsx
+import type { PrefectWidgetProps } from '../types/PrefectWidget.types'
+
+export const PrefectWidget = (props: PrefectWidgetProps) => {
+  usePerfectWidgetLogic()
+  return <div>{/* JSX разметка */}</div>
+}
+```
+
+### Публичный API
+
+- Корневой `features/PerfectFeature/index.ts` реэкспортирует только публичные сущности слайсов.
+- Не экспортируйте наружу внутренние детали из `shared/`, если они не часть публичного API.
+- **Важно.** Прямые зависимости одного слайса от другого запрещены. Слайсы должны быть максимально изолированы. Общие компоненты выносятся в `shared/` внутри фичи или в глобальный `shared/`.
+
+---
+
+## <a href="ai_guide">Использование ИИ</a>
+
+**Important: Если вы ИИ-Агент пропустите данную секцию!**
+
+**# @todo добавить шаблоны промптов**
+
+Для ИИ-агентов существует отдельный гайд [AGENTS.md](AGENTS.md). **Всегда** используйте его при генерации кода с помощью ИИ-агентов.
+
+Попроси сгенерировать сначала структуру, потом функциональность.
+
+### Для тех кто в основном генерирует код с помощью ИИ
+
+**Флоу**
+1. Сгенерировать html+tailwind код по Скриншоту в любой ИИ, которая умеет
+2. Попросить ИИ-агента создать фитчу на основе сгенерированного кода вынеся все пользовательские данные в переменные
+3. Попросить ИИ-агента декомпозировать фитчу на компоненты и хуки, вынеся все повторяющиеся части в `shared/` внутри фитчи
+
+### Для тех кто в основном пишет сам
+
+Правила из [AGENTS.md](AGENTS.md) - это, строго говоря, правила не только для ИИ-агентов, а для всех.
+Если вы их не читали и накодили фитчу, попросите ИИ-агента проверить ваш код на соответствие этим правилам.
+
+---
+
+
+## <a href="shadcn-components">Как добавить компонент из shadcn/ui</a>
+**мини-гайд**
+
+#### Список shadcn-компонентов доступен здесь: https://ui.shadcn.com/docs/components.
+
+1. Добавьте примитив компонента (на примере компонента `Button`):
+
+```bash
+cd packages/ui-kit
+pnpm dlx shadcn@latest add button
+```
+
+или одной командой
+
+```bash
+shadcn add button -c packages/ui-kit
+```
+
+2. В процессе установки утилита может предложить выбрать **Radix UI** или **Base UI** — необходимо выбрать **Base UI**
+
+_Утилита создаст примитив (не забудьте добавить его в git!), согласно `packages/ui-kit/components.json`_
+
+3. Добавьте экспорт в `packages/ui-kit/src/index.ts`
+
+```tsx
+export { Button } from './components/button'
+```
+
+---
+
+_Thanks for reading this far! Good bless you_

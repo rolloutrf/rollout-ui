@@ -7,11 +7,13 @@ export type TypographyProps<T extends keyof JSX.IntrinsicElements = 'div'> = {
 } & JSX.IntrinsicElements[T]
 
 const TypographyText = ({
-  as: Component = 'div',
+  as: component = 'div',
   children,
   className,
   ...rest
 }: TypographyProps) => {
+  const Component = component
+
   return (
     <Component className={cn(className)} {...rest}>
       {children}
@@ -19,7 +21,9 @@ const TypographyText = ({
   )
 }
 
-const TypographyH3 = ({ as: Component = 'div', children, className, ...rest }: TypographyProps) => {
+const TypographyH3 = ({ as: component = 'div', children, className, ...rest }: TypographyProps) => {
+  const Component = component
+
   return (
     <Component
       className={cn(className, 'scroll-m-20 text-2xl font-semibold tracking-tight')}

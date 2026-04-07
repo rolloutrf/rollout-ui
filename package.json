@@ -8,13 +8,13 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "lint": "turbo run lint:fix",
-    "lint:check": "turbo run lint",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
     "test": "turbo run test",
     "storybook": "turbo run storybook --filter=@rollout/storybook",
     "build-storybook": "turbo run build-storybook --filter=@rollout/storybook",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format": "prettier --check .",
+    "format:fix": "prettier --write ."
   },
   "author": "rollout",
   "license": "MIT",

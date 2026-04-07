@@ -8,7 +8,17 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 
 // Base configuration for all packages. This is extended by each package's eslint.config.js file.
 export default defineConfig([
-  globalIgnores(['dist', '**/*.md']),
+  globalIgnores([
+    'dist',
+    'storybook-static',
+    'node_modules',
+    'types',
+    '.DS_Store',
+    '.turbo',
+    '**/*.md',
+    '**/*.yml',
+    '**/*.yaml',
+  ]),
   {
     files: ['**/*.{ts,tsx}'],
     plugins: {
@@ -21,6 +31,55 @@ export default defineConfig([
       reactRefresh.configs.vite,
     ],
     rules: {
+      camelcase: 'off',
+      '@typescript-eslint/naming-convention': [
+        'error',
+        {
+          selector: 'default',
+          format: ['camelCase'],
+        },
+        {
+          selector: 'import',
+          format: null,
+          leadingUnderscore: 'allow',
+        },
+        {
+          selector: 'variable',
+          format: ['camelCase', 'UPPER_CASE', 'PascalCase'],
+          leadingUnderscore: 'allow',
+        },
+        {
+          selector: 'parameter',
+          format: ['camelCase'],
+          leadingUnderscore: 'allow',
+        },
+        {
+          selector: 'function',
+          format: ['PascalCase', 'camelCase'],
+        },
+        {
+          selector: 'method',
+          format: ['camelCase'],
+          leadingUnderscore: 'allow',
+        },
+        {
+          selector: 'typeLike',
+          format: ['PascalCase'],
+        },
+        {
+          selector: 'enumMember',
+          format: ['PascalCase', 'UPPER_CASE'],
+        },
+        {
+          selector: 'objectLiteralProperty',
+          format: null,
+        },
+        {
+          selector: 'property',
+          modifiers: ['requiresQuotes'],
+          format: null,
+        },
+      ],
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
       '@typescript-eslint/no-unused-vars': [

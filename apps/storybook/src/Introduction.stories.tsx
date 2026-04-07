@@ -32,4 +32,3 @@ export const Overview: Story = {
     </div>
   ),
 }
-

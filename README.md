@@ -14,13 +14,17 @@ https://rolloutblocks.tilda.ws/libraries
 
 ### Requirements
 
-- tailwindcss v4
 - React 18+
+- tailwindcss v4
 - TypeScript 5+
 
 ### Important note on usage
 
 There is two ways to consume the packages: via `@rollout/ui-kit` and `@rollout/ui-features` npm packages, or by copying the source code through shadcn's `add` utility (**recommended!**).
+
+## Usage via shadcn/ui registry (Recommended)
+
+... to be added soon
 
 ## Usage via npm packages
 
@@ -61,69 +65,9 @@ If you want to import Rollout styles, you can do it like this:
 @source "@rollout/ui-features";
 ```
 
-## Usage via shadcn/ui registry
+## Contributing
 
-... to be added soon
-
-## Repository structure
-
-```text
-.
-├── apps/
-│   └── storybook/          # Storybook application for local development and docs
-├── packages/
-│   ├── ui-kit/             # Base UI primitives and shared styling building blocks
-│   └── ui-features/        # Composite/feature components built on top of ui-kit
-├── .changeset/             # Versioning and release metadata
-├── package.json            # Root workspace scripts and shared dev tooling
-├── pnpm-workspace.yaml     # Workspace package definitions
-└── turbo.json              # Turbo pipeline configuration
-```
-
-## Feature development
-
-The repository is organized around two library layers:
-
-- `@rollout/ui-kit` — the base UI layer with low-level reusable UI primitives and shared styling foundations.
-- `@rollout/ui-features` — a higher-level library with feature and composite components built on top of `@rollout/ui-kit`.
-
-[CONTRIBUTING.md](CONTRIBUTING.md) has detailed contribution guidelines, but here are the main commands you will need for development:
-
-
-```bash
-pnpm install # install dependencies (run in root)
-pnpm storybook # Storybook for local development
-pnpm build # Mandatory before publishing
-```
-
-Features are built on top of the base components from `ui-kit`. If the required component is not there, you need to add it to `ui-kit` using the `shadcn/ui` utility, and then use it in `ui-features`.
-
-### How to add a component from `shadcn/ui`
-
-#### The list of shadcn components is available here: https://ui.shadcn.com/docs/components.
-
-1. Add the component primitive (using the `Button` component as an example):
-
-```bash
-cd packages/ui-kit
-pnpm dlx shadcn@latest add button
-```
-
-or with a single command
-
-```bash
-shadcn add button -c packages/ui-kit
-```
-
-2. During installation, the utility may ask you to choose **Radix UI** or **Base UI** — you must choose **Base UI**
-
-_The utility will create the primitive (which you should not forget to add to git!), according to `packages/ui-kit/components.json`_
-
-3. Add the export to `packages/ui-kit/src/index.ts`
-
-```tsx
-export { Button } from './components/button'
-```
+For development workflow, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
