@@ -4,9 +4,9 @@
 
 - Read [README.md](README.md) for context on the repository structure and development process.
 
-- Read [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines and best practices. Use it as your primary reference for development standards and workflow. Skip the section related to "Using AI" as it is only relevant for human contributors.
+- Read [CONTRIBUTING.md](CONTRIBUTING.md) for detailed contribution guidelines and best practices. Use it as your primary reference for development standards and workflow. **CONTRIBUTING.md has priority in case of conflicts.** Skip the section related to "Using AI" as it is only relevant for human contributors.
 
-- Use **eslint.config.js** and **prettier.config.js** as your main reference for code formatting and linting rules. Make sure to follow these rules to maintain code consistency across the repository.
+- Use **[eslint.config.js](eslint.config.js)** and **[.prettierrc](.prettierrc)** as your main reference for code formatting and linting rules. Make sure to follow these rules to maintain code consistency across the repository.
 
 ---
 
@@ -53,7 +53,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/registry/default/ui/button'
+import { Button } from '@rollout/ui-kit/button'
 
 export default function Particle() {
   const [loading, setLoading] = useState(false)
@@ -63,7 +63,7 @@ export default function Particle() {
 
 ```tsx
 // ✅ Does NOT need "use client" - stateless
-import { Button } from '@/registry/default/ui/button'
+import { Button } from '@rollout/ui-kit/button'
 
 export default function Particle() {
   return <Button>Click me</Button>
@@ -93,25 +93,44 @@ import { Button, Input, Field, FieldLabel, FieldError } from '@rollout/ui-kit'
 
 ---
 
-## 5. State Management
+## 5. React Best Practices
+
+- In case of complex state logic, consider extracting it to a custom hook in `hooks/` folder (e.g. `useParticleLogic.ts`) and importing it into the component.
+- Prefer extracting non-trivial component logic into custom hooks, and keep each hook focused on one responsibility.
+- Do not over-extract: simple local declarations (`useState`, `useRef`) can stay in the component.
+- Small one-off hooks/functions (`useCallback`, `useEffect`, small helpers) can stay in the component when they are easy to read inline.
+- Avoid extraction when it increases complexity (for example, excessive prop drilling or too many inputs/outputs just to wire the hook).
+- Avoid overloaded hooks that mix multiple concerns; split into smaller focused hooks when needed.
+
+---
+
+## 6. State Management
 
 **Static Data**
 
 - Define static data outside (above) the function
-- If date shared across multiple components, consider moving it to a separate file `[FeactureName]/[SliceName]/constants/[constantName].ts` - common constant within slice or in `[FeactureName]/shared/constants/[constantName].ts` and importing it
+- If data shared across multiple components, consider moving it to a separate file `[FeatureName]/[SliceName]/constants/[constantName].ts` - common constant within slice or in `[FeatureName]/shared/constants/[constantName].ts` and importing it
 
 **Stateful Particles**
 
 - When state is needed, use React hooks. Use descriptive state variable names.
-- In case of complex state logic, consider extracting it to a custom hook in `hooks/` folder (e.g. `useParticleLogic.ts`) and importing it into the component.
 - Use context providers/consumers when you need to share state across multiple components, but keep the particle focused on demonstrating one pattern or feature. Avoid adding complex state management logic that detracts from the main purpose of the particle.
 - For reusable particles, expose passthrough props for UI primitives (`inputProps`, `buttonProps`, `inputOtpProps`, etc.) so consumers can customize primitive behavior without editing the particle internals.
 - Passthrough `*Props` groups should target interactive elements only (for example, `Input`, `Button`, `Field`, `InputOTP`, `form`), not non-interactive wrappers like `div`/`span`.
 - Passthrough props that are destructured (`...buttonProps`, `...inputProps`, etc.) should be spread at the end of component props by default (for example, `<Button variant="link" {...buttonProps}>`).
 - Exception: if a local prop is critical for predictable component behavior, keep that local prop non-overridable by placing it after the spread (for example, internal `onClick`, required fixed variants, enforced colors for semantic wrappers).
 - If a component already has a dedicated value prop/variable (`buttonText`, `resendText`, `title`, etc.), do not source the same value from passthrough props (for example, do not read `buttonProps.children`).
+- For async callback props (`onResend`, `onSubmit`, `onSend`, etc.), do not silently swallow errors inside reusable UI components by default. Prefer surfacing callback outcomes to the consumer, and let the consumer own domain-specific error messages/state unless the component explicitly documents built-in error handling.
 
-## 5. Accessibility Best Practices
+## 7. Story Files
+
+- In story files, include a `Primary` scenario and at least one negative/error scenario for inputs (invalid state, disabled action, or failed async action).
+- Treat `Primary` as the success scenario by default; do not add an extra success story when `Primary` already covers it.
+- If component state depends on callback props (`onSend`, `onSubmit`, `onResend`, `onComplete`, etc.), create explicit stories for meaningful callback outcomes and resulting UI states that are not already represented.
+- If a callback failure scenario already exists in stories, do not add a duplicate "required failure" story.
+- For callback-driven states, prefer explicit stories over a single control flag so each scenario is easy to discover and test.
+
+## 8. Accessibility Best Practices
 
 ### Inputs Without Visible Labels
 
@@ -279,7 +298,7 @@ import { Field, FieldLabel, FieldError, Input } from '@rollout/ui-kit';
 
 ---
 
-## 15. Best Practices Summary
+## 9. Best Practices Summary
 
 ### Code Quality
 
@@ -310,4 +329,3 @@ import { Field, FieldLabel, FieldError, Input } from '@rollout/ui-kit';
 - ✅ Use consistent icon opacity and accessibility patterns
 - ✅ Match the styling approach of similar particles
 - ✅ Use the same import patterns
-- ✅ In story files, include a `Primary` scenario and at least one negative/error scenario for inputs (invalid state, disabled action, or failed async action)

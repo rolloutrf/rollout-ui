@@ -9,7 +9,8 @@ const meta = {
     slotsCount: { control: 'number' },
     title: { control: 'text' },
     subTitle: { control: 'text' },
-    policy: { control: false },
+    policy: { control: 'text' },
+    onComplete: { control: false },
     inputOtpProps: { control: false },
     inputOtpDotProps: { control: false },
   },
@@ -23,24 +24,24 @@ export const Primary: Story = {
     slotsCount: 4,
     title: 'Повторите пароль',
     subTitle: 'Тот же, который используете при входе\u00A0в баланс для покупок',
+    onComplete: async () => {},
   },
 }
 
-export const InvalidPassword: Story = {
+export const CompletionError: Story = {
   args: {
     ...Primary.args,
-    policy: 'Введите корректный код подтверждения.',
     onComplete: async () => {
-      throw new Error('Пароль не совпадает')
+      throw new Error('')
     },
   },
 }
 
-export const DisabledInput: Story = {
+export const CompletionErrorWithText: Story = {
   args: {
     ...Primary.args,
-    inputOtpProps: {
-      disabled: true,
+    onComplete: async () => {
+      throw new Error('Пароль не совпадает')
     },
   },
 }

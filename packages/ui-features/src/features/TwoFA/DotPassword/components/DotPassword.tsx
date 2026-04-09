@@ -5,7 +5,6 @@ import { Notice } from '@features-src/features/TwoFA/shared/ui/Notice'
 
 export const DotPassword = ({
   slotsCount,
-  defaultValue = '',
   title = 'Повторите пароль',
   subTitle = 'Тот же, который используете при входе\u00A0в баланс для покупок',
   policy,
@@ -18,7 +17,6 @@ export const DotPassword = ({
       <Heading className={'text-center'} subTitle={subTitle} title={title} />
       <DotPasswordForm
         slotsCount={slotsCount}
-        defaultValue={defaultValue}
         onComplete={onComplete}
         inputOtpProps={inputOtpProps}
         inputOtpDotProps={inputOtpDotProps}

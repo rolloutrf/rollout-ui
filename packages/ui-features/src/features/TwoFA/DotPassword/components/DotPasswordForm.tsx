@@ -1,53 +1,28 @@
 'use client'
 
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 
 import { InputOTP, InputOTPDot, InputOTPGroup } from '@rollout/ui-kit'
 
-import { Notice } from '@features-src/features/TwoFA/shared/ui/Notice'
+import { useDotPassword } from '@features-src/features/TwoFA/DotPassword/hooks/useDotPassword'
 import type { DotPasswordFormProps } from '@features-src/features/TwoFA/DotPassword/types/DotPasswordForm.types'
-
-type DotStatus = 'idle' | 'success' | 'error'
-
+import { Notice } from '@features-src/features/TwoFA/shared/ui/Notice'
 
 export const DotPasswordForm = ({
   slotsCount,
-  defaultValue = '',
   onComplete,
   inputOtpProps,
   inputOtpDotProps,
 }: DotPasswordFormProps) => {
-  const [value, setValue] = useState<string>(defaultValue.toString())
-  const [status, setStatus] = useState<DotStatus>('idle')
-  const [errorText, setErrorText] = useState<React.ReactNode>(null)
-
+  const { value, status, errorText, handleChange } = useDotPassword({ slotsCount, onComplete })
   const items = useMemo(() => [...Array(slotsCount)].map((_, index) => index), [slotsCount])
-
-  const handleChange = useCallback(
-    async (nextValue: string) => {
-      setValue(nextValue)
-      setStatus('idle')
-      setErrorText(null)
-
-      if (nextValue.length === slotsCount && onComplete) {
-        try {
-          await onComplete(nextValue)
-          setStatus('success')
-        } catch (error) {
-          setStatus('error')
-          setErrorText(error instanceof Error ? error.message : 'Unknown error')
-        }
-      }
-    },
-    [slotsCount, onComplete]
-  )
 
   return (
     <>
       <InputOTP maxLength={slotsCount} value={value} onChange={handleChange} {...inputOtpProps}>
-        <div className={'flex space-x-2'}>
+        <div className={'flex space-x-3'}>
           {items.map((itemIndex) => (
-            <InputOTPGroup key={itemIndex}>
+            <InputOTPGroup key={itemIndex} aria-invalid={status === 'error'}>
               <InputOTPDot index={itemIndex} status={status} {...inputOtpDotProps} />
             </InputOTPGroup>
           ))}
@@ -58,4 +33,3 @@ export const DotPasswordForm = ({
     </>
   )
 }
-

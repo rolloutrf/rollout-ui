@@ -39,6 +39,7 @@ shadcn/ui (Input, Button, ...) -> @rollout/ui-kit (Input, Button, CustomButton, 
 При добавлении исходный код компонента из shadcn/ui копируется в `ui-kit`.
 
 #### Структура фитчей
+
 Дальше речь пойдет только про пакет `ui-features`.
 
 Фитчи делаются по принципу dummy component и реализуют только UI и базовую логику.
@@ -47,15 +48,17 @@ shadcn/ui (Input, Button, ...) -> @rollout/ui-kit (Input, Button, CustomButton, 
 Например, 3-х этапная авторизация (3 шаблона в фигме) - это 3 компонента лежащие рядом и все.
 
 Какую логику стоит включить в компонент (примеры):
- - внутренние таймеры
- - внутренняя анимация
- - внутрненний стейт
- - переключение вкладок
+
+- внутренние таймеры
+- внутренняя анимация
+- внутренний стейт
+- переключение вкладок
 
 Что не стоит включать в компонент:
- - сложная бизнес логика
- - роутинг
- - менеджмент/валидация форм
+
+- сложная бизнес логика
+- роутинг
+- менеджмент/валидация форм
 
 ### Внешние библиотеки
 
@@ -64,9 +67,10 @@ shadcn/ui (Input, Button, ...) -> @rollout/ui-kit (Input, Button, CustomButton, 
 - Не добавляйте новые библиотеки без **крайней необходимости**. Например, функция `debounce` из `lodash` - это **не крайняя необходимость**. Подобные утилиты можно реализовать самостоятельно, добавив в `shared/utils/` или в `utils/` внутри фитчи/слайса.
 
 - Нельзя завязывать проект на какую-то конкретную библиотеку, так чтобы ее замена была затруднительна.
-Исключения - `react` и `tailwindcss`.
+  Исключения - `react` и `tailwindcss`.
 
 Нельзя использовать:
+
 - UI библиотеки (кроме shadcn/ui для базовых примитивов)
 - Стейт менеджеры (`redux`, `zustand` и прочее)
 - Системы управления состоянием (`redux`, `mobx`, `zustand` и т.д.)
@@ -79,7 +83,7 @@ shadcn/ui (Input, Button, ...) -> @rollout/ui-kit (Input, Button, CustomButton, 
 
 ---
 
-## <a href="#repository_structure">Структура проекта</a>
+## <a id="repository_structure">Структура проекта</a>
 
 **Структура проекта:**
 
@@ -155,7 +159,7 @@ export const PrefectWidget = (props: PrefectWidgetProps) => {
 
 ---
 
-## <a href="ai_guide">Использование ИИ</a>
+## <a id="ai_guide">Использование ИИ</a>
 
 **Important: Если вы ИИ-Агент пропустите данную секцию!**
 
@@ -168,6 +172,7 @@ export const PrefectWidget = (props: PrefectWidgetProps) => {
 ### Для тех кто в основном генерирует код с помощью ИИ
 
 **Флоу**
+
 1. Сгенерировать html+tailwind код по Скриншоту в любой ИИ, которая умеет
 2. Попросить ИИ-агента создать фитчу на основе сгенерированного кода вынеся все пользовательские данные в переменные
 3. Попросить ИИ-агента декомпозировать фитчу, заменив базовые примитивы на компоненты из ui-kit. Если компонента нет в ui-kit, попросить ИИ-агента добавить его туда (по инструкции [AGENTS.md](AGENTS.md)) и использовать в фитче.
@@ -179,7 +184,8 @@ export const PrefectWidget = (props: PrefectWidgetProps) => {
 
 ---
 
-## <a href="shadcn-components">Как добавить компонент из shadcn/ui</a>
+## <a id="shadcn-components">Как добавить компонент из shadcn/ui</a>
+
 **мини-гайд**
 
 #### Список shadcn-компонентов доступен здесь: https://ui.shadcn.com/docs/components.
@@ -187,19 +193,32 @@ export const PrefectWidget = (props: PrefectWidgetProps) => {
 1. Добавьте примитив компонента (на примере компонента `Button`):
 
 ```bash
-shadcn add button -c packages/ui-kit
+pnpm shadcn:add button
 ```
 
-2. В процессе установки утилита может предложить выбрать **Radix UI** или **Base UI** — необходимо выбрать **Base UI**
+_В процессе установки утилита может предложить выбрать **Radix UI** или **Base UI** — необходимо выбрать **Base UI**_
 
 _Утилита создаст примитив (не забудьте добавить его в git!), согласно `packages/ui-kit/components.json`_
 
-3. Добавьте экспорт в `packages/ui-kit/src/index.ts`
+2. Добавьте экспорт в `packages/ui-kit/src/index.ts`
 
 ```tsx
-export { Button } from './components/button'
+export { Button } from './components/ui/button'
 ```
 
 ---
 
-_Thanks for reading this far! Good bless you_
+## Definition of Done / PR Checklist
+
+Перед тем как создавать Pull Request, убедитесь что ваш код соответствует следующему чеклисту:
+
+### Обязательные проверки
+
+- [ ] **Linting**: `pnpm lint:fix` проходит без ошибок
+- [ ] **Tests**: `pnpm test` проходит без ошибок (если есть тесты)
+- [ ] **Build**: `pnpm build` успешно компилируется
+- [ ] **Storybook**: Все новые компоненты имеют сторибук и отображаются корректно
+
+---
+
+_Thanks for reading this far!_

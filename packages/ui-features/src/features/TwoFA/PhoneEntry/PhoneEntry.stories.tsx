@@ -1,5 +1,6 @@
 import { PhoneEntry } from './components/PhoneEntry'
 
+import { PHONE_MASKS } from '@features-src/features/TwoFA/PhoneEntry/constants/phoneMasks'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 const meta = {
@@ -10,6 +11,8 @@ const meta = {
     subTitle: { control: 'text' },
     buttonText: { control: 'text' },
     policy: { control: false },
+    phoneMask: { control: false },
+    onPhoneChange: { control: false },
     fieldProps: { control: false },
     inputProps: { control: false },
     buttonProps: { control: false },
@@ -34,30 +37,23 @@ export const Primary: Story = {
   },
 }
 
+export const USFormat: Story = {
+  args: {
+    ...Primary.args,
+    title: 'Enter your phone number',
+    subTitle: 'We will use it to send a verification code.',
+    buttonText: 'Continue',
+    phoneMask: PHONE_MASKS.us,
+  },
+}
+
 export const InvalidPhoneInput: Story = {
   args: {
     ...Primary.args,
     buttonText: 'Исправить номер',
     inputProps: {
-      type: 'tel',
-      defaultValue: '+7 (900) 12',
       'aria-invalid': true,
       'aria-label': 'Phone number',
-    },
-  },
-}
-
-export const DisabledSubmit: Story = {
-  args: {
-    ...Primary.args,
-    buttonText: 'Проверьте номер',
-    inputProps: {
-      type: 'tel',
-      defaultValue: '+7 (900) 123-4567',
-      'aria-invalid': true,
-    },
-    buttonProps: {
-      disabled: true,
     },
   },
 }

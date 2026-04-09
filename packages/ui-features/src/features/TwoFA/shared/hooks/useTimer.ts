@@ -8,6 +8,7 @@ export type TimerProps = {
   minValueMs?: number
   onStart?: (goalTimeMs: number) => void
   onFinish?: (goalTimeMs: number, finishTimeMs: number) => void
+  autoStart?: boolean
 }
 
 export const useTimer = ({
@@ -18,10 +19,11 @@ export const useTimer = ({
   minValueMs,
   onStart,
   onFinish,
+  autoStart = true,
 }: TimerProps) => {
   const [time, setTime] = useState(startValueMs)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const [isRunning, setIsRunning] = useState(true)
+  const [isRunning, setIsRunning] = useState(autoStart)
 
   const clear = useCallback(() => {
     if (intervalRef.current !== null) {
@@ -57,8 +59,8 @@ export const useTimer = ({
   const restart = useCallback(() => {
     clear()
     setTime(startValueMs)
-    start()
     setIsRunning(true)
+    start()
   }, [clear, startValueMs, start])
 
   const stop = useCallback(() => {
@@ -66,9 +68,11 @@ export const useTimer = ({
   }, [clear])
 
   useEffect(() => {
-    start()
+    if (autoStart) {
+      start()
+    }
     return clear
-  }, [start, clear])
+  }, [start, clear, autoStart])
 
   return {
     time,
