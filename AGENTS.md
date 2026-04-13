@@ -329,3 +329,10 @@ import { Field, FieldLabel, FieldError, Input } from '@rollout/ui-kit';
 - ✅ Use consistent icon opacity and accessibility patterns
 - ✅ Match the styling approach of similar particles
 - ✅ Use the same import patterns
+
+### Anti-Patterns
+**Do NOT do the following:**
+- ❌ Adding animations without a specific request
+- ❌ Using form libraries (react-hook-form, formik, etc.)
+- ❌ Using raw colors instead of semantic tokens
+- ❌ Adding comments for self-explanatory code
