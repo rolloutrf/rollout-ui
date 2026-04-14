@@ -1,6 +1,4 @@
-import { Button, Field } from '@rollout/ui-kit'
-
-import { cn } from '@ui-kit/lib/utils'
+import { Button, cn, Field } from '@rollout/ui-kit'
 
 import { PHONE_MASKS } from '@features-src/features/TwoFA/PhoneEntry/constants/phoneMasks'
 import { PhoneMaskedInput } from '@features-src/features/TwoFA/PhoneEntry/components/PhoneMaskedInput'

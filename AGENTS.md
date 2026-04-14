@@ -53,7 +53,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@rollout/ui-kit/button'
+import { Button } from '@rollout/ui-kit'
 
 export default function Particle() {
   const [loading, setLoading] = useState(false)
@@ -63,7 +63,7 @@ export default function Particle() {
 
 ```tsx
 // ✅ Does NOT need "use client" - stateless
-import { Button } from '@rollout/ui-kit/button'
+import { Button } from '@rollout/ui-kit'
 
 export default function Particle() {
   return <Button>Click me</Button>
@@ -78,6 +78,10 @@ export default function Particle() {
 
 - All shadcn-based UI components (Button, Input, Field, Label, etc.) are imported from `@rollout/ui-kit`
 - Always import specific components, never the entire library namespace
+- Import from package root public API only: `@rollout/ui-kit` and `@rollout/ui-features`
+- Deep imports are forbidden (for example, `@rollout/ui-kit/...` and `@rollout/ui-features/...`)
+- `@ui-kit/*` is a local alias for `packages/ui-kit` internals only and must not be used outside `packages/ui-kit`
+- Outside `packages/ui-kit`, import `cn` from `@rollout/ui-kit` root export
 
 ```tsx
 import { Button, Input, Field, FieldLabel, FieldError } from '@rollout/ui-kit'
@@ -336,3 +340,5 @@ import { Field, FieldLabel, FieldError, Input } from '@rollout/ui-kit';
 - ❌ Using form libraries (react-hook-form, formik, etc.)
 - ❌ Using raw colors instead of semantic tokens
 - ❌ Adding comments for self-explanatory code
+- ❌ Deep-importing from `@rollout/ui-kit/*` or `@rollout/ui-features/*`
+- ❌ Using `@ui-kit/*` alias outside `packages/ui-kit`

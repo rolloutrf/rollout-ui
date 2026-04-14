@@ -1,6 +1,4 @@
-import { Button } from '@rollout/ui-kit'
-
-import { cn } from '@ui-kit/lib/utils'
+import { Button, cn } from '@rollout/ui-kit'
 
 import { OtpForm } from '@features-src/features/TwoFA/OtpConfirmation/components/OtpForm'
 import { OtpTimer } from '@features-src/features/TwoFA/OtpConfirmation/components/OtpTimer'

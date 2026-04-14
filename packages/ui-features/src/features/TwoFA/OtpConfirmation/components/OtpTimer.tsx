@@ -1,8 +1,6 @@
 'use client'
 
-import { Button } from '@rollout/ui-kit'
-
-import { cn } from '@ui-kit/lib/utils'
+import { Button, cn } from '@rollout/ui-kit'
 
 import { useOtpCodeStatus } from '@features-src/features/TwoFA/OtpConfirmation/hooks/useOtpCodeStatus'
 import type { OtpTimerProps } from '@features-src/features/TwoFA/OtpConfirmation/types/OtpTimer.types'
