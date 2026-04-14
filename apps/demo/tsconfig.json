@@ -1,4 +1,7 @@
 {
-  "extends": "../../tsconfig.base.json",
-  "include": ["src", "declaration.d.ts", "vite.config.ts", "vitest.config.ts"]
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
 }

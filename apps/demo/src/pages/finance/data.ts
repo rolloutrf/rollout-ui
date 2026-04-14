@@ -1,0 +1,200 @@
+import type { LucideIcon } from 'lucide-react'
+import { SendHorizontal, CreditCard, MoreHorizontal, ShoppingBasket, Smartphone, Home, Wifi, Gamepad2, Car, Zap } from 'lucide-react'
+
+// Account
+export const ACCOUNT = {
+  bankLogo: null as string | null, // T-bank logo is a vector component in Figma
+  title: 'Main account · 9089',
+  balance: '10 350 ₽',
+}
+
+export interface QuickAction {
+  icon: LucideIcon
+  label: string
+}
+
+export const QUICK_ACTIONS: QuickAction[] = [
+  { icon: SendHorizontal, label: 'Отправить' },
+  { icon: CreditCard, label: 'Оплатить' },
+  { icon: MoreHorizontal, label: 'Ещё' },
+]
+
+// Analytics widget
+export const ANALYTICS = {
+  amount: '100 089 ₽',
+  label: 'Расходы за декабрь',
+  bars: [
+    { color: 'bg-rose-500', width: 'w-[35%]' },
+    { color: 'bg-blue-500', width: 'w-[30%]' },
+    { color: 'bg-amber-500', width: 'w-[20%]' },
+    { color: 'bg-emerald-500', width: 'w-[15%]' },
+  ],
+}
+
+// Loyalty widget
+export const LOYALTY = {
+  points: '5 329',
+  label: 'Накоплено бонусов',
+  footer: 'Зачислится 31 декабря',
+}
+
+// Promotion card
+export const PROMOTION = {
+  image: '/finance/promo-banner.png',
+  title: 'Ставки на кредит снижены',
+  description: 'До 600 000 р на любые цели',
+}
+
+// Transactions
+export interface Transaction {
+  id: number
+  name: string
+  category: string
+  amount: string
+  positive?: boolean
+  bonusPoints?: string
+  pending?: boolean
+  avatarUrl: string | null
+  icon?: LucideIcon
+  iconColor?: string
+}
+
+export const TRANSACTIONS: Transaction[] = [
+  {
+    id: 1,
+    name: 'Супермаркет «Удачный»',
+    category: 'Продукты',
+    amount: '-12 867,09 ₽',
+    bonusPoints: '+10',
+    pending: true,
+    avatarUrl: null,
+    icon: ShoppingBasket,
+    iconColor: 'bg-amber-500',
+  },
+  {
+    id: 2,
+    name: 'Екатерина Ирсуевна Л.',
+    category: 'Переводы ∙ СБП ∙ Сбер',
+    amount: '+10 000 ₽',
+    positive: true,
+    avatarUrl: '/finance/contact-nalichnye.png',
+  },
+  {
+    id: 3,
+    name: 'Людмила Ивановна П.',
+    category: 'Переводы ∙ СБП ∙ Альфа-Банк',
+    amount: '-4 675 ₽',
+    avatarUrl: '/finance/contact-maksu.png',
+  },
+]
+
+// Transfers — contacts
+export interface Contact {
+  name: string
+  avatarUrl: string
+}
+
+export const CONTACTS: Contact[] = [
+  { name: 'Макс', avatarUrl: '/finance/contact-maksu.png' },
+  { name: 'Артём', avatarUrl: '/finance/contact-anya.png' },
+  { name: 'Надя', avatarUrl: '/finance/contact-nalichnye.png' },
+  { name: 'Рома', avatarUrl: '/finance/contact-roma.png' },
+  { name: 'Саша', avatarUrl: '/finance/contact-santa.png' },
+  { name: 'Катя', avatarUrl: '/finance/contact-shadow1.png' },
+  { name: 'Вика', avatarUrl: '/finance/contact-shadow2.png' },
+  { name: 'Дима', avatarUrl: '/finance/contact-shadow3.png' },
+]
+
+// Currency rates
+export interface Currency {
+  flag: string   // path to flag image, e.g. '/finance/flag-cny.png'
+  code: string
+  name: string
+  buy: string
+  sell: string
+  trend: 'up' | 'down' | null
+}
+
+export const CURRENCIES: Currency[] = [
+  { flag: '/finance/flag-cny.png', code: 'CNY', name: 'Юань', buy: '11,22', sell: '10,96', trend: null },
+  { flag: '/finance/flag-usd.png', code: 'USD', name: 'Доллар', buy: '80,20', sell: '74,70', trend: null },
+  { flag: '/finance/flag-aed.png', code: 'AED', name: 'Дирхам', buy: '22,18', sell: '20,96', trend: 'up' },
+  { flag: '/finance/flag-kzt.png', code: '100 KZT', name: 'Тенге', buy: '16,09', sell: '14,77', trend: 'down' },
+]
+
+// Payments
+export interface Payment {
+  id: number
+  title: string
+  subtitle: string
+  icon: LucideIcon
+  iconBg: string
+  iconColor: string
+}
+
+export const PAYMENTS: Payment[] = [
+  { id: 1, title: 'Мобильная связь',    subtitle: 'МТС · Билайн · Мегафон',      icon: Smartphone, iconBg: 'bg-orange-500/15', iconColor: 'text-orange-500' },
+  { id: 2, title: 'Квартплата',          subtitle: 'ЖКХ · Коммунальные услуги',   icon: Home,       iconBg: 'bg-blue-500/15',   iconColor: 'text-blue-500'   },
+  { id: 3, title: 'Интернет и ТВ',       subtitle: 'Ростелеком · Дом.ру · МТС',   icon: Wifi,       iconBg: 'bg-violet-500/15', iconColor: 'text-violet-500' },
+  { id: 4, title: 'Пополнение баланса',  subtitle: 'App Store · Google Play',      icon: Gamepad2,   iconBg: 'bg-secondary',     iconColor: 'text-foreground' },
+  { id: 5, title: 'Штрафы ГИБДД',        subtitle: 'Автоматически по номеру авто', icon: Car,        iconBg: 'bg-rose-500/15',   iconColor: 'text-rose-500'   },
+  { id: 6, title: 'Электроэнергия',      subtitle: 'Мосэнергосбыт · ТНС Энерго',  icon: Zap,        iconBg: 'bg-amber-500/15',  iconColor: 'text-amber-500'  },
+]
+
+// Products
+export interface Product {
+  id: number
+  title: string
+  subtitle?: string
+  imageUrl: string
+  bgColor: string
+}
+
+export const PRODUCTS: Product[] = [
+  { id: 1, title: 'Займы',      imageUrl: '/finance/product-zaimy.png',       bgColor: 'bg-secondary' },
+  { id: 2, title: 'Ипотека',    imageUrl: '/finance/product-ipoteka.png',     bgColor: 'bg-secondary' },
+  { id: 3, title: 'Инвестиции', subtitle: 'от 5₽', imageUrl: '/finance/product-investitsii.png', bgColor: 'bg-secondary' },
+  { id: 4, title: 'Кредиты',    imageUrl: '/finance/product-kredity.png',     bgColor: 'bg-secondary' },
+]
+
+// Self-employment
+export const SELF_EMPLOYMENT = {
+  amount: '120 860,54 ₽',
+  label: 'Доход за январь • Обновлено в 08:23',
+}
+
+// Partners
+export const PARTNER_TABS = ['Путешествия', 'Товары', 'Афиша', 'Топливо']
+
+export interface PartnerCard {
+  id: number
+  title: string
+  imageUrl: string
+}
+
+export const PARTNER_CARDS: PartnerCard[] = [
+  { id: 1, title: 'Новинки', imageUrl: '/finance/product-zaimy.png' },
+  { id: 2, title: 'Акции', imageUrl: '/finance/product-zaimy.png' },
+]
+
+export const CASHBACK = {
+  title: 'Кешбэк партнеров',
+  description: 'Столько бонусов вам доступно для этой категории',
+  points: 222,
+  footer: 'Сгорит: 31 декабря',
+}
+
+// More products (recommendations)
+export interface MoreProduct {
+  id: number
+  title: string
+  subtitle: string
+  imageUrl: string
+}
+
+export const MORE_PRODUCTS: MoreProduct[] = [
+  { id: 1, title: 'Skyeng',      subtitle: 'Мастерски качают английский', imageUrl: '/finance/more-skyeng-photo.png' },
+  { id: 2, title: 'ЦУМ OUTLET', subtitle: 'Скидки до 70%',               imageUrl: '/finance/more-tsum-photo.png' },
+  { id: 3, title: 'Ostrovok',   subtitle: 'Отели от 2 000 ₽',            imageUrl: '/home/product-hotel.png' },
+  { id: 4, title: 'Летуаль',    subtitle: 'Парфюм и уход',                imageUrl: '/home/product-perfume.png' },
+]

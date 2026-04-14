@@ -1,29 +1,35 @@
 {
   "name": "@rollout/demo",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@rollout/ui-features": "workspace:*",
-    "@rollout/ui-kit": "workspace:*",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "@base-ui/react": "^1.3.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.469.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-router-dom": "^6.28.0",
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
-    "@types/node": "^24.12.0",
+    "@tailwindcss/vite": "^4.2.2",
+    "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.0",
-    "vite": "^8.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.2.2",
+    "typescript": "~5.9",
+    "vite": "^5.4.11",
     "vitest": "^4.1.2"
   }
 }
-
