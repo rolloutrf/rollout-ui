@@ -1,7 +1,7 @@
 import { Clock4 } from 'lucide-react'
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { Avatar, AvatarImage, AvatarFallback } from '@rollout/ui-kit'
+import { Badge } from '@rollout/ui-kit'
+import { Button } from '@rollout/ui-kit'
 import { TRANSACTIONS } from './data'
 
 export function TransactionHistory() {

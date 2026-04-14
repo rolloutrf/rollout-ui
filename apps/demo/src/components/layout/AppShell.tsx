@@ -8,8 +8,7 @@ interface AppShellProps {
 export function AppShell({ children }: AppShellProps) {
   return (
     <div className="w-full h-screen bg-background">
-      {/* pb-tabbar = 49px + safe-area on mobile, overridden to 0 on desktop */}
-      <div className="max-w-[1200px] mx-auto h-full flex flex-col px-4 pb-tabbar md:pb-0">
+      <div className="max-w-300 mx-auto h-full flex flex-col px-4 pb-tabbar md:pb-0">
         {children}
       </div>
       <TabBar />

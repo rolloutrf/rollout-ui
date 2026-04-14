@@ -1,5 +1,5 @@
 import { ChevronRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@rollout/ui-kit'
 import { PAYMENTS } from './data'
 
 export function PaymentsWidget() {

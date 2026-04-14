@@ -1,5 +1,5 @@
 import { Heart } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@rollout/ui-kit'
 import { useFavorites } from '@/store/favorites'
 import type { Product } from './data'
 

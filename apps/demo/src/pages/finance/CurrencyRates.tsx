@@ -1,7 +1,7 @@
 import { ChevronUp, ChevronDown } from 'lucide-react'
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarImage } from '@/components/ui/avatar'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@rollout/ui-kit'
+import { Button } from '@rollout/ui-kit'
+import { Avatar, AvatarImage } from '@rollout/ui-kit'
 import { CURRENCIES } from './data'
 
 export function CurrencyRates() {

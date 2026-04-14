@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Search, X, Bell } from 'lucide-react'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
+import { Input } from '@rollout/ui-kit'
+import { Button } from '@rollout/ui-kit'
 
 export function SearchBar() {
   const [query, setQuery] = useState('')

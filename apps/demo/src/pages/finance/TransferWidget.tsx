@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Search, ChevronRight } from 'lucide-react'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { Input } from '@rollout/ui-kit'
+import { Button } from '@rollout/ui-kit'
+import { Avatar, AvatarImage, AvatarFallback } from '@rollout/ui-kit'
 import { CONTACTS } from './data'
 
 export function TransferWidget() {

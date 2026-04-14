@@ -1,6 +1,6 @@
 import { QrCode, CirclePlus } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@rollout/ui-kit'
+import { Avatar, AvatarFallback, AvatarImage } from '@rollout/ui-kit'
 import { ACCOUNT } from './data'
 
 const QUICK_ACTIONS = [

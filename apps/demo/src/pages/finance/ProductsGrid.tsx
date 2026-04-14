@@ -1,5 +1,5 @@
-import { Card } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { Card } from '@rollout/ui-kit'
+import { Button } from '@rollout/ui-kit'
 import { PRODUCTS } from './data'
 
 export function ProductsGrid() {

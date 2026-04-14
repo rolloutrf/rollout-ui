@@ -14,23 +14,16 @@ export default function App() {
     <BrowserRouter>
       <FavoritesProvider>
         <AppShell>
-          <div className="flex-1 overflow-y-auto w-full">
-            <Header />
-            <div className="h-[72px]" />
-            <div className="min-h-full flex flex-col">
-              <div className="flex-1">
-                <Routes>
-                  <Route path="/"          element={<HomePage />} />
-                  <Route path="/favorites" element={<FavoritesPage />} />
-                  <Route path="/finance"   element={<FinancePage />} />
-                  <Route path="/cart"      element={<ContentSlot />} />
-                  <Route path="/profile"   element={<ProfilePage />} />
-                  <Route path="/assistant" element={<ContentSlot />} />
-                </Routes>
-              </div>
-              <Footer />
-            </div>
-          </div>
+          <Header />
+          <Routes>
+            <Route path="/"          element={<HomePage />} />
+            <Route path="/favorites" element={<FavoritesPage />} />
+            <Route path="/finance"   element={<FinancePage />} />
+            <Route path="/cart"      element={<ContentSlot />} />
+            <Route path="/profile"   element={<ProfilePage />} />
+            <Route path="/assistant" element={<ContentSlot />} />
+          </Routes>
+          <Footer />
         </AppShell>
       </FavoritesProvider>
     </BrowserRouter>

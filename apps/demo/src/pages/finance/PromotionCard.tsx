@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { X, BadgePercent } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
+import { Button } from '@rollout/ui-kit'
+import { Card } from '@rollout/ui-kit'
 import { PROMOTION } from './data'
 
 export function PromotionCard() {

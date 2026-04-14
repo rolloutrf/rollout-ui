@@ -14,9 +14,9 @@ import {
   ChevronRight,
   type LucideIcon,
 } from 'lucide-react'
-import { Card } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { Card } from '@rollout/ui-kit'
+import { Button } from '@rollout/ui-kit'
+import { Avatar, AvatarFallback } from '@rollout/ui-kit'
 
 /* ── data ── */
 

@@ -1,7 +1,7 @@
 import { TicketPercent, Plane, ShoppingBag, Theater, Fuel } from 'lucide-react'
-import { Card } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Card } from '@rollout/ui-kit'
+import { Button } from '@rollout/ui-kit'
+import { Tabs, TabsList, TabsTrigger } from '@rollout/ui-kit'
 import { PARTNER_TABS, PARTNER_CARDS, CASHBACK } from './data'
 
 const TAB_ICONS: Record<string, typeof Plane> = {
