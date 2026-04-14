@@ -6,6 +6,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@ui-kit/*": ["../../packages/ui-kit/src/*"],
+      "@features-src/*": ["../../packages/ui-features/src/*"],
       "@rollout/ui-kit": ["../../packages/ui-kit/src/index.ts"],
       "@rollout/ui-features": ["../../packages/ui-features/src/index.ts"]
     }

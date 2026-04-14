@@ -309,6 +309,7 @@ import { Field, FieldLabel, FieldError, Input } from '@rollout/ui-kit';
 - ✅ Keep particles focused on demonstrating one feature or pattern
 - ✅ Use realistic placeholder text and data
 - ✅ Prefer composition over complexity
+- ✅ In TypeScript, prefer `type` over `interface` for component props and shared models by default
 - ✅ Don't add comments unless explaining something non-obvious
 - ✅ Use semantic color tokens (`text-muted-foreground`) not raw colors
 - ✅ Test that the particle renders correctly before committing

@@ -10,6 +10,7 @@ export default defineConfig({
     dedupe: ['react', 'react-dom'],
     alias: {
       '@ui-kit': resolve(__dirname, '../../packages/ui-kit/src'),
+      '@features-src': resolve(__dirname, '../../packages/ui-features/src'),
       '@rollout/ui-kit': resolve(__dirname, '../../packages/ui-kit/src/index.ts'),
       '@rollout/ui-features': resolve(__dirname, '../../packages/ui-features/src/index.ts'),
       '@': resolve(__dirname, './src'),
