@@ -16,7 +16,9 @@ export function MainCommercial() {
             src={b.imgUrl}
             alt=""
             className="w-full h-full object-contain"
-            style={{ transform: `scale(${(b.imgScale ?? 130) / 100}) translateY(${b.imgOffsetY ?? 0}%)` }}
+            style={{
+              transform: `scale(${(b.imgScale ?? 130) / 100}) translateY(${b.imgOffsetY ?? 0}%)`,
+            }}
             loading={i === 0 ? 'eager' : 'lazy'}
             decoding="async"
           />

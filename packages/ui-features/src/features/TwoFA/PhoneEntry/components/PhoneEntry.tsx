@@ -1,7 +1,7 @@
 import { Button, cn, Field } from '@rollout/ui-kit'
 
-import { PHONE_MASKS } from '@features-src/features/TwoFA/PhoneEntry/constants/phoneMasks'
 import { PhoneMaskedInput } from '@features-src/features/TwoFA/PhoneEntry/components/PhoneMaskedInput'
+import { PHONE_MASKS } from '@features-src/features/TwoFA/PhoneEntry/constants/phoneMasks'
 import type { PhoneEntryProps } from '@features-src/features/TwoFA/PhoneEntry/types/PhoneEntry.types'
 import { Heading } from '@features-src/features/TwoFA/shared/ui/Heading'
 import { Notice } from '@features-src/features/TwoFA/shared/ui/Notice'
@@ -23,11 +23,7 @@ export const PhoneEntry = ({
     <div className={'flex flex-col space-y-7'}>
       <Heading subTitle={subTitle} title={title} />
       <Field {...fieldProps}>
-        <PhoneMaskedInput
-          mask={phoneMask}
-          onValueChange={onPhoneChange}
-          {...inputProps}
-        />
+        <PhoneMaskedInput mask={phoneMask} onValueChange={onPhoneChange} {...inputProps} />
       </Field>
       <Button className={cn('w-full', buttonClassName)} {...restButtonProps}>
         {buttonText}

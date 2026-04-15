@@ -13,4 +13,3 @@ export const PHONE_MASKS = {
 } as const satisfies Record<string, PhoneMaskConfig>
 
 export type PhoneMaskKey = keyof typeof PHONE_MASKS
-

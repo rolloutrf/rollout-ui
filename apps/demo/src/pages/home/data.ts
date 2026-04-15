@@ -2,7 +2,7 @@ import type { LucideIcon } from 'lucide-react'
 import { Truck, RefreshCw, MapPin } from 'lucide-react'
 
 export interface Attribute {
-  Icon?: LucideIcon   // lucide-react icon component (Truck, RefreshCw, MapPin, etc.)
+  Icon?: LucideIcon // lucide-react icon component (Truck, RefreshCw, MapPin, etc.)
   swatches?: string[] // color hex values for color dots row
   text: string
 }
@@ -19,7 +19,7 @@ export interface Category {
 export interface Banner {
   id: string
   imgUrl: string
-  imgScale?: number   // override image scale, default 130
+  imgScale?: number // override image scale, default 130
   imgOffsetY?: number // vertical offset in %, positive = down
 }
 
@@ -39,21 +39,58 @@ export interface Product {
 }
 
 export const CATEGORY_ROW_1: Category[] = [
-  { id: 'c1', label: 'Электроника',        imgUrl: '/home/cat-elektronika.png', wide: true },
-  { id: 'c2', label: 'Одежда',             imgUrl: '/home/cat-odezhda.png', wide: true },
-  { id: 'c3', label: 'Косметика',          imgUrl: '/home/cat-kosmetika.png', wide: true },
-  { id: 'c4', label: 'Авто',               imgUrl: '/home/cat-avto.png', wide: false, imgOffsetY: -16, imgOffsetX: -8 },
-  { id: 'c5', label: 'Бронирование жилья', imgUrl: '/home/cat-bronir.png', wide: true, imgOffsetY: 8 },
-  { id: 'c6', label: 'Покупка жилья',      imgUrl: '/home/cat-pokupka-zhilya.png', wide: true,  imgOffsetY: -8 },
+  { id: 'c1', label: 'Электроника', imgUrl: '/home/cat-elektronika.png', wide: true },
+  { id: 'c2', label: 'Одежда', imgUrl: '/home/cat-odezhda.png', wide: true },
+  { id: 'c3', label: 'Косметика', imgUrl: '/home/cat-kosmetika.png', wide: true },
+  {
+    id: 'c4',
+    label: 'Авто',
+    imgUrl: '/home/cat-avto.png',
+    wide: false,
+    imgOffsetY: -16,
+    imgOffsetX: -8,
+  },
+  {
+    id: 'c5',
+    label: 'Бронирование жилья',
+    imgUrl: '/home/cat-bronir.png',
+    wide: true,
+    imgOffsetY: 8,
+  },
+  {
+    id: 'c6',
+    label: 'Покупка жилья',
+    imgUrl: '/home/cat-pokupka-zhilya.png',
+    wide: true,
+    imgOffsetY: -8,
+  },
 ]
 
 export const CATEGORY_ROW_2: Category[] = [
-  { id: 'c7',  label: 'Цветы',              imgUrl: '/home/cat-tsvety.png', wide: false, imgOffsetY: -8 },
-  { id: 'c8',  label: 'Товары для дома',    imgUrl: '/home/cat-tovary-doma.png', wide: true,  imgOffsetY: -8 },
-  { id: 'c9',  label: 'Доставка продуктов', imgUrl: '/home/cat-dostavka-produktov.png', wide: true,  imgOffsetY: 8 },
-  { id: 'c10', label: 'Услуги',             imgUrl: '/home/cat-uslugi.png', wide: false, imgOffsetY: 8 },
-  { id: 'c11', label: 'Доставка еды',       imgUrl: '/home/cat-dostavka-edy.png', wide: true,  imgOffsetY: 8 },
-  { id: 'c12', label: 'Работа',             imgUrl: '/home/cat-rabota.png', wide: true,  imgOffsetY: -8 },
+  { id: 'c7', label: 'Цветы', imgUrl: '/home/cat-tsvety.png', wide: false, imgOffsetY: -8 },
+  {
+    id: 'c8',
+    label: 'Товары для дома',
+    imgUrl: '/home/cat-tovary-doma.png',
+    wide: true,
+    imgOffsetY: -8,
+  },
+  {
+    id: 'c9',
+    label: 'Доставка продуктов',
+    imgUrl: '/home/cat-dostavka-produktov.png',
+    wide: true,
+    imgOffsetY: 8,
+  },
+  { id: 'c10', label: 'Услуги', imgUrl: '/home/cat-uslugi.png', wide: false, imgOffsetY: 8 },
+  {
+    id: 'c11',
+    label: 'Доставка еды',
+    imgUrl: '/home/cat-dostavka-edy.png',
+    wide: true,
+    imgOffsetY: 8,
+  },
+  { id: 'c12', label: 'Работа', imgUrl: '/home/cat-rabota.png', wide: true, imgOffsetY: -8 },
 ]
 
 export const BANNERS: Banner[] = [
@@ -65,7 +102,7 @@ export const BANNERS: Banner[] = [
 export const PRODUCTS: Product[] = [
   {
     id: 'p1',
-    imgUrl: ['/home/product-smartphone.png', '/home/product-smartphone.png',],
+    imgUrl: ['/home/product-smartphone.png', '/home/product-smartphone.png'],
     title: 'Смартфон Phone 16 Pro Max Black Titanium, nano SIM + eSIM сим-карты 256 ГБ',
     price: '69\u00a0500 ₽',
     originalPrice: '79\u00a0500 ₽',
@@ -83,14 +120,12 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'p2',
-    imgUrl: ['/home/product-car.png','/home/product-car.png',],
+    imgUrl: ['/home/product-car.png', '/home/product-car.png'],
     title: 'Auto 5 серия M Sport, черный металлик, 3.0 л, 340 л.с., полный привод 2021',
     price: '5\u00a0399\u00a0000 ₽',
     originalPrice: '5\u00a0938\u00a0900 ₽',
     discount: '-10 %',
-    attributes: [
-      { text: 'Седан ∙ Автомат' },
-    ],
+    attributes: [{ text: 'Седан ∙ Автомат' }],
     seller: 'Autostar',
     rating: '4,2',
     date: 'Создано вчера в\u00a011:20',
@@ -98,7 +133,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'p3',
-    imgUrl: ['/home/product-apartment.png','/home/product-apartment.png',],
+    imgUrl: ['/home/product-apartment.png', '/home/product-apartment.png'],
     title: '1-комн. квартира с уютной атмосферой и современным дизайном, 50 м²',
     price: '7\u00a0500\u00a0000 ₽',
     originalPrice: '8\u00a0625\u00a0000 ₽',
@@ -119,9 +154,7 @@ export const PRODUCTS: Product[] = [
     imgUrl: ['/home/product-pizza.png'],
     title: 'Пицца пепперони, средняя, 350 г',
     price: '690 ₽',
-    attributes: [
-      { Icon: Truck, text: 'в течении часа' },
-    ],
+    attributes: [{ Icon: Truck, text: 'в течении часа' }],
     seller: 'Дринкит',
     rating: '4,9',
     reviewCount: '(190)',
@@ -148,7 +181,8 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p6',
     imgUrl: ['/home/product-plumber.png'],
-    title: 'Услуги сантехника: установка и ремонт труб, монтаж сантехнического оборудования, устранение засоров',
+    title:
+      'Услуги сантехника: установка и ремонт труб, монтаж сантехнического оборудования, устранение засоров',
     price: 'от 10\u00a0000 ₽',
     attributes: [
       { text: '1\u00a0000 ₽ за час' },
@@ -166,10 +200,7 @@ export const PRODUCTS: Product[] = [
     imgUrl: ['/home/product-bananas.png'],
     title: 'Бананы Эквадор, 500 г',
     price: '99 ₽',
-    attributes: [
-      { text: '+200 баллов' },
-      { Icon: Truck, text: 'за 1 час' },
-    ],
+    attributes: [{ text: '+200 баллов' }, { Icon: Truck, text: 'за 1 час' }],
     seller: 'Дринкит',
     rating: '4,6',
     reviewCount: '(543)',
@@ -181,9 +212,7 @@ export const PRODUCTS: Product[] = [
     imgUrl: ['/home/product-bouquet.png'],
     title: 'Букет цветов «Летний бриз» (роза, гвоздика, ромашка)',
     price: '2\u00a0700 ₽',
-    attributes: [
-      { Icon: Truck, text: 'за 30 минут' },
-    ],
+    attributes: [{ Icon: Truck, text: 'за 30 минут' }],
     seller: 'NiceFlower',
     rating: '4,9',
     reviewCount: '(312)',
@@ -195,9 +224,7 @@ export const PRODUCTS: Product[] = [
     imgUrl: ['/home/product-hotel.png'],
     title: 'Отель «Сияющий Титан» номера класса люкс',
     price: '10\u00a0000 ₽',
-    attributes: [
-      { text: 'цена за 9 ночей' },
-    ],
+    attributes: [{ text: 'цена за 9 ночей' }],
     seller: 'Travel Star',
     rating: '4,7',
     reviewCount: '(156)',
@@ -224,9 +251,7 @@ export const PRODUCTS: Product[] = [
     imgUrl: ['/home/product-perfume.png'],
     title: 'Духи «Тайна Ночи» с нотами чёрной смородины и жасмина',
     price: '19\u00a0500 ₽',
-    attributes: [
-      { Icon: Truck, text: '1 день' },
-    ],
+    attributes: [{ Icon: Truck, text: '1 день' }],
     seller: 'Афродита',
     rating: '4,9',
     reviewCount: '(89)',
@@ -235,7 +260,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'p12',
-    imgUrl: ['/home/product-programmer.png','/home/product-programmer.png',],
+    imgUrl: ['/home/product-programmer.png', '/home/product-programmer.png'],
     title: 'Программист для разработки мобильных приложений на платформе iOS',
     price: '375\u00a0000 ₽',
     attributes: [
@@ -251,7 +276,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'p13',
-    imgUrl: ['/home/product-armchair.png','/home/product-armchair.png'],
+    imgUrl: ['/home/product-armchair.png', '/home/product-armchair.png'],
     title: 'Барское кресло',
     price: '375\u00a0000 ₽',
     attributes: [

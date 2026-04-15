@@ -2,7 +2,14 @@ import { cn } from '@/lib/utils'
 import { CATEGORY_ROW_1, CATEGORY_ROW_2 } from './data'
 import type { Category } from './data'
 
-function CategoryCard({ label, imgUrl, wide, imgOffsetY, imgOffsetX, eager }: Category & { eager?: boolean }) {
+function CategoryCard({
+  label,
+  imgUrl,
+  wide,
+  imgOffsetY,
+  imgOffsetX,
+  eager,
+}: Category & { eager?: boolean }) {
   return (
     <div
       className={cn(
@@ -37,7 +44,7 @@ export function MainRubricator() {
     <div className="flex flex-col gap-2 w-full">
       {[CATEGORY_ROW_1, CATEGORY_ROW_2].map((row, rowIdx) => (
         <div key={rowIdx} className="flex gap-2 overflow-x-auto scrollbar-hide">
-          {row.map(cat => (
+          {row.map((cat) => (
             <CategoryCard key={cat.id} {...cat} eager={rowIdx === 0} />
           ))}
         </div>

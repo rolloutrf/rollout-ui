@@ -336,7 +336,9 @@ import { Field, FieldLabel, FieldError, Input } from '@rollout/ui-kit';
 - ✅ Use the same import patterns
 
 ### Anti-Patterns
+
 **Do NOT do the following:**
+
 - ❌ Adding animations without a specific request
 - ❌ Using form libraries (react-hook-form, formik, etc.)
 - ❌ Using raw colors instead of semantic tokens
@@ -347,13 +349,15 @@ import { Field, FieldLabel, FieldError, Input } from '@rollout/ui-kit';
 
 ```tsx
 // ❌ Avoid
-{items.map(({ title }) => {
-  const id = `item-${title}`
-  return <div key={id}>{title}</div>
-})}
+{
+  items.map(({ title }) => {
+    const id = `item-${title}`
+    return <div key={id}>{title}</div>
+  })
+}
 
 // ✅ Prefer
-{items.map(({ title }) => (
-  <div key={`item-${title}`}>{title}</div>
-))}
+{
+  items.map(({ title }) => <div key={`item-${title}`}>{title}</div>)
+}
 ```

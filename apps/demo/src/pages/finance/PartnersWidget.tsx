@@ -5,10 +5,10 @@ import { Tabs, TabsList, TabsTrigger } from '@rollout/ui-kit'
 import { PARTNER_TABS, PARTNER_CARDS, CASHBACK } from './data'
 
 const TAB_ICONS: Record<string, typeof Plane> = {
-  'Путешествия': Plane,
-  'Товары': ShoppingBag,
-  'Афиша': Theater,
-  'Топливо': Fuel,
+  Путешествия: Plane,
+  Товары: ShoppingBag,
+  Афиша: Theater,
+  Топливо: Fuel,
 }
 
 export function PartnersWidget() {
@@ -16,14 +16,16 @@ export function PartnersWidget() {
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <h2 className="text-base font-semibold text-foreground">Роллаут и партнеры</h2>
-        <Button variant="ghost" size="sm" className="text-primary">Все</Button>
+        <Button variant="ghost" size="sm" className="text-primary">
+          Все
+        </Button>
       </div>
 
       {/* Scrollable tab bar */}
       <Tabs defaultValue={PARTNER_TABS[1]}>
         <div className="overflow-x-auto scrollbar-hide -mx-4 px-4">
           <TabsList className="flex gap-2 w-max bg-transparent p-0 h-auto">
-            {PARTNER_TABS.map(tab => {
+            {PARTNER_TABS.map((tab) => {
               const Icon = TAB_ICONS[tab]
               return (
                 <TabsTrigger
@@ -44,13 +46,15 @@ export function PartnersWidget() {
 
       {/* Partner cards */}
       <div className="grid grid-cols-2 gap-3">
-        {PARTNER_CARDS.map(card => (
+        {PARTNER_CARDS.map((card) => (
           <Card
             key={card.id}
             className="rounded-3xl overflow-hidden bg-card border border-border shadow-sm cursor-pointer h-[124px] relative"
           >
             <div className="absolute top-6 left-6">
-              <p className="text-base font-medium text-card-foreground leading-none">{card.title}</p>
+              <p className="text-base font-medium text-card-foreground leading-none">
+                {card.title}
+              </p>
             </div>
             <img
               src={card.imageUrl}
@@ -68,7 +72,9 @@ export function PartnersWidget() {
           <TicketPercent className="size-6 text-muted-foreground" strokeWidth={1.5} />
         </div>
         <div className="flex flex-col justify-between flex-1 min-h-0">
-          <p className="text-xs font-normal text-muted-foreground leading-4">{CASHBACK.description}</p>
+          <p className="text-xs font-normal text-muted-foreground leading-4">
+            {CASHBACK.description}
+          </p>
           <p className="text-xs font-normal text-muted-foreground mt-4">{CASHBACK.footer}</p>
         </div>
       </Card>

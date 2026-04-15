@@ -4,9 +4,15 @@ import { Avatar, AvatarFallback, AvatarImage } from '@rollout/ui-kit'
 import { ACCOUNT } from './data'
 
 const QUICK_ACTIONS = [
-  { id: 'qr',   label: 'QR-код',     icon: <QrCode className="size-4" strokeWidth={1.5} /> },
-  { id: 'auto', label: 'Пополнить',  icon: <CirclePlus className="size-4" strokeWidth={1.5} /> },
-  { id: 'sbp',  label: 'СБП',        icon: <img src="/finance/logo-sbp.png" alt="СБП" className="size-5 object-contain rounded-full" /> },
+  { id: 'qr', label: 'QR-код', icon: <QrCode className="size-4" strokeWidth={1.5} /> },
+  { id: 'auto', label: 'Пополнить', icon: <CirclePlus className="size-4" strokeWidth={1.5} /> },
+  {
+    id: 'sbp',
+    label: 'СБП',
+    icon: (
+      <img src="/finance/logo-sbp.png" alt="СБП" className="size-5 object-contain rounded-full" />
+    ),
+  },
 ]
 
 export function AccountCard() {
@@ -16,7 +22,9 @@ export function AccountCard() {
       <div className="flex flex-col items-center gap-4 w-full">
         <Avatar className="size-11">
           <AvatarImage src="/finance/logo-tbank.png" alt="T-Bank" />
-          <AvatarFallback className="bg-yellow-400 text-yellow-900 text-sm font-bold">Т</AvatarFallback>
+          <AvatarFallback className="bg-yellow-400 text-yellow-900 text-sm font-bold">
+            Т
+          </AvatarFallback>
         </Avatar>
 
         <div className="flex flex-col items-center gap-2 w-full text-center">

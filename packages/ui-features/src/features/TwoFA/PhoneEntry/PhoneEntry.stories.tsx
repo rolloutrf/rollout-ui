@@ -1,6 +1,7 @@
+import { PHONE_MASKS } from '@features-src/features/TwoFA/PhoneEntry/constants/phoneMasks'
+
 import { PhoneEntry } from './components/PhoneEntry'
 
-import { PHONE_MASKS } from '@features-src/features/TwoFA/PhoneEntry/constants/phoneMasks'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 const meta = {

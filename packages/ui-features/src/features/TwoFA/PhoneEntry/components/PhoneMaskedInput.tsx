@@ -5,11 +5,7 @@ import { Input } from '@rollout/ui-kit'
 import { usePhoneMask } from '@features-src/features/TwoFA/PhoneEntry/hooks/usePhoneMask'
 import type { PhoneMaskedInputProps } from '@features-src/features/TwoFA/PhoneEntry/types/PhoneMaskedInput.types'
 
-export const PhoneMaskedInput = ({
-  mask,
-  onValueChange,
-  ...inputProps
-}: PhoneMaskedInputProps) => {
+export const PhoneMaskedInput = ({ mask, onValueChange, ...inputProps }: PhoneMaskedInputProps) => {
   const { value, onChange, onFocus, placeholder } = usePhoneMask(mask)
   const { onFocus: onInputFocus, ...restInputProps } = inputProps
 

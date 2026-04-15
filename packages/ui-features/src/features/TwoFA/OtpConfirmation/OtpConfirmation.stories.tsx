@@ -47,7 +47,7 @@ export const InvalidOtpInput: Story = {
       'aria-invalid': true,
     },
     inputOtpSlotProps: {
-      'aria-invalid': true
-    }
+      'aria-invalid': true,
+    },
   },
 }

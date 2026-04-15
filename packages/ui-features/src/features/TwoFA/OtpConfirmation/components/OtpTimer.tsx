@@ -27,7 +27,10 @@ export const OtpTimer = ({
   return (
     <Button
       variant="link"
-      className={cn('text-sm p-0 justify-start h-auto cursor-pointer underline', resendButtonClassName)}
+      className={cn(
+        'text-sm p-0 justify-start h-auto cursor-pointer underline',
+        resendButtonClassName
+      )}
       {...restResendButtonProps}
       onClick={handleResend}
     >

@@ -9,7 +9,9 @@ export function CurrencyRates() {
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <h2 className="text-base font-semibold text-foreground">Курсы валют</h2>
-        <Button variant="ghost" size="sm" className="text-primary">Все</Button>
+        <Button variant="ghost" size="sm" className="text-primary">
+          Все
+        </Button>
       </div>
 
       <Tabs defaultValue="currencies">
@@ -41,7 +43,7 @@ export function CurrencyRates() {
           </div>
 
           <div className="flex flex-col gap-4">
-            {CURRENCIES.map(c => (
+            {CURRENCIES.map((c) => (
               <div key={c.code} className="flex items-center gap-3">
                 <Avatar className="size-9 rounded-full flex-shrink-0">
                   <AvatarImage src={c.flag} alt={c.code} className="object-cover" />

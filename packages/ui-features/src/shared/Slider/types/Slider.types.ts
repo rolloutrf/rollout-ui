@@ -2,6 +2,7 @@ export type SliderProps = {
   children?: React.ReactNode
   className?: string
   slideClassName?: string
+  slideOnMouseMove?: boolean
 }
 
 export type SliderSlideProps = {

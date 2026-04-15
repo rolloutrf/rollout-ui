@@ -18,7 +18,7 @@ export function ItemCardActions({
 }: ItemCardActionsProps) {
   return (
     <div className="flex gap-2">
-      <div  className="w-full">
+      <div className="w-full">
         <Button variant="default" size="lg" className="w-full" {...buttonProps}>
           {buttonText}
         </Button>
@@ -41,4 +41,3 @@ export function ItemCardActions({
     </div>
   )
 }
-

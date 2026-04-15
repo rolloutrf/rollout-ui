@@ -15,4 +15,3 @@ export function ItemCardPrice({ price, originalPrice, discount }: ItemCardPriceP
     </div>
   )
 }
-

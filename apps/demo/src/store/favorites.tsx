@@ -23,7 +23,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
   }, [ids])
 
   const toggle = (id: string) => {
-    setIds(prev => {
+    setIds((prev) => {
       const next = new Set(prev)
       next.has(id) ? next.delete(id) : next.add(id)
       return next
@@ -33,9 +33,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
   const has = (id: string) => ids.has(id)
 
   return (
-    <FavoritesContext.Provider value={{ ids, toggle, has }}>
-      {children}
-    </FavoritesContext.Provider>
+    <FavoritesContext.Provider value={{ ids, toggle, has }}>{children}</FavoritesContext.Provider>
   )
 }
 

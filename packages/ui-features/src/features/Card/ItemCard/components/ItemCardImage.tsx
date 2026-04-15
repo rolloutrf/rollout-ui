@@ -1,5 +1,4 @@
 import type { ItemCardProps } from '@features-src/features/Card/ItemCard/types/ItemCard.types'
-
 import { Slider } from '@features-src/shared/Slider'
 
 type ItemCardImageProps = Pick<ItemCardProps, 'imgUrls'>

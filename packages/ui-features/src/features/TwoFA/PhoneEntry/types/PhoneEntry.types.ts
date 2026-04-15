@@ -2,6 +2,7 @@ import type { Button, Field } from '@rollout/ui-kit'
 
 import type { PhoneMaskConfig } from '@features-src/features/TwoFA/PhoneEntry/constants/phoneMasks'
 import type { PhoneMaskedInputProps } from '@features-src/features/TwoFA/PhoneEntry/types/PhoneMaskedInput.types'
+
 import type React from 'react'
 
 export type PhoneEntryProps = {

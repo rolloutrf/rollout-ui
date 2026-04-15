@@ -10,7 +10,9 @@ export function ItemCardSeller({ seller, rating, reviewCount }: ItemCardSellerPr
       <span className="text-sm font-bold leading-5 text-foreground">{seller}</span>
       {rating && (
         <div className="flex items-center gap-1">
-          <span className="text-sm leading-5 text-amber-500" aria-hidden="true">★</span>
+          <span className="text-sm leading-5 text-amber-500" aria-hidden="true">
+            ★
+          </span>
           <span className="text-sm leading-5 text-foreground">{rating}</span>
           {reviewCount && (
             <span className="text-sm leading-5 text-muted-foreground">{reviewCount}</span>
@@ -20,4 +22,3 @@ export function ItemCardSeller({ seller, rating, reviewCount }: ItemCardSellerPr
     </div>
   )
 }
-

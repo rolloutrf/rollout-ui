@@ -45,7 +45,10 @@ export const OtpConfirmation = ({
         <Button
           variant="link"
           {...changePhoneButtonProps}
-          className={cn('text-sm p-0 justify-start h-auto cursor-pointer underline', changePhoneButtonProps?.className)}
+          className={cn(
+            'text-sm p-0 justify-start h-auto cursor-pointer underline',
+            changePhoneButtonProps?.className
+          )}
           onClick={onChangePhone}
         >
           {changePhoneText}

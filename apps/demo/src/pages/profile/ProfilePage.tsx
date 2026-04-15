@@ -31,7 +31,10 @@ const WALLET = {
   label: 'На кошельке',
 }
 
-interface MenuItem { icon: LucideIcon; label: string }
+interface MenuItem {
+  icon: LucideIcon
+  label: string
+}
 
 const MENU_SECTIONS: { title: string; items: MenuItem[] }[] = [
   {
@@ -100,7 +103,9 @@ export function ProfilePage() {
           <p className="text-sm font-medium text-muted-foreground">Аккаунт</p>
           <div className="flex items-center gap-3 w-full py-2 px-1 cursor-pointer">
             <Avatar className="size-12">
-              <AvatarFallback className="bg-accent text-accent-foreground text-sm font-bold">АК</AvatarFallback>
+              <AvatarFallback className="bg-accent text-accent-foreground text-sm font-bold">
+                АК
+              </AvatarFallback>
             </Avatar>
             <div className="flex-1 min-w-0 text-left">
               <p className="text-sm font-medium text-foreground">{USER.name}</p>

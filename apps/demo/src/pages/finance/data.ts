@@ -1,5 +1,16 @@
 import type { LucideIcon } from 'lucide-react'
-import { SendHorizontal, CreditCard, MoreHorizontal, ShoppingBasket, Smartphone, Home, Wifi, Gamepad2, Car, Zap } from 'lucide-react'
+import {
+  SendHorizontal,
+  CreditCard,
+  MoreHorizontal,
+  ShoppingBasket,
+  Smartphone,
+  Home,
+  Wifi,
+  Gamepad2,
+  Car,
+  Zap,
+} from 'lucide-react'
 
 // Account
 export const ACCOUNT = {
@@ -107,7 +118,7 @@ export const CONTACTS: Contact[] = [
 
 // Currency rates
 export interface Currency {
-  flag: string   // path to flag image, e.g. '/finance/flag-cny.png'
+  flag: string // path to flag image, e.g. '/finance/flag-cny.png'
   code: string
   name: string
   buy: string
@@ -116,10 +127,38 @@ export interface Currency {
 }
 
 export const CURRENCIES: Currency[] = [
-  { flag: '/finance/flag-cny.png', code: 'CNY', name: 'Юань', buy: '11,22', sell: '10,96', trend: null },
-  { flag: '/finance/flag-usd.png', code: 'USD', name: 'Доллар', buy: '80,20', sell: '74,70', trend: null },
-  { flag: '/finance/flag-aed.png', code: 'AED', name: 'Дирхам', buy: '22,18', sell: '20,96', trend: 'up' },
-  { flag: '/finance/flag-kzt.png', code: '100 KZT', name: 'Тенге', buy: '16,09', sell: '14,77', trend: 'down' },
+  {
+    flag: '/finance/flag-cny.png',
+    code: 'CNY',
+    name: 'Юань',
+    buy: '11,22',
+    sell: '10,96',
+    trend: null,
+  },
+  {
+    flag: '/finance/flag-usd.png',
+    code: 'USD',
+    name: 'Доллар',
+    buy: '80,20',
+    sell: '74,70',
+    trend: null,
+  },
+  {
+    flag: '/finance/flag-aed.png',
+    code: 'AED',
+    name: 'Дирхам',
+    buy: '22,18',
+    sell: '20,96',
+    trend: 'up',
+  },
+  {
+    flag: '/finance/flag-kzt.png',
+    code: '100 KZT',
+    name: 'Тенге',
+    buy: '16,09',
+    sell: '14,77',
+    trend: 'down',
+  },
 ]
 
 // Payments
@@ -133,12 +172,54 @@ export interface Payment {
 }
 
 export const PAYMENTS: Payment[] = [
-  { id: 1, title: 'Мобильная связь',    subtitle: 'МТС · Билайн · Мегафон',      icon: Smartphone, iconBg: 'bg-orange-500/15', iconColor: 'text-orange-500' },
-  { id: 2, title: 'Квартплата',          subtitle: 'ЖКХ · Коммунальные услуги',   icon: Home,       iconBg: 'bg-blue-500/15',   iconColor: 'text-blue-500'   },
-  { id: 3, title: 'Интернет и ТВ',       subtitle: 'Ростелеком · Дом.ру · МТС',   icon: Wifi,       iconBg: 'bg-violet-500/15', iconColor: 'text-violet-500' },
-  { id: 4, title: 'Пополнение баланса',  subtitle: 'App Store · Google Play',      icon: Gamepad2,   iconBg: 'bg-secondary',     iconColor: 'text-foreground' },
-  { id: 5, title: 'Штрафы ГИБДД',        subtitle: 'Автоматически по номеру авто', icon: Car,        iconBg: 'bg-rose-500/15',   iconColor: 'text-rose-500'   },
-  { id: 6, title: 'Электроэнергия',      subtitle: 'Мосэнергосбыт · ТНС Энерго',  icon: Zap,        iconBg: 'bg-amber-500/15',  iconColor: 'text-amber-500'  },
+  {
+    id: 1,
+    title: 'Мобильная связь',
+    subtitle: 'МТС · Билайн · Мегафон',
+    icon: Smartphone,
+    iconBg: 'bg-orange-500/15',
+    iconColor: 'text-orange-500',
+  },
+  {
+    id: 2,
+    title: 'Квартплата',
+    subtitle: 'ЖКХ · Коммунальные услуги',
+    icon: Home,
+    iconBg: 'bg-blue-500/15',
+    iconColor: 'text-blue-500',
+  },
+  {
+    id: 3,
+    title: 'Интернет и ТВ',
+    subtitle: 'Ростелеком · Дом.ру · МТС',
+    icon: Wifi,
+    iconBg: 'bg-violet-500/15',
+    iconColor: 'text-violet-500',
+  },
+  {
+    id: 4,
+    title: 'Пополнение баланса',
+    subtitle: 'App Store · Google Play',
+    icon: Gamepad2,
+    iconBg: 'bg-secondary',
+    iconColor: 'text-foreground',
+  },
+  {
+    id: 5,
+    title: 'Штрафы ГИБДД',
+    subtitle: 'Автоматически по номеру авто',
+    icon: Car,
+    iconBg: 'bg-rose-500/15',
+    iconColor: 'text-rose-500',
+  },
+  {
+    id: 6,
+    title: 'Электроэнергия',
+    subtitle: 'Мосэнергосбыт · ТНС Энерго',
+    icon: Zap,
+    iconBg: 'bg-amber-500/15',
+    iconColor: 'text-amber-500',
+  },
 ]
 
 // Products
@@ -151,10 +232,16 @@ export interface Product {
 }
 
 export const PRODUCTS: Product[] = [
-  { id: 1, title: 'Займы',      imageUrl: '/finance/product-zaimy.png',       bgColor: 'bg-secondary' },
-  { id: 2, title: 'Ипотека',    imageUrl: '/finance/product-ipoteka.png',     bgColor: 'bg-secondary' },
-  { id: 3, title: 'Инвестиции', subtitle: 'от 5₽', imageUrl: '/finance/product-investitsii.png', bgColor: 'bg-secondary' },
-  { id: 4, title: 'Кредиты',    imageUrl: '/finance/product-kredity.png',     bgColor: 'bg-secondary' },
+  { id: 1, title: 'Займы', imageUrl: '/finance/product-zaimy.png', bgColor: 'bg-secondary' },
+  { id: 2, title: 'Ипотека', imageUrl: '/finance/product-ipoteka.png', bgColor: 'bg-secondary' },
+  {
+    id: 3,
+    title: 'Инвестиции',
+    subtitle: 'от 5₽',
+    imageUrl: '/finance/product-investitsii.png',
+    bgColor: 'bg-secondary',
+  },
+  { id: 4, title: 'Кредиты', imageUrl: '/finance/product-kredity.png', bgColor: 'bg-secondary' },
 ]
 
 // Self-employment
@@ -193,8 +280,18 @@ export interface MoreProduct {
 }
 
 export const MORE_PRODUCTS: MoreProduct[] = [
-  { id: 1, title: 'Skyeng',      subtitle: 'Мастерски качают английский', imageUrl: '/finance/more-skyeng-photo.png' },
-  { id: 2, title: 'ЦУМ OUTLET', subtitle: 'Скидки до 70%',               imageUrl: '/finance/more-tsum-photo.png' },
-  { id: 3, title: 'Ostrovok',   subtitle: 'Отели от 2 000 ₽',            imageUrl: '/home/product-hotel.png' },
-  { id: 4, title: 'Летуаль',    subtitle: 'Парфюм и уход',                imageUrl: '/home/product-perfume.png' },
+  {
+    id: 1,
+    title: 'Skyeng',
+    subtitle: 'Мастерски качают английский',
+    imageUrl: '/finance/more-skyeng-photo.png',
+  },
+  {
+    id: 2,
+    title: 'ЦУМ OUTLET',
+    subtitle: 'Скидки до 70%',
+    imageUrl: '/finance/more-tsum-photo.png',
+  },
+  { id: 3, title: 'Ostrovok', subtitle: 'Отели от 2 000 ₽', imageUrl: '/home/product-hotel.png' },
+  { id: 4, title: 'Летуаль', subtitle: 'Парфюм и уход', imageUrl: '/home/product-perfume.png' },
 ]

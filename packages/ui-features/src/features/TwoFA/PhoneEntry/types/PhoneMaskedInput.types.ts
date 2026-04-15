@@ -9,4 +9,3 @@ export type PhoneMaskedInputProps = Omit<
   mask: PhoneMaskConfig
   onValueChange?: (value: string) => void
 }
-

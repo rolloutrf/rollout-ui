@@ -18,7 +18,9 @@ export function PromotionCard() {
       {/* Content */}
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium text-foreground leading-4">{PROMOTION.title}</p>
-        <p className="text-sm text-muted-foreground leading-5 mt-1 truncate">{PROMOTION.description}</p>
+        <p className="text-sm text-muted-foreground leading-5 mt-1 truncate">
+          {PROMOTION.description}
+        </p>
       </div>
 
       {/* Close */}

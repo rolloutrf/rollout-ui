@@ -13,7 +13,7 @@ export function SearchBar() {
         <Input
           placeholder="Поиск"
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
           className="h-10 pl-10 pr-10 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]"
         />
         {query && (

@@ -16,11 +16,11 @@ export default function App() {
         <AppShell>
           <Header />
           <Routes>
-            <Route path="/"          element={<HomePage />} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
-            <Route path="/finance"   element={<FinancePage />} />
-            <Route path="/cart"      element={<ContentSlot />} />
-            <Route path="/profile"   element={<ProfilePage />} />
+            <Route path="/finance" element={<FinancePage />} />
+            <Route path="/cart" element={<ContentSlot />} />
+            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/assistant" element={<ContentSlot />} />
           </Routes>
           <Footer />

@@ -14,7 +14,13 @@ export const OtpForm = ({
   const [value, setValue] = useOtpCodeState(slotsCount, onComplete)
 
   return (
-    <InputOTP autoComplete="one-time-code"  maxLength={slotsCount} value={value} onChange={setValue} {...inputOtpProps}>
+    <InputOTP
+      autoComplete="one-time-code"
+      maxLength={slotsCount}
+      value={value}
+      onChange={setValue}
+      {...inputOtpProps}
+    >
       <div className={'flex space-x-2'}>
         {Array.from({ length: slotsCount }, (_, itemIndex) => (
           <InputOTPGroup key={itemIndex}>

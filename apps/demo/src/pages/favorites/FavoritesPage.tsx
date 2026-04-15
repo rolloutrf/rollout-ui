@@ -5,7 +5,7 @@ import { ProductCard } from '@/pages/home/ProductCard'
 
 export function FavoritesPage() {
   const { ids } = useFavorites()
-  const items = PRODUCTS.filter(p => ids.has(p.id))
+  const items = PRODUCTS.filter((p) => ids.has(p.id))
 
   return (
     <div className="w-full">
@@ -19,7 +19,7 @@ export function FavoritesPage() {
           </div>
         ) : (
           <div className="grid grid-cols-2 gap-x-5 gap-y-7">
-            {items.map(p => (
+            {items.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}
           </div>

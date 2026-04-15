@@ -4,4 +4,3 @@ export type OtpTimerProps = Pick<
   OtpConfirmationProps,
   'onResend' | 'resendText' | 'getTimerText' | 'resetSeconds' | 'resendButtonProps'
 >
-

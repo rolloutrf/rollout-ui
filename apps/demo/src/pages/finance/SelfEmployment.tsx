@@ -7,7 +7,9 @@ export function SelfEmployment() {
     <div className="flex flex-col gap-3">
       <div className="flex items-center justify-between">
         <h2 className="text-base font-semibold text-foreground">Самозанятость</h2>
-        <Button variant="link" className="text-foreground p-0 h-auto text-xs font-medium">Ещё</Button>
+        <Button variant="link" className="text-foreground p-0 h-auto text-xs font-medium">
+          Ещё
+        </Button>
       </div>
 
       <div className="flex flex-col gap-1">

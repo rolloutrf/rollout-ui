@@ -22,7 +22,11 @@ export const useOtpCodeStatus = ({
   onResend,
   resetSeconds = 59,
 }: UseOtpCodeStatusProps): UseOtpCodeStatusReturn => {
-  const { time, restart: restartTimer, isRunning } = useTimer({
+  const {
+    time,
+    restart: restartTimer,
+    isRunning,
+  } = useTimer({
     startValueMs: resetSeconds * 1000,
     minValueMs: MIN_VALUE_MS,
     tickMs: 1000,

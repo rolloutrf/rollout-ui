@@ -19,7 +19,10 @@ export function ItemCardAttributes({ attributes }: ItemCardAttributesProps) {
             />
           ))}
           {attr.Icon && (
-            <attr.Icon className="size-3.5 flex-shrink-0 text-muted-foreground" aria-hidden="true" />
+            <attr.Icon
+              className="size-3.5 flex-shrink-0 text-muted-foreground"
+              aria-hidden="true"
+            />
           )}
           <span className="text-sm leading-5 text-foreground truncate">{attr.text}</span>
         </div>
@@ -27,4 +30,3 @@ export function ItemCardAttributes({ attributes }: ItemCardAttributesProps) {
     </div>
   )
 }
-

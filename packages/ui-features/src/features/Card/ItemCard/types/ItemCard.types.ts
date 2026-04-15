@@ -1,6 +1,6 @@
-import type { LucideIcon } from 'lucide-react'
-
 import type { Button } from '@rollout/ui-kit'
+
+import type { LucideIcon } from 'lucide-react'
 
 export type ItemCardAttribute = {
   Icon?: LucideIcon
