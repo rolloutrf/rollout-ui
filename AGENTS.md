@@ -136,6 +136,28 @@ import { Button, Input, Field, FieldLabel, FieldError } from '@rollout/ui-kit'
 
 ## 8. Accessibility Best Practices
 
+### Language for Invisible Labels
+
+**All invisible text in templates must be written in English.** This includes any attribute whose value is not rendered as visible UI text:
+
+- `aria-label`, `aria-labelledby`, `aria-describedby`, `aria-placeholder`
+- `alt` on images
+- `title` on elements
+
+```tsx
+// ✅ Correct
+<img src="..." alt="Product preview" />
+<Button aria-label="Close dialog">
+
+// ❌ Incorrect
+<img src="..." alt="Превью товара" />
+<Button aria-label="Закрыть диалог">
+```
+
+**Important:** Visible UI text (button labels, headings, field labels, descriptions) follows the project locale and is **not** affected by this rule.
+
+---
+
 ### Inputs Without Visible Labels
 
 **Always use `aria-label` for inputs without visible labels:**

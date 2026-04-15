@@ -26,7 +26,7 @@ export function ItemCardActions({
       <Button
         variant="secondary"
         size="icon-lg"
-        aria-label="Добавить в избранное"
+        aria-label="add to favorite"
         {...favoriteButtonProps}
         onClick={onFavoriteToggle}
       >

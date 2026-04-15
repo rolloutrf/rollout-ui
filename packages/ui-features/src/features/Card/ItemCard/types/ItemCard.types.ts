@@ -1,12 +1,28 @@
 import type { Button } from '@rollout/ui-kit'
 
-import type { LucideIcon } from 'lucide-react'
-
-export type ItemCardAttribute = {
-  Icon?: LucideIcon
-  swatches?: string[]
-  text: string
+type ItemCardAttributeBase = {
+  label: string
 }
+
+type ItemCardAttributeIcon = ItemCardAttributeBase & {
+  type: 'icon'
+  icon: React.ElementType
+}
+
+type ItemCardAttributeColor = ItemCardAttributeBase & {
+  type: 'color'
+  colors: string[]
+}
+
+type ItemCardAttributeComponent = ItemCardAttributeBase & {
+  type: 'component'
+  content: React.ReactNode
+}
+
+export type ItemCardAttribute =
+  | ItemCardAttributeIcon
+  | ItemCardAttributeColor
+  | ItemCardAttributeComponent
 
 export type ItemCardProps = {
   imgUrls?: string[]

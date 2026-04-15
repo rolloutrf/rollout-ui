@@ -1,18 +1,26 @@
 import { Palette, Truck } from 'lucide-react'
 
+import type { ItemCardAttribute } from '@features-src/features/Card/ItemCard/types/ItemCard.types'
+
 import { ItemCard } from './components/ItemCard'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
-const DEFAULT_ATTRIBUTES = [
+const DEFAULT_ATTRIBUTES: ItemCardAttribute[] = [
   {
-    Icon: Palette,
-    swatches: ['#111827', '#F97316', '#EAB308'],
-    text: '3 цвета',
+    type: 'color',
+    colors: ['#111827', '#F97316', '#EAB308'],
+    label: '3 цвета',
   },
   {
-    Icon: Truck,
-    text: 'Доставка завтра',
+    type: 'icon',
+    icon: Palette,
+    label: 'Палитра доступна',
+  },
+  {
+    type: 'icon',
+    icon: Truck,
+    label: 'Доставка завтра',
   },
 ]
 

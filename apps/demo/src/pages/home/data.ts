@@ -1,11 +1,25 @@
-import type { LucideIcon } from 'lucide-react'
 import { Truck, RefreshCw, MapPin } from 'lucide-react'
 
-export interface Attribute {
-  Icon?: LucideIcon // lucide-react icon component (Truck, RefreshCw, MapPin, etc.)
-  swatches?: string[] // color hex values for color dots row
-  text: string
+type AttributeBase = {
+  label: string
 }
+
+type AttributeIcon = AttributeBase & {
+  type: 'icon'
+  icon: React.ElementType<{ className?: string; 'aria-hidden'?: boolean }>
+}
+
+type AttributeColor = AttributeBase & {
+  type: 'color'
+  colors: string[]
+}
+
+type AttributeComponent = AttributeBase & {
+  type: 'component'
+  content: React.ReactNode
+}
+
+export type Attribute = AttributeIcon | AttributeColor | AttributeComponent
 
 export interface Category {
   id: string
@@ -108,9 +122,9 @@ export const PRODUCTS: Product[] = [
     originalPrice: '79\u00a0500 ₽',
     discount: '-10 %',
     attributes: [
-      { swatches: ['#0a0a0a', '#737373', '#e5e5e5', '#1d4ed8'], text: '+2 цвета' },
-      { Icon: Truck, text: '3-5 дней' },
-      { Icon: RefreshCw, text: 'Можно в рассрочку' },
+      { type: 'color', colors: ['#0a0a0a', '#737373', '#e5e5e5', '#1d4ed8'], label: '+2 цвета' },
+      { type: 'icon', icon: Truck, label: '3-5 дней' },
+      { type: 'icon', icon: RefreshCw, label: 'Можно в рассрочку' },
     ],
     seller: 'Alexstore',
     rating: '4,2',
@@ -125,7 +139,7 @@ export const PRODUCTS: Product[] = [
     price: '5\u00a0399\u00a0000 ₽',
     originalPrice: '5\u00a0938\u00a0900 ₽',
     discount: '-10 %',
-    attributes: [{ text: 'Седан ∙ Автомат' }],
+    attributes: [{ type: 'component', content: 'Седан ∙ Автомат', label: 'Седан ∙ Автомат' }],
     seller: 'Autostar',
     rating: '4,2',
     date: 'Создано вчера в\u00a011:20',
@@ -139,9 +153,9 @@ export const PRODUCTS: Product[] = [
     originalPrice: '8\u00a0625\u00a0000 ₽',
     discount: '-15 %',
     attributes: [
-      { text: '1 из 11 эт. ∙ 4 кв. 2024' },
-      { Icon: Truck, text: 'Спальных мест: 4' },
-      { Icon: MapPin, text: 'м. Солнцево' },
+      { type: 'component', content: '1 из 11 эт. ∙ 4 кв. 2024', label: '1 из 11 эт. ∙ 4 кв. 2024' },
+      { type: 'icon', icon: Truck, label: 'Спальных мест: 4' },
+      { type: 'icon', icon: MapPin, label: 'м. Солнцево' },
     ],
     seller: 'ЖК Солнечный',
     rating: '4,7',
@@ -154,7 +168,7 @@ export const PRODUCTS: Product[] = [
     imgUrl: ['/home/product-pizza.png'],
     title: 'Пицца пепперони, средняя, 350 г',
     price: '690 ₽',
-    attributes: [{ Icon: Truck, text: 'в течении часа' }],
+    attributes: [{ type: 'icon', icon: Truck, label: 'в течении часа' }],
     seller: 'Дринкит',
     rating: '4,9',
     reviewCount: '(190)',
@@ -169,8 +183,8 @@ export const PRODUCTS: Product[] = [
     originalPrice: '5\u00a0925 ₽',
     discount: '-10 %',
     attributes: [
-      { swatches: ['#0a0a0a', '#e5e5e5', '#1d4ed8'], text: '+2 цвета' },
-      { text: 'Размеры 40 - 56' },
+      { type: 'color', colors: ['#0a0a0a', '#e5e5e5', '#1d4ed8'], label: '+2 цвета' },
+      { type: 'component', content: 'Размеры 40 - 56', label: 'Размеры 40 - 56' },
     ],
     seller: 'YES YES Brand',
     rating: '4,5',
@@ -185,9 +199,9 @@ export const PRODUCTS: Product[] = [
       'Услуги сантехника: установка и ремонт труб, монтаж сантехнического оборудования, устранение засоров',
     price: 'от 10\u00a0000 ₽',
     attributes: [
-      { text: '1\u00a0000 ₽ за час' },
-      { text: 'Комиссия 50%' },
-      { Icon: MapPin, text: 'м. Солнцево' },
+      { type: 'component', content: '1\u00a0000 ₽ за час', label: '1\u00a0000 ₽ за час' },
+      { type: 'component', content: 'Комиссия 50%', label: 'Комиссия 50%' },
+      { type: 'icon', icon: MapPin, label: 'м. Солнцево' },
     ],
     seller: 'Александр',
     rating: '4,8',
@@ -200,7 +214,10 @@ export const PRODUCTS: Product[] = [
     imgUrl: ['/home/product-bananas.png'],
     title: 'Бананы Эквадор, 500 г',
     price: '99 ₽',
-    attributes: [{ text: '+200 баллов' }, { Icon: Truck, text: 'за 1 час' }],
+    attributes: [
+      { type: 'component', content: '+200 баллов', label: '+200 баллов' },
+      { type: 'icon', icon: Truck, label: 'за 1 час' },
+    ],
     seller: 'Дринкит',
     rating: '4,6',
     reviewCount: '(543)',
@@ -212,7 +229,7 @@ export const PRODUCTS: Product[] = [
     imgUrl: ['/home/product-bouquet.png'],
     title: 'Букет цветов «Летний бриз» (роза, гвоздика, ромашка)',
     price: '2\u00a0700 ₽',
-    attributes: [{ Icon: Truck, text: 'за 30 минут' }],
+    attributes: [{ type: 'icon', icon: Truck, label: 'за 30 минут' }],
     seller: 'NiceFlower',
     rating: '4,9',
     reviewCount: '(312)',
@@ -224,7 +241,7 @@ export const PRODUCTS: Product[] = [
     imgUrl: ['/home/product-hotel.png'],
     title: 'Отель «Сияющий Титан» номера класса люкс',
     price: '10\u00a0000 ₽',
-    attributes: [{ text: 'цена за 9 ночей' }],
+    attributes: [{ type: 'component', content: 'цена за 9 ночей', label: 'цена за 9 ночей' }],
     seller: 'Travel Star',
     rating: '4,7',
     reviewCount: '(156)',
@@ -237,8 +254,8 @@ export const PRODUCTS: Product[] = [
     title: 'Каркасный дом «Северное Сияние»',
     price: '7\u00a0000\u00a0000 ₽',
     attributes: [
-      { Icon: Truck, text: 'Спальных мест: 4' },
-      { Icon: MapPin, text: 'Подольск' },
+      { type: 'icon', icon: Truck, label: 'Спальных мест: 4' },
+      { type: 'icon', icon: MapPin, label: 'Подольск' },
     ],
     seller: 'House',
     rating: '4,4',
@@ -251,7 +268,7 @@ export const PRODUCTS: Product[] = [
     imgUrl: ['/home/product-perfume.png'],
     title: 'Духи «Тайна Ночи» с нотами чёрной смородины и жасмина',
     price: '19\u00a0500 ₽',
-    attributes: [{ Icon: Truck, text: '1 день' }],
+    attributes: [{ type: 'icon', icon: Truck, label: '1 день' }],
     seller: 'Афродита',
     rating: '4,9',
     reviewCount: '(89)',
@@ -264,9 +281,9 @@ export const PRODUCTS: Product[] = [
     title: 'Программист для разработки мобильных приложений на платформе iOS',
     price: '375\u00a0000 ₽',
     attributes: [
-      { text: 'Старший специалист' },
-      { text: 'Полный день' },
-      { Icon: MapPin, text: 'Москва' },
+      { type: 'component', content: 'Старший специалист', label: 'Старший специалист' },
+      { type: 'component', content: 'Полный день', label: 'Полный день' },
+      { type: 'icon', icon: MapPin, label: 'Москва' },
     ],
     seller: 'Jobs',
     rating: '4,3',
@@ -280,9 +297,9 @@ export const PRODUCTS: Product[] = [
     title: 'Барское кресло',
     price: '375\u00a0000 ₽',
     attributes: [
-      { swatches: ['#0a0a0a', '#e5e5e5', '#737373'], text: '+2 цвета' },
-      { Icon: Truck, text: '1-2 дня' },
-      { text: '200 бонусов' },
+      { type: 'color', colors: ['#0a0a0a', '#e5e5e5', '#737373'], label: '+2 цвета' },
+      { type: 'icon', icon: Truck, label: '1-2 дня' },
+      { type: 'component', content: '200 бонусов', label: '200 бонусов' },
     ],
     seller: 'Cozy Home',
     rating: '4,6',
