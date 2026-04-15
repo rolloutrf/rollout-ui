@@ -1,25 +1,27 @@
 import type { ItemCardProps } from '@features-src/features/Card/ItemCard/types/ItemCard.types'
 
-type ItemCardImageProps = Pick<ItemCardProps, 'imgUrl' | 'title'>
+import { Slider } from '@features-src/shared/Slider'
 
-export function ItemCardImage({ imgUrl, title }: ItemCardImageProps) {
+type ItemCardImageProps = Pick<ItemCardProps, 'imgUrls'>
+
+export function ItemCardImage({ imgUrls }: ItemCardImageProps) {
+  if (!imgUrls?.length) {
+    return null
+  }
+
   return (
-    <div className="flex flex-col gap-1.5 items-center w-full">
-      <div className="aspect-square bg-card border border-border rounded-lg shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] overflow-hidden w-full">
-        <img
-          src={imgUrl}
-          alt={title}
-          className="w-full h-full object-cover"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-      <div className="flex gap-0.5 items-center">
-        <div className="w-1 h-1 rounded-full bg-foreground" />
-        <div className="w-0.75 h-0.75 rounded-full bg-border" />
-        <div className="w-0.75 h-0.75 rounded-full bg-border" />
-      </div>
-    </div>
+    <Slider>
+      {imgUrls.map((src, index) => (
+        <figure key={index} className="h-full w-full">
+          <img
+            src={src}
+            alt={`gallery image ${index}`}
+            className="h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      ))}
+    </Slider>
   )
 }
-

@@ -9,7 +9,7 @@ export type ItemCardAttribute = {
 }
 
 export type ItemCardProps = {
-  imgUrl: string
+  imgUrls?: string[]
   title: string
   price: string
   originalPrice?: string
@@ -25,4 +25,3 @@ export type ItemCardProps = {
   buttonProps?: Omit<React.ComponentProps<typeof Button>, 'children'>
   favoriteButtonProps?: Omit<React.ComponentProps<typeof Button>, 'onClick' | 'children'>
 }
-

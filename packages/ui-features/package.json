@@ -42,7 +42,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@rollout/ui-kit": "workspace:*"
+    "@rollout/ui-kit": "workspace:*",
+    "nanoid": "^5.1.7"
   },
   "peerDependencies": {
     "lucide-react": "^0.469.0",

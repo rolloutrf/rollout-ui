@@ -8,7 +8,7 @@ export function ProductCard({ product: p }: { product: Product }) {
 
   return (
     <ItemCard
-      imgUrl={p.imgUrl}
+      imgUrls={p.imgUrl}
       title={p.title}
       price={p.price}
       originalPrice={p.originalPrice}

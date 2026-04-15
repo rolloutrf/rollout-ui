@@ -7,7 +7,7 @@ import { ItemCardPrice } from './ItemCardPrice'
 import { ItemCardSeller } from './ItemCardSeller'
 
 export function ItemCard({
-  imgUrl,
+  imgUrls,
   title,
   price,
   originalPrice,
@@ -25,9 +25,9 @@ export function ItemCard({
 }: ItemCardProps) {
   return (
     <div className="flex flex-col gap-3">
-      <ItemCardImage imgUrl={imgUrl} title={title} />
+      <ItemCardImage imgUrls={imgUrls} />
 
-      <div className="flex flex-col gap-2 px-1">
+      <div className="flex flex-col gap-2 px-1 w-full">
         <p className="text-base font-normal leading-6 text-foreground line-clamp-2">{title}</p>
 
         <ItemCardPrice price={price} originalPrice={originalPrice} discount={discount} />
@@ -49,4 +49,3 @@ export function ItemCard({
     </div>
   )
 }
-

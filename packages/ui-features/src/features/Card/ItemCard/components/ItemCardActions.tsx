@@ -17,10 +17,12 @@ export function ItemCardActions({
   favoriteButtonProps,
 }: ItemCardActionsProps) {
   return (
-    <div className="flex gap-2 items-center">
-      <Button variant="default" size="lg" {...buttonProps}>
-        {buttonText}
-      </Button>
+    <div className="flex gap-2">
+      <div  className="w-full">
+        <Button variant="default" size="lg" className="w-full" {...buttonProps}>
+          {buttonText}
+        </Button>
+      </div>
       <Button
         variant="secondary"
         size="icon-lg"

@@ -343,3 +343,17 @@ import { Field, FieldLabel, FieldError, Input } from '@rollout/ui-kit';
 - ❌ Adding comments for self-explanatory code
 - ❌ Deep-importing from `@rollout/ui-kit/*` or `@rollout/ui-features/*`
 - ❌ Using `@ui-kit/*` alias outside `packages/ui-kit`
+- ❌ Using `return` inside JSX template iterators (`map`, etc.); prefer implicit return with parentheses
+
+```tsx
+// ❌ Avoid
+{items.map(({ title }) => {
+  const id = `item-${title}`
+  return <div key={id}>{title}</div>
+})}
+
+// ✅ Prefer
+{items.map(({ title }) => (
+  <div key={`item-${title}`}>{title}</div>
+))}
+```
