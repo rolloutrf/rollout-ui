@@ -6,13 +6,7 @@ import { useOtpCodeStatus } from '@features-src/features/TwoFA/OtpConfirmation/h
 import type { OtpTimerProps } from '@features-src/features/TwoFA/OtpConfirmation/types/OtpTimer.types'
 import { Notice } from '@features-src/features/TwoFA/shared/ui/Notice'
 
-export const OtpTimer = ({
-  onResend,
-  resendText,
-  getTimerText,
-  resetSeconds,
-  resendButtonProps,
-}: OtpTimerProps) => {
+export const OtpTimer = ({ onResend, resendText, getTimerText, resetSeconds, resendButtonProps }: OtpTimerProps) => {
   const { className: resendButtonClassName, ...restResendButtonProps } = resendButtonProps ?? {}
 
   const { timerText, isRunning, handleResend } = useOtpCodeStatus({
@@ -27,10 +21,7 @@ export const OtpTimer = ({
   return (
     <Button
       variant="link"
-      className={cn(
-        'text-sm p-0 justify-start h-auto cursor-pointer underline',
-        resendButtonClassName
-      )}
+      className={cn('text-sm p-0 justify-start h-auto cursor-pointer underline', resendButtonClassName)}
       {...restResendButtonProps}
       onClick={handleResend}
     >

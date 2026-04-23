@@ -14,6 +14,7 @@ import {
   ChevronRight,
   type LucideIcon,
 } from 'lucide-react'
+
 import { Card } from '@rollout/ui-kit'
 import { Button } from '@rollout/ui-kit'
 import { Avatar, AvatarFallback } from '@rollout/ui-kit'
@@ -103,9 +104,7 @@ export function ProfilePage() {
           <p className="text-sm font-medium text-muted-foreground">Аккаунт</p>
           <div className="flex items-center gap-3 w-full py-2 px-1 cursor-pointer">
             <Avatar className="size-12">
-              <AvatarFallback className="bg-accent text-accent-foreground text-sm font-bold">
-                АК
-              </AvatarFallback>
+              <AvatarFallback className="bg-accent text-accent-foreground text-sm font-bold">АК</AvatarFallback>
             </Avatar>
             <div className="flex-1 min-w-0 text-left">
               <p className="text-sm font-medium text-foreground">{USER.name}</p>
@@ -132,9 +131,7 @@ export function ProfilePage() {
         {/* Menu sections */}
         {MENU_SECTIONS.map((section, si) => (
           <section key={si} className="flex flex-col gap-1">
-            {section.title && (
-              <p className="text-sm font-medium text-muted-foreground mb-2">{section.title}</p>
-            )}
+            {section.title && <p className="text-sm font-medium text-muted-foreground mb-2">{section.title}</p>}
             {section.items.map((item, ii) => (
               <MenuRow key={ii} {...item} />
             ))}

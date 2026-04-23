@@ -1,7 +1,9 @@
-import { useState } from 'react'
 import { X, BadgePercent } from 'lucide-react'
+import { useState } from 'react'
+
 import { Button } from '@rollout/ui-kit'
 import { Card } from '@rollout/ui-kit'
+
 import { PROMOTION } from './data'
 
 export function PromotionCard() {
@@ -18,9 +20,7 @@ export function PromotionCard() {
       {/* Content */}
       <div className="flex-1 min-w-0">
         <p className="text-sm font-medium text-foreground leading-4">{PROMOTION.title}</p>
-        <p className="text-sm text-muted-foreground leading-5 mt-1 truncate">
-          {PROMOTION.description}
-        </p>
+        <p className="text-sm text-muted-foreground leading-5 mt-1 truncate">{PROMOTION.description}</p>
       </div>
 
       {/* Close */}

@@ -1,7 +1,8 @@
 import { Heart } from 'lucide-react'
-import { useFavorites } from '@/store/favorites'
+
 import { PRODUCTS } from '@/pages/home/data'
 import { ProductCard } from '@/pages/home/ProductCard'
+import { useFavorites } from '@/store/favorites'
 
 export function FavoritesPage() {
   const { ids } = useFavorites()

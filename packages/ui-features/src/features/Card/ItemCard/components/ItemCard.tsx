@@ -11,7 +11,8 @@ export function ItemCard({
   title,
   price,
   originalPrice,
-  discount,
+  priceLocale,
+  priceCurrency,
   attributes,
   seller,
   rating,
@@ -30,7 +31,12 @@ export function ItemCard({
       <div className="flex flex-col gap-2 px-1 w-full">
         <p className="text-base font-normal leading-6 text-foreground line-clamp-2">{title}</p>
 
-        <ItemCardPrice price={price} originalPrice={originalPrice} discount={discount} />
+        <ItemCardPrice
+          price={price}
+          originalPrice={originalPrice}
+          priceLocale={priceLocale}
+          priceCurrency={priceCurrency}
+        />
 
         <ItemCardAttributes attributes={attributes} />
 

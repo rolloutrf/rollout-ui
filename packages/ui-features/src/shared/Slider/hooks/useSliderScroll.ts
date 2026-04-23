@@ -1,8 +1,8 @@
 import { useCallback, useRef, useState } from 'react'
 
 import { useIsMobile } from '@features-src/shared/hooks/useIsMobile'
-
 import type { SliderProps } from '@features-src/shared/Slider'
+
 import type { MouseEvent } from 'react'
 
 export function useSliderScroll({ slideOnMouseMove }: Pick<SliderProps, 'slideOnMouseMove'>) {

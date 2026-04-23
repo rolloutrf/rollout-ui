@@ -32,9 +32,7 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
 
   const has = (id: string) => ids.has(id)
 
-  return (
-    <FavoritesContext.Provider value={{ ids, toggle, has }}>{children}</FavoritesContext.Provider>
-  )
+  return <FavoritesContext.Provider value={{ ids, toggle, has }}>{children}</FavoritesContext.Provider>
 }
 
 export function useFavorites() {

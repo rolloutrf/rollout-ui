@@ -1,5 +1,6 @@
-import { NavLink } from 'react-router-dom'
 import { Sparkles } from 'lucide-react'
+import { NavLink } from 'react-router-dom'
+
 import { cn } from '@/lib/utils'
 
 export function AssistantFAB() {

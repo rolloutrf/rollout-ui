@@ -1,5 +1,4 @@
-import { Button, cn } from '@rollout/ui-kit'
-
+import { ChangePhoneButton } from '@features-src/features/TwoFA/OtpConfirmation/components/ChangePhoneButton'
 import { OtpForm } from '@features-src/features/TwoFA/OtpConfirmation/components/OtpForm'
 import { OtpTimer } from '@features-src/features/TwoFA/OtpConfirmation/components/OtpTimer'
 import type { OtpConfirmationProps } from '@features-src/features/TwoFA/OtpConfirmation/types/OtpConfirmation.types'
@@ -27,11 +26,7 @@ export const OtpConfirmation = ({
     <div className={'flex flex-col space-y-7'}>
       <Heading subTitle={subTitle} title={title} />
       <div className={'flex flex-col space-y-2'}>
-        <OtpForm
-          slotsCount={slotsCount}
-          inputOtpProps={inputOtpProps}
-          inputOtpSlotProps={inputOtpSlotProps}
-        />
+        <OtpForm slotsCount={slotsCount} inputOtpProps={inputOtpProps} inputOtpSlotProps={inputOtpSlotProps} />
         <Notice className={'text-error'}>{errorText}</Notice>
       </div>
       <div className={'flex flex-col space-y-4'}>
@@ -42,17 +37,11 @@ export const OtpConfirmation = ({
           resetSeconds={resetSeconds}
           resendButtonProps={resendButtonProps}
         />
-        <Button
-          variant="link"
-          {...changePhoneButtonProps}
-          className={cn(
-            'text-sm p-0 justify-start h-auto cursor-pointer underline',
-            changePhoneButtonProps?.className
-          )}
-          onClick={onChangePhone}
-        >
-          {changePhoneText}
-        </Button>
+        <ChangePhoneButton
+          onChangePhone={onChangePhone}
+          changePhoneText={changePhoneText}
+          changePhoneButtonProps={changePhoneButtonProps}
+        />
       </div>
       <Notice>{policy}</Notice>
     </div>

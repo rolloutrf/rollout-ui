@@ -1,4 +1,3 @@
-import type { LucideIcon } from 'lucide-react'
 import {
   SendHorizontal,
   CreditCard,
@@ -11,6 +10,8 @@ import {
   Car,
   Zap,
 } from 'lucide-react'
+
+import type { LucideIcon } from 'lucide-react'
 
 // Account
 export const ACCOUNT = {

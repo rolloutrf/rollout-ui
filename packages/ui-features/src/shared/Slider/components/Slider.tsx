@@ -12,8 +12,9 @@ import { SlideWrap } from './SlideWrap'
 
 export function Slider({ children, className, slideClassName, slideOnMouseMove = true }: SliderProps) {
   const slides = Children.toArray(children)
-  const { sliderRef, activeIndex, setSlideRef, onSelectSlide, onScroll, onMouseMove } =
-    useSliderScroll({ slideOnMouseMove })
+  const { sliderRef, activeIndex, setSlideRef, onSelectSlide, onScroll, onMouseMove } = useSliderScroll({
+    slideOnMouseMove,
+  })
 
   if (!slides.length) return null
 

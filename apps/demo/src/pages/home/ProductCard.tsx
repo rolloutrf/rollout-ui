@@ -1,7 +1,8 @@
 import { ItemCard } from '@rollout/ui-features'
 
-import { useFavorites } from '@/store/favorites'
 import type { Product } from './data'
+
+import { useFavorites } from '@/store/favorites'
 
 export function ProductCard({ product: p }: { product: Product }) {
   const { has, toggle } = useFavorites()

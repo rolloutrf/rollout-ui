@@ -1,5 +1,6 @@
-import { useState } from 'react'
 import { Search, X, Bell } from 'lucide-react'
+import { useState } from 'react'
+
 import { Input } from '@rollout/ui-kit'
 import { Button } from '@rollout/ui-kit'
 

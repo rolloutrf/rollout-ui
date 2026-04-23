@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 import { AppShell } from '@/components/layout/AppShell'
-import { Header } from '@/components/layout/Header'
 import { ContentSlot } from '@/components/layout/ContentSlot'
 import { Footer } from '@/components/layout/Footer'
-import { HomePage } from '@/pages/home/HomePage'
+import { Header } from '@/components/layout/Header'
 import { FavoritesPage } from '@/pages/favorites/FavoritesPage'
 import { FinancePage } from '@/pages/finance/FinancePage'
+import { HomePage } from '@/pages/home/HomePage'
 import { ProfilePage } from '@/pages/profile/ProfilePage'
 import { FavoritesProvider } from '@/store/favorites'
 

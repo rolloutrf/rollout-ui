@@ -6,12 +6,7 @@ import { useDotPassword } from '@features-src/features/TwoFA/DotPassword/hooks/u
 import type { DotPasswordFormProps } from '@features-src/features/TwoFA/DotPassword/types/DotPasswordForm.types'
 import { Notice } from '@features-src/features/TwoFA/shared/ui/Notice'
 
-export const DotPasswordForm = ({
-  slotsCount,
-  onComplete,
-  inputOtpProps,
-  inputOtpDotProps,
-}: DotPasswordFormProps) => {
+export const DotPasswordForm = ({ slotsCount, onComplete, inputOtpProps, inputOtpDotProps }: DotPasswordFormProps) => {
   const { value, status, errorText, handleChange } = useDotPassword({ slotsCount, onComplete })
 
   return (

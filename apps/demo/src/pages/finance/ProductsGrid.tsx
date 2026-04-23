@@ -1,5 +1,6 @@
 import { Card } from '@rollout/ui-kit'
 import { Button } from '@rollout/ui-kit'
+
 import { PRODUCTS } from './data'
 
 export function ProductsGrid() {
@@ -20,17 +21,9 @@ export function ProductsGrid() {
           >
             <div className="absolute top-4 left-4">
               <p className="text-sm font-medium text-foreground leading-none">{p.title}</p>
-              {p.subtitle && (
-                <p className="text-sm font-medium text-foreground leading-none mt-1">
-                  {p.subtitle}
-                </p>
-              )}
+              {p.subtitle && <p className="text-sm font-medium text-foreground leading-none mt-1">{p.subtitle}</p>}
             </div>
-            <img
-              src={p.imageUrl}
-              alt={p.title}
-              className="absolute right-0 top-1/2 -translate-y-1/2 h-[115%] w-auto"
-            />
+            <img src={p.imageUrl} alt={p.title} className="absolute right-0 top-1/2 -translate-y-1/2 h-[115%] w-auto" />
           </Card>
         ))}
       </div>

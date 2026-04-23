@@ -1,5 +1,7 @@
 import { TicketPercent } from 'lucide-react'
+
 import { Card } from '@rollout/ui-kit'
+
 import { ANALYTICS, LOYALTY } from './data'
 
 export function AnalyticWidgets() {

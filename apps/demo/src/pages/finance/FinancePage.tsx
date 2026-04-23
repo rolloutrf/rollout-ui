@@ -1,15 +1,16 @@
-import { SearchBar } from '@/pages/home/SearchBar'
 import { AccountCard } from './AccountCard'
 import { AnalyticWidgets } from './AnalyticWidgets'
-import { PromotionCard } from './PromotionCard'
-import { TransactionHistory } from './TransactionHistory'
-import { TransferWidget } from './TransferWidget'
 import { CurrencyRates } from './CurrencyRates'
+import { MoreProducts } from './MoreProducts'
+import { PartnersWidget } from './PartnersWidget'
 import { PaymentsWidget } from './PaymentsWidget'
 import { ProductsGrid } from './ProductsGrid'
+import { PromotionCard } from './PromotionCard'
 import { SelfEmployment } from './SelfEmployment'
-import { PartnersWidget } from './PartnersWidget'
-import { MoreProducts } from './MoreProducts'
+import { TransactionHistory } from './TransactionHistory'
+import { TransferWidget } from './TransferWidget'
+
+import { SearchBar } from '@/pages/home/SearchBar'
 
 export function FinancePage() {
   return (

@@ -27,9 +27,7 @@ describe('useTimer', () => {
   })
 
   it('should decrement time by tickMs every tick with default direction', () => {
-    const { result } = renderHook(() =>
-      useTimer({ startValueMs: 10000, tickMs: 1000, minValueMs: 0 })
-    )
+    const { result } = renderHook(() => useTimer({ startValueMs: 10000, tickMs: 1000, minValueMs: 0 }))
 
     act(() => {
       vi.advanceTimersByTime(1000)
@@ -104,9 +102,7 @@ describe('useTimer', () => {
   })
 
   it('should stop timer on stop() call', () => {
-    const { result } = renderHook(() =>
-      useTimer({ startValueMs: 10000, tickMs: 1000, minValueMs: 0 })
-    )
+    const { result } = renderHook(() => useTimer({ startValueMs: 10000, tickMs: 1000, minValueMs: 0 }))
 
     expect(result.current.isRunning).toBe(true)
 
@@ -126,9 +122,7 @@ describe('useTimer', () => {
   })
 
   it('should restart timer and reset time', () => {
-    const { result } = renderHook(() =>
-      useTimer({ startValueMs: 10000, tickMs: 1000, minValueMs: 0 })
-    )
+    const { result } = renderHook(() => useTimer({ startValueMs: 10000, tickMs: 1000, minValueMs: 0 }))
 
     act(() => {
       vi.advanceTimersByTime(3000)

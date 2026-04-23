@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+
 import { NAV_ITEMS } from '@/config/nav'
 import { cn } from '@/lib/utils'
 
@@ -26,7 +27,7 @@ export function TabBar() {
       {/* iOS Regular Material */}
       <div className="bg-background/20 backdrop-blur-2xl backdrop-saturate-150 border-t border-border">
         <div className="flex items-stretch px-2">
-          {NAV_ITEMS.map(({ label, path, icon: Icon }) => (
+          {NAV_ITEMS.map(({ label, path, icon: ItemIcon }) => (
             <NavLink
               key={path}
               to={path}
@@ -40,7 +41,7 @@ export function TabBar() {
                 )
               }
             >
-              <Icon size={24} strokeWidth={1.5} />
+              <ItemIcon size={24} strokeWidth={1.5} />
               <span className="text-[10px] font-medium leading-none">{label}</span>
             </NavLink>
           ))}

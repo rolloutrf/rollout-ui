@@ -1,7 +1,7 @@
-import { SearchBar } from './SearchBar'
-import { MainRubricator } from './MainRubricator'
 import { MainCommercial } from './MainCommercial'
+import { MainRubricator } from './MainRubricator'
 import { Recommendations } from './Recommendations'
+import { SearchBar } from './SearchBar'
 
 export function HomePage() {
   return (

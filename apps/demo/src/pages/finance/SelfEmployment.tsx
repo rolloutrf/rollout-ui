@@ -1,5 +1,7 @@
 import { CirclePlus, ScanLine, ChevronRight } from 'lucide-react'
+
 import { Button } from '@rollout/ui-kit'
+
 import { SELF_EMPLOYMENT } from './data'
 
 export function SelfEmployment() {

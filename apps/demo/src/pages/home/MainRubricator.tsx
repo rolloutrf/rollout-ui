@@ -1,15 +1,10 @@
-import { cn } from '@/lib/utils'
 import { CATEGORY_ROW_1, CATEGORY_ROW_2 } from './data'
+
 import type { Category } from './data'
 
-function CategoryCard({
-  label,
-  imgUrl,
-  wide,
-  imgOffsetY,
-  imgOffsetX,
-  eager,
-}: Category & { eager?: boolean }) {
+import { cn } from '@/lib/utils'
+
+function CategoryCard({ label, imgUrl, wide, imgOffsetY, imgOffsetX, eager }: Category & { eager?: boolean }) {
   return (
     <div
       className={cn(
@@ -17,9 +12,7 @@ function CategoryCard({
         wide ? 'w-[130px]' : 'w-[85px]'
       )}
     >
-      <span className="text-sm font-medium leading-none text-foreground relative z-10 block">
-        {label}
-      </span>
+      <span className="text-sm font-medium leading-none text-foreground relative z-10 block">{label}</span>
       <div
         className="absolute size-[100px] pointer-events-none"
         style={{

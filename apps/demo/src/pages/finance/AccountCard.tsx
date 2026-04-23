@@ -1,6 +1,8 @@
 import { QrCode, CirclePlus } from 'lucide-react'
+
 import { Button } from '@rollout/ui-kit'
 import { Avatar, AvatarFallback, AvatarImage } from '@rollout/ui-kit'
+
 import { ACCOUNT } from './data'
 
 const QUICK_ACTIONS = [
@@ -9,9 +11,7 @@ const QUICK_ACTIONS = [
   {
     id: 'sbp',
     label: 'СБП',
-    icon: (
-      <img src="/finance/logo-sbp.png" alt="СБП" className="size-5 object-contain rounded-full" />
-    ),
+    icon: <img src="/finance/logo-sbp.png" alt="СБП" className="size-5 object-contain rounded-full" />,
   },
 ]
 
@@ -22,9 +22,7 @@ export function AccountCard() {
       <div className="flex flex-col items-center gap-4 w-full">
         <Avatar className="size-11">
           <AvatarImage src="/finance/logo-tbank.png" alt="T-Bank" />
-          <AvatarFallback className="bg-yellow-400 text-yellow-900 text-sm font-bold">
-            Т
-          </AvatarFallback>
+          <AvatarFallback className="bg-yellow-400 text-yellow-900 text-sm font-bold">Т</AvatarFallback>
         </Avatar>
 
         <div className="flex flex-col items-center gap-2 w-full text-center">

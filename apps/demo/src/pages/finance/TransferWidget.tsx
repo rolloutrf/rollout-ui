@@ -1,8 +1,10 @@
-import { useState } from 'react'
 import { Search, ChevronRight } from 'lucide-react'
+import { useState } from 'react'
+
 import { Input } from '@rollout/ui-kit'
 import { Button } from '@rollout/ui-kit'
 import { Avatar, AvatarImage, AvatarFallback } from '@rollout/ui-kit'
+
 import { CONTACTS } from './data'
 
 export function TransferWidget() {
@@ -26,11 +28,7 @@ export function TransferWidget() {
       <div className="overflow-x-auto scrollbar-hide -mx-4 px-4">
         <div className="flex gap-4 w-max">
           {CONTACTS.map((contact, i) => (
-            <Button
-              key={i}
-              variant="ghost"
-              className="flex flex-col items-center gap-2 w-[72px] h-auto p-0 rounded-xl"
-            >
+            <Button key={i} variant="ghost" className="flex flex-col items-center gap-2 w-[72px] h-auto p-0 rounded-xl">
               <Avatar className="size-[52px]">
                 <AvatarImage src={contact.avatarUrl} alt={contact.name} />
                 <AvatarFallback className="bg-secondary text-secondary-foreground text-xs font-medium">

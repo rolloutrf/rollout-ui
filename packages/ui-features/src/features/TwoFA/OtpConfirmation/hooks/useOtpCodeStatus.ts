@@ -18,10 +18,7 @@ type UseOtpCodeStatusReturn = {
   handleResend: (e: MouseEvent) => Promise<void>
 }
 
-export const useOtpCodeStatus = ({
-  onResend,
-  resetSeconds = 59,
-}: UseOtpCodeStatusProps): UseOtpCodeStatusReturn => {
+export const useOtpCodeStatus = ({ onResend, resetSeconds = 59 }: UseOtpCodeStatusProps): UseOtpCodeStatusReturn => {
   const {
     time,
     restart: restartTimer,

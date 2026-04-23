@@ -14,9 +14,7 @@ export function ItemCardSeller({ seller, rating, reviewCount }: ItemCardSellerPr
             ★
           </span>
           <span className="text-sm leading-5 text-foreground">{rating}</span>
-          {reviewCount && (
-            <span className="text-sm leading-5 text-muted-foreground">{reviewCount}</span>
-          )}
+          {reviewCount && <span className="text-sm leading-5 text-muted-foreground">{reviewCount}</span>}
         </div>
       )}
     </div>

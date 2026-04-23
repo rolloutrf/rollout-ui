@@ -13,9 +13,7 @@ const ThemeContext = createContext<ThemeContextValue>({
 })
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>(
-    () => (localStorage.getItem('theme') as Theme) ?? 'dark'
-  )
+  const [theme, setThemeState] = useState<Theme>(() => (localStorage.getItem('theme') as Theme) ?? 'dark')
 
   useEffect(() => {
     const root = document.documentElement
@@ -35,4 +33,5 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>
 }
 
+// @eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => useContext(ThemeContext)

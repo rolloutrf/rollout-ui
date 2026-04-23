@@ -19,10 +19,7 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
   render: (args) => (
     <Slider {...args}>
-      <div
-        key="1"
-        className="flex h-full w-full items-center justify-center bg-muted text-2xl font-bold"
-      >
+      <div key="1" className="flex h-full w-full items-center justify-center bg-muted text-2xl font-bold">
         Slide 1
       </div>
       <div

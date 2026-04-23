@@ -1,7 +1,9 @@
 import { Clock4 } from 'lucide-react'
+
 import { Avatar, AvatarImage, AvatarFallback } from '@rollout/ui-kit'
 import { Badge } from '@rollout/ui-kit'
 import { Button } from '@rollout/ui-kit'
+
 import { TRANSACTIONS } from './data'
 
 export function TransactionHistory() {
@@ -19,16 +21,12 @@ export function TransactionHistory() {
           <div key={tx.id} className="flex items-start gap-4 py-4">
             {/* Media */}
             {tx.icon ? (
-              <div
-                className={`size-10 rounded-lg flex items-center justify-center flex-shrink-0 ${tx.iconColor}`}
-              >
+              <div className={`size-10 rounded-lg flex items-center justify-center flex-shrink-0 ${tx.iconColor}`}>
                 <tx.icon className="size-4 text-white" strokeWidth={1.5} />
               </div>
             ) : (
               <Avatar className="size-10 flex-shrink-0 rounded-lg">
-                {tx.avatarUrl && (
-                  <AvatarImage src={tx.avatarUrl} alt={tx.name} className="rounded-lg" />
-                )}
+                {tx.avatarUrl && <AvatarImage src={tx.avatarUrl} alt={tx.name} className="rounded-lg" />}
                 <AvatarFallback className="rounded-lg bg-muted text-foreground text-xs font-medium">
                   {tx.name.slice(0, 2)}
                 </AvatarFallback>
@@ -44,14 +42,10 @@ export function TransactionHistory() {
             {/* Right slot */}
             <div className="flex flex-col items-end gap-1 flex-shrink-0">
               <div className="flex items-center gap-1">
-                <p
-                  className={`text-sm font-medium leading-4 ${tx.positive ? 'text-teal-600' : 'text-foreground'}`}
-                >
+                <p className={`text-sm font-medium leading-4 ${tx.positive ? 'text-teal-600' : 'text-foreground'}`}>
                   {tx.amount}
                 </p>
-                {tx.pending && (
-                  <Clock4 className="size-4 text-muted-foreground" strokeWidth={1.5} />
-                )}
+                {tx.pending && <Clock4 className="size-4 text-muted-foreground" strokeWidth={1.5} />}
               </div>
               {tx.bonusPoints && (
                 <Badge variant="default" className="rounded-full px-1.5 py-0 text-[10px]">

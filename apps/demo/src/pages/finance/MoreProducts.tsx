@@ -1,5 +1,7 @@
 import { Settings } from 'lucide-react'
+
 import { Button } from '@rollout/ui-kit'
+
 import { MORE_PRODUCTS } from './data'
 
 export function MoreProducts() {

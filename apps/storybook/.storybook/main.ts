@@ -10,10 +10,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 const config: StorybookConfig = {
-  stories: [
-    '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-    '../../../packages/**/src/**/*.stories.@(js|jsx|mjs|ts|tsx)',
-  ],
+  stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)', '../../../packages/**/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: ['storybook-dark-mode'],
   framework: '@storybook/react-vite',
   viteFinal: async (config) => {

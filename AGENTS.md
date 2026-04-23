@@ -105,6 +105,7 @@ import { Button, Input, Field, FieldLabel, FieldError } from '@rollout/ui-kit'
 - Small one-off hooks/functions (`useCallback`, `useEffect`, small helpers) can stay in the component when they are easy to read inline.
 - Avoid extraction when it increases complexity (for example, excessive prop drilling or too many inputs/outputs just to wire the hook).
 - Avoid overloaded hooks that mix multiple concerns; split into smaller focused hooks when needed.
+- Declare JSX components as arrow functions: `export const ComponentName = () => {}`. Avoid function declarations for JSX components: `export function ComponentName() {}`.
 
 ---
 
@@ -225,9 +226,7 @@ export default function Particle() {
       <Checkbox id={id} />
       <div className="flex flex-col gap-1">
         <Label htmlFor={id}>Accept terms and conditions</Label>
-        <p className="text-muted-foreground text-xs">
-          By clicking this checkbox, you agree to the terms.
-        </p>
+        <p className="text-muted-foreground text-xs">By clicking this checkbox, you agree to the terms.</p>
       </div>
     </div>
   )
@@ -365,6 +364,7 @@ import { Field, FieldLabel, FieldError, Input } from '@rollout/ui-kit';
 - ❌ Using form libraries (react-hook-form, formik, etc.)
 - ❌ Using raw colors instead of semantic tokens
 - ❌ Adding comments for self-explanatory code
+- ❌ Adding obvious section comments in JSX (for example: `/* Credit Section */` above `<ItemCardDetailCredit />`)
 - ❌ Deep-importing from `@rollout/ui-kit/*` or `@rollout/ui-features/*`
 - ❌ Using `@ui-kit/*` alias outside `packages/ui-kit`
 - ❌ Using `return` inside JSX template iterators (`map`, etc.); prefer implicit return with parentheses
@@ -382,4 +382,13 @@ import { Field, FieldLabel, FieldError, Input } from '@rollout/ui-kit';
 {
   items.map(({ title }) => <div key={`item-${title}`}>{title}</div>)
 }
+
+// ❌ Avoid obvious JSX comments
+{
+  /* Credit Section */
+}
+<ItemCardDetailCredit />
+
+// ✅ Prefer
+<ItemCardDetailCredit />
 ```

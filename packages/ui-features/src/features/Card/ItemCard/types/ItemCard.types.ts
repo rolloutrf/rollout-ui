@@ -19,17 +19,15 @@ type ItemCardAttributeComponent = ItemCardAttributeBase & {
   content: React.ReactNode
 }
 
-export type ItemCardAttribute =
-  | ItemCardAttributeIcon
-  | ItemCardAttributeColor
-  | ItemCardAttributeComponent
+export type ItemCardAttribute = ItemCardAttributeIcon | ItemCardAttributeColor | ItemCardAttributeComponent
 
 export type ItemCardProps = {
   imgUrls?: string[]
   title: string
-  price: string
-  originalPrice?: string
-  discount?: string
+  price: number
+  originalPrice?: number
+  priceLocale: string
+  priceCurrency: string
   attributes?: ItemCardAttribute[]
   seller?: string
   rating?: string

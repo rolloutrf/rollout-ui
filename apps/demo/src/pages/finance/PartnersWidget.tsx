@@ -1,7 +1,9 @@
 import { TicketPercent, Plane, ShoppingBag, Theater, Fuel } from 'lucide-react'
+
 import { Card } from '@rollout/ui-kit'
 import { Button } from '@rollout/ui-kit'
 import { Tabs, TabsList, TabsTrigger } from '@rollout/ui-kit'
+
 import { PARTNER_TABS, PARTNER_CARDS, CASHBACK } from './data'
 
 const TAB_ICONS: Record<string, typeof Plane> = {
@@ -52,9 +54,7 @@ export function PartnersWidget() {
             className="rounded-3xl overflow-hidden bg-card border border-border shadow-sm cursor-pointer h-[124px] relative"
           >
             <div className="absolute top-6 left-6">
-              <p className="text-base font-medium text-card-foreground leading-none">
-                {card.title}
-              </p>
+              <p className="text-base font-medium text-card-foreground leading-none">{card.title}</p>
             </div>
             <img
               src={card.imageUrl}
@@ -72,9 +72,7 @@ export function PartnersWidget() {
           <TicketPercent className="size-6 text-muted-foreground" strokeWidth={1.5} />
         </div>
         <div className="flex flex-col justify-between flex-1 min-h-0">
-          <p className="text-xs font-normal text-muted-foreground leading-4">
-            {CASHBACK.description}
-          </p>
+          <p className="text-xs font-normal text-muted-foreground leading-4">{CASHBACK.description}</p>
           <p className="text-xs font-normal text-muted-foreground mt-4">{CASHBACK.footer}</p>
         </div>
       </Card>

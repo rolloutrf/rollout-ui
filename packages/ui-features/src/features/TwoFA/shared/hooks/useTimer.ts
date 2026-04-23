@@ -37,8 +37,7 @@ export const useTimer = ({
     setTime((prevTime) => {
       const nextTime = prevTime + intervalDirection * tickMs
       const isExceeded =
-        (maxValueMs !== undefined && nextTime >= maxValueMs) ||
-        (minValueMs !== undefined && nextTime <= minValueMs)
+        (maxValueMs !== undefined && nextTime >= maxValueMs) || (minValueMs !== undefined && nextTime <= minValueMs)
 
       if (isExceeded) {
         clear()
