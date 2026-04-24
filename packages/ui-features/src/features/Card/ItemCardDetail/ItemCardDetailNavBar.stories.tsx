@@ -3,7 +3,7 @@ import { ItemCardDetailNavBar } from './components/ItemCardDetailNavBar'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 const meta = {
-  title: 'Features/Card/ItemCardDetail/NavBar',
+  title: 'features/Card/ItemCardDetailNavBar',
   component: ItemCardDetailNavBar,
   parameters: {
     layout: 'centered',
@@ -21,14 +21,5 @@ type Story = StoryObj<typeof meta>
 export const Primary: Story = {
   args: {
     isLiked: false,
-  },
-}
-
-export const NoHandlers: Story = {
-  args: {
-    isLiked: true,
-    onLikeClick: undefined,
-    onBackClick: undefined,
-    onEllipsisClick: undefined,
   },
 }

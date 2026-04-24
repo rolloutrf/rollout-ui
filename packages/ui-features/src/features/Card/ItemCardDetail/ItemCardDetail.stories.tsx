@@ -5,7 +5,7 @@ import { ItemCardDetail } from './components/ItemCardDetail'
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 const meta = {
-  title: 'Features/Card/ItemCardDetail',
+  title: 'features/Card/ItemCardDetail',
   component: ItemCardDetail,
   parameters: {
     layout: 'centered',
