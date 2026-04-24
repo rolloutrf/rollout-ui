@@ -5,6 +5,6 @@ type ItemCardPriceProps = Pick<ItemCardProps, 'price' | 'originalPrice' | 'price
 
 export const ItemCardPrice = ({ price, originalPrice, priceLocale, priceCurrency }: ItemCardPriceProps) => {
   return (
-    <Price currentPrice={price} originalPrice={originalPrice} locale={priceLocale} currency={priceCurrency} size="sm" />
+    <Price currentPrice={price} originalPrice={originalPrice} locale={priceLocale} currency={priceCurrency} size="md" />
   )
 }

@@ -25,9 +25,9 @@ export const ItemCardDetailDescription = ({
   return (
     <div className="w-full flex flex-col" data-state="description-section">
       <Tabs className="w-full" data-horizontal defaultValue={tabs[0].id}>
-        <TabsList className="w-full h-10 p-1 bg-muted rounded-lg" data-orientation="horizontal">
+        <TabsList className="w-full bg-background" data-orientation="horizontal">
           {tabs.map((tab) => (
-            <TabsTrigger key={tab.id} value={tab.id} className="rounded-md w-full">
+            <TabsTrigger key={tab.id} value={tab.id} className="w-full">
               {tab.label}
             </TabsTrigger>
           ))}

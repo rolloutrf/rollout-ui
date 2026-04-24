@@ -21,7 +21,7 @@ export type ItemCardDetailAction = {
 
 export type ItemCardDetailPropertyItem = {
   id: string
-  icon?: React.ReactNode
+  icon?: React.ElementType
   text: React.ReactNode
   rightContent?: React.ReactNode
 }
@@ -60,9 +60,22 @@ export type ItemCardDetailRatingProps = {
   reviewsLabel?: string
 }
 
+export type ItemCardDetailCreditProps = {
+  creditMonths?: number[]
+  defaultCreditMonths?: number
+  monthlyPrice?: number
+  creditTitle?: React.ReactNode
+  creditSubtitle?: React.ReactNode
+  creditDescription?: React.ReactNode
+  creditMonthSuffix?: string
+  creditPerMonthLabel?: string
+  onCreditMonthsChange?: (months: number) => void
+}
+
 export type ItemCardDetailProps = ItemCardDetailImgProps &
   ItemCardDetailPriceProps &
-  ItemCardDetailRatingProps & {
+  ItemCardDetailRatingProps &
+  ItemCardDetailCreditProps & {
     properties?: ItemCardDetailPropertyItem[]
 
     productName: string
@@ -80,18 +93,6 @@ export type ItemCardDetailProps = ItemCardDetailImgProps &
     onVolumeChange?: (volume: string) => void
 
     actions?: ItemCardDetailAction[]
-
-    creditMonths?: number[]
-    defaultCreditMonths?: number
-    monthlyPrice?: number | string
-    creditTitle?: React.ReactNode
-    creditSubtitle?: React.ReactNode
-    creditDescription?: React.ReactNode
-    creditMonthSuffix?: string
-    creditPerMonthLabel?: string
-    creditLocale?: string
-    creditCurrency?: string
-    onCreditMonthsChange?: (months: number) => void
 
     descriptionTabs?: ItemCardDetailDescriptionTab[]
     expandLabel?: string

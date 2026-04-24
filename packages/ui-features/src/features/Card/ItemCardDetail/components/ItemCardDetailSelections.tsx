@@ -1,7 +1,7 @@
 import { Circle } from 'lucide-react'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
-import { Button } from '@rollout/ui-kit'
+import { Button, ButtonGroup } from '@rollout/ui-kit'
 
 import type {
   ItemCardDetailColorOption,
@@ -35,6 +35,40 @@ const resolveColor = (option: ItemCardDetailColorOption) => {
   return COLOR_VALUE_MAP[option.value] ?? '#A3A3A3'
 }
 
+type ButtonRadioProps = {
+  defaultValue?: string
+  items: { label: React.ReactNode; value: string; }[]
+  onChange?: (value: string) => void
+}
+
+const ButtonRadio = ({ defaultValue, items, onChange }: ButtonRadioProps) => {
+  const [selected, setSelected] = useState(defaultValue ?? items[0]?.value)
+
+  const onInnerSelect = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const value = e.currentTarget.dataset.value
+    if (!value) return
+    setSelected(value)
+    onChange?.(value)
+  }
+
+  return (
+    <>
+      {items.map((item) => (
+        <Button
+          key={item.value}
+          variant={selected === item.value ? 'default' : 'outline'}
+          className={selected === item.value ? 'bg-secondary text-foreground' : ''}
+          size="sm"
+          onClick={onInnerSelect}
+          data-value={item.value}
+        >
+          {item.label}
+        </Button>
+      ))}
+    </>
+  )
+}
+
 export const ItemCardDetailSelections = ({
   colors = [],
   colorLabel = 'Цвет',
@@ -45,18 +79,15 @@ export const ItemCardDetailSelections = ({
   defaultVolume,
   onVolumeChange,
 }: ItemCardDetailSelectionsProps) => {
-  const [selectedColor, setSelectedColor] = useState(defaultColor || colors[0]?.value)
-  const [selectedVolume, setSelectedVolume] = useState(defaultVolume || volumes[0]?.value)
-
-  const handleColorChange = (value: string) => {
-    setSelectedColor(value)
-    onColorChange?.(value)
-  }
-
-  const handleVolumeChange = (value: string) => {
-    setSelectedVolume(value)
-    onVolumeChange?.(value)
-  }
+  const innerColors = useMemo(() => colors.map((option) => ({
+    label: (
+      <div className="flex items-center gap-2">
+        <Circle className="size-4 fill-current" style={{ color: resolveColor(option) }} />
+        {option.label}
+      </div>
+    ),
+    value: option.value,
+  })), [colors])
 
   return (
     <div className="flex flex-col gap-3 w-full" data-state="selections-section">
@@ -64,18 +95,7 @@ export const ItemCardDetailSelections = ({
         <div className="flex flex-col gap-3 w-full">
           <p className="text-sm font-medium text-foreground">{colorLabel}</p>
           <div className="flex gap-2 items-start w-full flex-nowrap overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {colors.map((color) => (
-              <Button
-                key={color.value}
-                variant={selectedColor === color.value ? 'default' : 'outline'}
-                size="sm"
-                className="rounded-md shrink-0"
-                onClick={() => handleColorChange(color.value)}
-              >
-                <Circle className="size-4 mr-2 fill-current" style={{ color: resolveColor(color) }} />
-                {color.label}
-              </Button>
-            ))}
+            <ButtonRadio items={innerColors} defaultValue={defaultColor} onChange={onColorChange} />
           </div>
         </div>
       )}
@@ -83,22 +103,9 @@ export const ItemCardDetailSelections = ({
       {volumes.length > 0 && (
         <div className="flex flex-col gap-3 w-full">
           <p className="text-sm font-medium text-foreground">{volumeLabel}</p>
-          <div className="flex gap-0 items-center w-full">
-            {volumes.map((volume, index) => (
-              <Button
-                key={volume.value}
-                variant={selectedVolume === volume.value ? 'default' : 'outline'}
-                size="sm"
-                className={`flex-1 rounded-none ${
-                  index === 0 ? 'rounded-l-md' : ''
-                } ${index === volumes.length - 1 ? 'rounded-r-md' : ''}`}
-                onClick={() => handleVolumeChange(volume.value)}
-              >
-                {volume.label}
-                {volume.suffix ? ` ${volume.suffix}` : ''}
-              </Button>
-            ))}
-          </div>
+          <ButtonGroup className='w-full'>
+            <ButtonRadio items={volumes} defaultValue={defaultVolume} onChange={onVolumeChange} />
+          </ButtonGroup>
         </div>
       )}
     </div>

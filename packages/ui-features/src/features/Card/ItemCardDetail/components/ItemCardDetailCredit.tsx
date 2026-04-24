@@ -1,86 +1,77 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
-import { Button } from '@rollout/ui-kit'
+import { ButtonGroup, Button, cn } from '@rollout/ui-kit'
+import { Price } from '@features-src/shared/Price'
 
 type ItemCardDetailCreditProps = {
   creditMonths?: number[]
   defaultCreditMonths?: number
-  monthlyPrice?: number | string
+  monthlyPrice?: number
   creditTitle?: React.ReactNode
   creditSubtitle?: React.ReactNode
   creditDescription?: React.ReactNode
   creditMonthSuffix?: string
   creditPerMonthLabel?: string
-  creditLocale?: string
-  creditCurrency?: string
+  creditLocale: string
+  creditCurrency: string
   onCreditMonthsChange?: (months: number) => void
 }
 
 export const ItemCardDetailCredit = ({
-  creditMonths = [4, 6, 8],
-  defaultCreditMonths = 4,
-  monthlyPrice = 8650,
+  creditMonths,
+  defaultCreditMonths,
+  monthlyPrice,
   creditTitle = 'Оплата в кредит',
   creditSubtitle = 'Начнётся, только когда заказ будет у вас',
   creditDescription = 'Сейчас оплачиваете только доставку',
   creditMonthSuffix = 'мес.',
   creditPerMonthLabel = 'в месяц',
-  creditLocale = 'ru-RU',
-  creditCurrency = 'RUB',
+  creditLocale,
+  creditCurrency,
   onCreditMonthsChange,
 }: ItemCardDetailCreditProps) => {
   const [selectedMonths, setSelectedMonths] = useState(defaultCreditMonths)
-
-  if (!creditMonths.length || monthlyPrice === undefined) {
-    return null
-  }
-
-  const parsedMonthlyPrice = typeof monthlyPrice === 'number' ? monthlyPrice : Number(monthlyPrice)
-  const formattedMonthlyPrice = Number.isNaN(parsedMonthlyPrice)
-    ? String(monthlyPrice)
-    : new Intl.NumberFormat(creditLocale, {
-        style: 'currency',
-        currency: creditCurrency,
-        maximumFractionDigits: 0,
-      }).format(parsedMonthlyPrice)
-
-  const handleMonthsChange = (months: number) => {
+  const handleMonthsChange = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    const months = Number(e.currentTarget.dataset.months)
     setSelectedMonths(months)
     onCreditMonthsChange?.(months)
+  }, [onCreditMonthsChange])
+
+  if (!creditMonths?.length || monthlyPrice === undefined) {
+    return null
   }
 
   return (
     <div
-      className="flex flex-col gap-4 items-start p-5 rounded-xl w-full bg-secondary-foreground"
+      className="flex flex-col gap-4 items-start p-5 rounded-xl w-full bg-muted"
       data-state="credit-section"
     >
-      <div className="flex flex-col gap-3 w-full">
-        <h3 className="text-xl font-bold leading-5 text-primary-foreground">{creditTitle}</h3>
-        <p className="text-sm text-primary-foreground/80">{creditSubtitle}</p>
+      <div className="flex flex-col gap-1 w-full">
+        <h3 className="text-xl font-bold leading-5 text-foreground">{creditTitle}</h3>
+        <p className="text-sm text-secondary-foreground">{creditSubtitle}</p>
       </div>
 
-      <div className="flex gap-0 items-center w-full">
-        {creditMonths.map((months, index) => (
+      <ButtonGroup className='w-full'>
+        {creditMonths.map((months) => (
           <Button
             key={months}
-            variant={selectedMonths === months ? 'default' : 'outline'}
+            className={cn('w-22', selectedMonths === months ? '' : 'bg-background text-foreground',)}
+            variant={selectedMonths === months ? 'outline' : 'default'}
             size="sm"
-            className={`flex-1 rounded-none ${index === 0 ? 'rounded-l-md' : ''} ${
-              index === creditMonths.length - 1 ? 'rounded-r-md' : ''
-            }`}
-            onClick={() => handleMonthsChange(months)}
+            data-months={months}
+            onClick={handleMonthsChange}
           >
             {months} {creditMonthSuffix}
           </Button>
         ))}
-      </div>
+      </ButtonGroup>
 
       <div className="flex flex-col gap-1 w-full">
-        <p className="text-lg font-semibold leading-5 text-primary-foreground">
-          {formattedMonthlyPrice} {creditPerMonthLabel}
+        <p className="text-lg font-semibold leading-5 text-foreground">
+          <Price currentPrice={monthlyPrice} locale={creditLocale} currency={creditCurrency} size="md" /> {creditPerMonthLabel}
         </p>
-        <p className="text-sm text-primary-foreground/80">{creditDescription}</p>
+        <p className="text-sm text-secondary-foreground">{creditDescription}</p>
       </div>
-    </div>
+    </div >
   )
 }

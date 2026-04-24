@@ -1,4 +1,4 @@
-export type PriceTextSize = 'sm' | 'md' | 'lg' | 'xl'
+export type PriceTextSize = 'md' | 'lg'
 
 export type PriceProps = {
   currentPrice: number

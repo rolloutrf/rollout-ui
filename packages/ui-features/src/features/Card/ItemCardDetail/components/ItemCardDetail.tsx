@@ -46,8 +46,6 @@ export const ItemCardDetail = ({
   creditDescription = 'Сейчас оплачиваете только доставку',
   creditMonthSuffix = 'мес.',
   creditPerMonthLabel = 'в месяц',
-  creditLocale = 'ru-RU',
-  creditCurrency = 'RUB',
   onCreditMonthsChange,
   descriptionTabs,
   expandLabel = 'Развернуть',
@@ -73,7 +71,7 @@ export const ItemCardDetail = ({
           locale={priceLocale}
           currency={priceCurrency}
           subtitle={priceSubtitle}
-          size="xl"
+          size="lg"
           className="w-full"
         />
       )}
@@ -120,8 +118,8 @@ export const ItemCardDetail = ({
           creditDescription={creditDescription}
           creditMonthSuffix={creditMonthSuffix}
           creditPerMonthLabel={creditPerMonthLabel}
-          creditLocale={creditLocale}
-          creditCurrency={creditCurrency}
+          creditLocale={priceLocale}
+          creditCurrency={priceCurrency}
           onCreditMonthsChange={onCreditMonthsChange}
         />
       )}

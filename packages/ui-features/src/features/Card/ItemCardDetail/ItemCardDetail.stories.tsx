@@ -1,3 +1,5 @@
+import { MapPin } from 'lucide-react'
+
 import { ItemCardDetail } from './components/ItemCardDetail'
 
 import type { Meta, StoryObj } from '@storybook/react-vite'
@@ -40,6 +42,7 @@ const baseArgs: Story['args'] = {
   properties: [
     {
       id: 'delivery',
+      icon: MapPin,
       text: 'Доставка послезавтра',
       rightContent: <span style={{ color: '#10B981' }}>Бесплатно</span>,
     },
