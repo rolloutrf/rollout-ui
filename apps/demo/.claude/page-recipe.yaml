@@ -73,6 +73,16 @@ state:
   use:    "useState"
   forbidden: ["react-hook-form", "zod", "API calls", "business logic"]
 
+# Design source — Framelink only (no Code Connect)
+# Rationale: this repo has no published Code Connect mappings, so the official
+# Dev Mode MCP (`mcp__c0861a9b-…`) only adds a screenshot we already get from
+# Framelink, while consuming the View-seat tool-call quota on the ROLLOUT team.
+# Reintroduce its calls if/when we ship Code Connect mappings.
+design_source:
+  primary: "mcp__figma__get_figma_data"
+  screenshot: "mcp__figma__download_figma_images"
+  screenshot_local_path: ".tmp/figma-ref"
+
 # Verification (mandatory after implementation)
 verification:
   - id: preview_start
@@ -82,7 +92,7 @@ verification:
     call: "mcp__Claude_Preview__preview_eval"
     args: { expression: "window.location.href = '<route>'; 'go'" }
   - id: screenshot_diff
-    note: "Compare preview_screenshot ↔ figma get_screenshot of the source node."
+    note: "Compare preview_screenshot ↔ .tmp/figma-ref/<slug>.png from download_figma_images."
   - id: light_dark
     note: "Run in both themes; toggle via ThemeToggle in Header."
   - id: mobile

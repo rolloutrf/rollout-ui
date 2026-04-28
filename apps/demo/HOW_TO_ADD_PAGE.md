@@ -48,9 +48,9 @@ pnpm rollout:preflight
 отсутствие конфига preview, неактивный nvm) лечатся автоматически или
 одной строкой.
 
-В Claude Code дополнительно работает `/preflight` — он добавляет четыре
-MCP-проверки (Figma, shadcn, Code Connect Dev Mode, Claude Preview), которые
-из bash не сделать.
+В Claude Code дополнительно работает `/preflight` — он добавляет три
+MCP-проверки (Figma, shadcn, Claude Preview), которые из bash не сделать.
+Code Connect MCP намеренно не пробится — см. [`AGENTS.md` §0.3](AGENTS.md).
 
 ## 3. Новая страница — `/new-page`
 
@@ -93,7 +93,7 @@ pnpm rollout:new-page "Личные данные" \
 
 Не нужно делать руками — это случится в `/new-page`:
 
-1. Параллельно читает Figma — `get_figma_data` + `get_design_context` (готовый React+Tailwind) + `get_screenshot`.
+1. Параллельно читает Figma — `mcp__figma__get_figma_data` (структура+токены) + `mcp__figma__download_figma_images` (PNG в `.tmp/figma-ref/`). Code Connect MCP не дёргается — см. [`AGENTS.md` §0.3](AGENTS.md).
 2. Сверяет компоненты со shadcn/ui MCP (эталон поведения и визуала).
 3. Создаёт `apps/demo/src/pages/<area>/<Name>Page.tsx` с контейнером `max-w-[576px] mx-auto pt-20 pb-8 gap-7`.
 4. NavBar по макету, токены — только переменные (Geist, `bg-accent`/`bg-muted`/`text-foreground`, без хексов).
@@ -111,7 +111,7 @@ slash-команды подхватят без правок промптов.
 ## Чек-лист (перед PR)
 
 - [ ] Pre-flight зелёный (`pnpm rollout:preflight`)
-- [ ] preview_screenshot ↔ figma get_screenshot совпадают (light + dark)
+- [ ] preview_screenshot ↔ `.tmp/figma-ref/<slug>.png` совпадают (light + dark)
 - [ ] preview_console_logs `level: 'error'` пусто
 - [ ] Нет хардкоднутых цветов/шрифтов/размеров
 - [ ] Нет deep imports, `radix-ui`, `pnpm dlx shadcn add`

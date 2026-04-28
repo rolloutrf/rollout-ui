@@ -34,3 +34,6 @@ debug-storybook.log
 
 .ignore
 
+# Figma reference PNGs fetched by /new-page and /update-page (mcp__figma__download_figma_images)
+.tmp/
+

@@ -31,16 +31,25 @@ If the recipe references something you cannot resolve, also consult
 
 ## Step 3 — Read the design (parallel)
 
-In a single message, fire three MCP calls in parallel:
+In a single message, fire two MCP calls in parallel (Framelink only — Code
+Connect is intentionally not used; see "Why no Code Connect" below):
 
 - `mcp__figma__get_figma_data({ fileKey, nodeId })` — node tree + tokens
-- `mcp__c0861a9b-…__get_design_context({ fileKey, nodeId, clientFrameworks: 'react', clientLanguages: 'typescript,tailwindcss' })` — React+Tailwind reference
-- `mcp__c0861a9b-…__get_screenshot({ fileKey, nodeId })` — visual reference for diff
+- `mcp__figma__download_figma_images({ fileKey, nodes: [{ nodeId, fileName: '<slug>.png' }], localPath: '.tmp/figma-ref', pngScale: 2 })` — PNG of the frame for visual diff
 
 Extract `fileKey` from `…/design/<fileKey>/…` and `nodeId` from `?node-id=<nodeId>`
 (both `:` and `-` separators are valid). For each component instance whose `name`
 matches a shadcn primitive, call `mcp__Shadcn_UI__get_component({ componentName })`
 in kebab-case as a behavioral reference.
+
+### Why no Code Connect
+
+`mcp__c0861a9b-…__*` (Figma Dev Mode / Code Connect MCP) only adds value when
+the repo has published Code Connect mappings (`figma connect publish`). This
+repo has none, so its `get_design_context` returns generic shadcn JSX we'd
+rewrite anyway, and its `get_screenshot` is identical to what
+`download_figma_images` produces. It also burns the View-seat tool-call quota
+on the ROLLOUT team. If mappings are added later, reintroduce the calls here.
 
 ## Step 4 — Implement
 
@@ -60,7 +69,7 @@ Run the verification block from `page-recipe.yaml` in order:
 
 1. `mcp__Claude_Preview__preview_start({ name: 'rollout-ui-demo' })`
 2. `mcp__Claude_Preview__preview_eval({ expression: "window.location.href = '<route>'; 'go'" })`
-3. `mcp__Claude_Preview__preview_screenshot` → diff against figma get_screenshot
+3. `mcp__Claude_Preview__preview_screenshot` → diff against the PNG fetched in Step 3 (`.tmp/figma-ref/<slug>.png`)
 4. Toggle dark theme (ThemeToggle) → screenshot
 5. `mcp__Claude_Preview__preview_resize({ preset: 'mobile' })` → screenshot
 6. `mcp__Claude_Preview__preview_console_logs({ level: 'error' })` — must be empty
@@ -88,8 +97,6 @@ and a `pnpm changeset` mention if a new ui-kit primitive was added.
   `apps/demo/HOW_TO_ADD_PAGE.md §1.4` and stop.
 - The design is ambiguous in a way that materially affects layout/behavior —
   ask, don't guess.
-- `mcp__c0861a9b-…` hits its View-seat rate limit — switch to plain `figma` MCP
-  + `Claude_Preview` for diff and continue.
 
 ## Style — what NOT to do (recipe forbidden list)
 

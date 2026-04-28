@@ -39,19 +39,24 @@
 
 | MCP | Имя | Назначение | Как проверить |
 |---|---|---|---|
-| **Figma-Context-MCP** | `figma` | `mcp__figma__get_figma_data` для получения структуры макета | вызвать `mcp__figma__get_figma_data({fileKey:'p2bAIyTB6oJTGWjjR8NwRB', nodeId:'221:4087'})` — должен вернуть YAML-структуру, не 403 |
-| **Figma Dev Mode (OAuth)** | `c0861a9b-…` | `get_design_context` (готовый React+Tailwind код) и `get_screenshot` | `mcp__c0861a9b-…__whoami` — должен вернуть email и `plans[].name === 'ROLLOUT'` (View seat) |
+| **Figma-Context-MCP** | `figma` | `get_figma_data` (структура нода) + `download_figma_images` (PNG для диффа) | `mcp__figma__get_figma_data({fileKey:'p2bAIyTB6oJTGWjjR8NwRB', nodeId:'221:4087'})` — YAML-структура, не 403 |
 | **shadcn/ui MCP** | `Shadcn_UI` | Эталон поведения компонентов | `mcp__Shadcn_UI__list_components` — массив с 46 компонентами |
 | **Claude Preview MCP** | `Claude_Preview` | Локальный dev-сервер для верификации | `mcp__Claude_Preview__preview_list` — массив (может быть пустой) |
+
+> **Figma Dev Mode / Code Connect MCP (`c0861a9b-…`) намеренно НЕ используется
+> в `/new-page` и `/update-page`.** В репозитории нет опубликованных Code
+> Connect-мэппингов, поэтому его `get_design_context` отдаёт обобщённый
+> shadcn-подобный JSX (мы всё равно переписываем под `@rollout/ui-kit`), а
+> `get_screenshot` дублирует `mcp__figma__download_figma_images`. При этом он
+> сжигает квоту тулколлов на View-сите команды ROLLOUT. Если когда-то опубликуем
+> Code Connect-мэппинги — вернуть его вызовы в [`page-recipe.yaml`](.claude/page-recipe.yaml)
+> и в `/new-page`/`/update-page`. Сам MCP в `~/.claude.json` оставляем
+> подключённым на будущее.
 
 **Если MCP отсутствует или сломан:**
 
 - **`figma` (403 «Invalid token»)** → создать новый ключ на [https://www.figma.com/developers/api#access-tokens](https://www.figma.com/developers/api#access-tokens), scope `File content` (read). Заменить значение в `~/.claude.json` → `mcpServers.figma.env.FIGMA_API_KEY`. **Перезапустить Claude Code** (env читается на старте процесса). Старый ключ отозвать.
-- **`c0861a9b-…` (Figma Dev Mode)** — проверить, что Figma Desktop запущен с включённым Dev Mode и MCP-плагином (Figma → Settings → Dev Mode MCP server). Авторизация через `mcp__c0861a9b-…__authenticate` если потерялась.
 - **`Shadcn_UI` / `Claude_Preview`** — обычно идут в дефолтной сборке плагинов Claude Code. Проверить включение в [https://docs.claude.com/en/docs/claude-code/mcp](https://docs.claude.com/en/docs/claude-code/mcp).
-
-**Лимиты:**
-- `c0861a9b-…` имеет лимит вызовов на View-seat. При исчерпании — переключаться на `figma` (полные данные ноды) и `mcp__Claude_Preview__preview_screenshot` (для визуального diff).
 
 ### 0.4 Preview launch.json
 
@@ -81,9 +86,8 @@
 | Что | Как проверить |
 |---|---|
 | `figd_…` ключ имеет доступ к Demo App (`p2bAIyTB6oJTGWjjR8NwRB`) | `mcp__figma__get_figma_data({fileKey:'p2bAIyTB6oJTGWjjR8NwRB', nodeId:'221:4087'})` — структура NavBar/Layout без 403 |
-| View seat в команде ROLLOUT | `mcp__c0861a9b-…__whoami` → `plans[].name === 'ROLLOUT'`, `seat === 'View'` |
 
-Если оба Figma-MCP недоступны (ключ просрочен И OAuth не работает) — работа с макетами невозможна, эскалировать пользователю в Telegram `@rolloutrf` и не пытаться «угадать» макет.
+Если `figma` MCP недоступен (ключ просрочен / 403) — работа с макетами невозможна, эскалировать пользователю в Telegram `@rolloutrf` и не пытаться «угадать» макет.
 
 ### 0.6 Краткая шпаргалка (для AI-агента)
 
@@ -207,7 +211,8 @@ src/
     └── profile/
         ├── ProfilePage.tsx        — /profile: аватар + меню + Финансы + Logout
         ├── PersonalDataPage.tsx   — /profile/personal-data: форма «Личные данные»
-        └── data.ts                — общий USER + WALLET; импортируется обеими страницами profile/
+        ├── PromocodesPage.tsx     — /profile/promocodes: ввод промокода + список «Ваши промокоды»
+        └── data.ts                — общий USER + WALLET; импортируется страницами profile/
 ```
 
 **Routing (`App.tsx`):**
@@ -220,6 +225,7 @@ src/
 | `/cart` | `ContentSlot` | плейсхолдер |
 | `/profile` | `ProfilePage` | `pages/profile/` |
 | `/profile/personal-data` | `PersonalDataPage` | `pages/profile/` |
+| `/profile/promocodes` | `PromocodesPage` | `pages/profile/` |
 | `/assistant` | `ContentSlot` | плейсхолдер |
 
 **Алиасы** (`vite.config.ts` + `tsconfig.json`):
@@ -246,7 +252,7 @@ src/
 │   ├── launch.json           — preview-конфиги; Node 22 напрямую (не pnpm shim)
 │   └── commands/
 │       ├── setup.md          — slash `/setup` — обёртка над scripts/setup.sh
-│       ├── preflight.md      — slash `/preflight` — bash + 4 MCP-проверки (Figma/shadcn/preview/CodeConnect)
+│       ├── preflight.md      — slash `/preflight` — bash + 3 MCP-проверки (Figma / Shadcn_UI / Claude_Preview)
 │       ├── new-page.md       — slash `/new-page` — 4 вопроса + полный workflow до preview-screenshot
 │       └── update-page.md    — slash `/update-page` — 2 вопроса + diff с макетом
 │
@@ -394,10 +400,9 @@ fallback для ситуаций, когда `pnpm rollout:preflight` недос
 
 ### Шаги
 
-1. **Чтение макета**:
-   - `mcp__figma__get_figma_data({fileKey, nodeId})` — структура, переменные, components
-   - `mcp__c0861a9b-…__get_design_context({fileKey, nodeId, clientFrameworks:'react', clientLanguages:'typescript,tailwindcss'})` — готовый React+Tailwind код + screenshot + список токенов
-   - `mcp__c0861a9b-…__get_screenshot({fileKey, nodeId})` — эталонный визуал для diff
+1. **Чтение макета** (Framelink only — Code Connect намеренно не дёргается, см. §0.3):
+   - `mcp__figma__get_figma_data({fileKey, nodeId})` — структура, переменные, components, токены (`globalVars.styles`)
+   - `mcp__figma__download_figma_images({fileKey, nodes:[{nodeId, fileName:'<slug>.png'}], localPath:'.tmp/figma-ref', pngScale:2})` — эталонный PNG для визуального диффа
 
 2. **Идентификация компонентов**:
    - В каждом узле смотри `name` / `componentId` — имя группы (`Button`, `Input`, `Item`, `Select`, `Switch`)
@@ -425,7 +430,7 @@ fallback для ситуаций, когда `pnpm rollout:preflight` недос
 6. **Верификация (обязательно)**:
    - `mcp__Claude_Preview__preview_start({name: 'rollout-ui-demo'})`
    - Открыть нужный URL: `mcp__Claude_Preview__preview_eval` `window.location.assign('/path')`
-   - `mcp__Claude_Preview__preview_screenshot` ↔ `mcp__c0861a9b-…__get_screenshot` исходного фрейма Figma — визуальный diff
+   - `mcp__Claude_Preview__preview_screenshot` ↔ `.tmp/figma-ref/<slug>.png` (PNG из шага 1) — визуальный diff
    - Проверить **в светлой и тёмной теме** (toggle через `ThemeToggle`)
    - `mcp__Claude_Preview__preview_console_logs({level:'error'})` — должно быть пусто
    - Если есть расхождение — править код, не «интерпретировать» макет
@@ -580,8 +585,8 @@ Demo и Storybook (`@rollout/storybook`) исключены в `.changeset/confi
 
 ## 11. Чек-лист для новой страницы
 
-- [ ] **Pre-flight Onboarding пройден** (см. §0): Node 22 + pnpm 10.32.1, MCP `figma` / `c0861a9b-…` / `Shadcn_UI` / `Claude_Preview` доступны, `launch.json → rollout-ui-demo` корректен, Figma key читает Demo App без 403
-- [ ] Получены `figma_data` + `design_context` + `screenshot` исходного нода
+- [ ] **Pre-flight Onboarding пройден** (см. §0): Node 22 + pnpm 10.32.1, MCP `figma` / `Shadcn_UI` / `Claude_Preview` доступны, `launch.json → rollout-ui-demo` корректен, Figma key читает Demo App без 403
+- [ ] Получены `figma_data` + локальный PNG (`.tmp/figma-ref/<slug>.png`) исходного нода
 - [ ] Распознаны компоненты, найдены аналоги в `@rollout/ui-kit`
 - [ ] Если нет — добавлен примитив в ui-kit (на `@base-ui/react`, через корневой `index.ts`, +changeset)
 - [ ] Создана `apps/demo/src/pages/<area>/<Name>Page.tsx` с контейнером `max-w-[576px]`

@@ -19,14 +19,19 @@ prints the rest as actionable items. If exit code is 0, environment is green.
 
 ## Step 2 — MCP checks (parallel, single message)
 
-Bash cannot reach Claude Code's MCP servers. Fire these four in parallel:
+Bash cannot reach Claude Code's MCP servers. Fire these three in parallel:
 
 | Call | Expected |
 |---|---|
 | `mcp__Shadcn_UI__list_components` | array of ~46 components |
 | `mcp__Claude_Preview__preview_list` | array (may be empty) |
-| `mcp__c0861a9b-…__whoami` | object with email and `plans[].name === 'ROLLOUT'` (View seat) |
 | `mcp__figma__get_figma_data({ fileKey: 'p2bAIyTB6oJTGWjjR8NwRB', nodeId: '221:4087' })` | YAML structure, no 403 |
+
+> Code Connect MCP (`mcp__c0861a9b-…`) is intentionally NOT probed —
+> `/new-page` and `/update-page` don't use it (no published Code Connect
+> mappings in this repo, see [`apps/demo/AGENTS.md` §0.3](../../apps/demo/AGENTS.md#03-mcp-серверы)).
+> Probing it here would burn one tool-call from the View-seat quota every
+> preflight. The MCP stays connected for ad-hoc use.
 
 ## Step 3 — Print a unified summary
 
@@ -42,8 +47,6 @@ exact remedy:
   configurations[] (preflight bash already printed the snippet)."
 - **shadcn list errors** → "Restart Claude Code; if persists, the MCP server
   may be down — see plugin status."
-- **c0861a9b-… seat issue** → "Working without the Code Connect MCP is fine —
-  switch to `figma` MCP + `Claude_Preview` for visual diff."
 
 ## Step 4 — Verdict
 

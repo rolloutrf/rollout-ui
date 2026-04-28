@@ -16,12 +16,12 @@ verification). Apply, do not duplicate.
 
 ## Step 3 — Read current code + new design (parallel)
 
-In a single message:
+In a single message (Framelink only — Code Connect is intentionally not used;
+see `/.claude/commands/new-page.md` "Why no Code Connect" for the rationale):
 
 - `Read` the existing page file.
-- `mcp__figma__get_figma_data({ fileKey, nodeId })`
-- `mcp__c0861a9b-…__get_design_context(...)` — React+Tailwind reference
-- `mcp__c0861a9b-…__get_screenshot(...)` — visual reference
+- `mcp__figma__get_figma_data({ fileKey, nodeId })` — node tree + tokens
+- `mcp__figma__download_figma_images({ fileKey, nodes: [{ nodeId, fileName: '<slug>.png' }], localPath: '.tmp/figma-ref', pngScale: 2 })` — visual reference
 
 ## Step 4 — Diff and apply
 
@@ -43,7 +43,7 @@ Recipe verification block:
 
 1. `mcp__Claude_Preview__preview_start({ name: 'rollout-ui-demo' })`
 2. Navigate to the page's route → `preview_screenshot`
-3. Diff against figma `get_screenshot` (light + dark + mobile)
+3. Diff against the PNG fetched in Step 3 (`.tmp/figma-ref/<slug>.png`) — light + dark + mobile
 4. `preview_console_logs({ level: 'error' })` — must be empty
 
 ## Step 6 — Report
