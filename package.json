@@ -15,7 +15,12 @@
     "build-storybook": "turbo run build-storybook --filter=@rollout/storybook",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
-    "shadcn:add": "pnpm dlx shadcn@latest add -c packages/ui-kit"
+    "shadcn:add": "pnpm dlx shadcn@latest add -c packages/ui-kit",
+    "rollout:setup": "bash scripts/setup.sh",
+    "rollout:preflight": "bash scripts/preflight.sh",
+    "rollout:doctor": "bash scripts/preflight.sh --verbose",
+    "rollout:new-page": "bash scripts/new-page.sh",
+    "rollout:update-page": "bash scripts/update-page.sh"
   },
   "author": "rollout",
   "license": "MIT",
