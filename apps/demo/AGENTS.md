@@ -228,6 +228,72 @@ src/
 
 ---
 
+## 2.1 Workflow tooling (вне `apps/demo/src/`)
+
+Скрипты и slash-команды, обслуживающие воркфлоу «новая страница». Живут вне
+`apps/demo/src/`, поэтому в дерево §2 не попадают, но при изменении правил —
+правятся синхронно с этим документом.
+
+```
+~/rollout-ui/
+├── scripts/
+│   ├── setup.sh              — first-run: nvm + Node 22.21.1 + pnpm@10.32.1 + install + preflight
+│   ├── preflight.sh          — диагностика окружения с автофиксом (ROLLOUT_AUTOFIX=1)
+│   ├── new-page.sh           — 4 интерактивных вопроса → промпт §2 в clipboard + лог
+│   └── update-page.sh        — 2 вопроса → промпт «обнови по макету» в clipboard
+│
+├── .claude/
+│   ├── launch.json           — preview-конфиги; Node 22 напрямую (не pnpm shim)
+│   └── commands/
+│       ├── setup.md          — slash `/setup` — обёртка над scripts/setup.sh
+│       ├── preflight.md      — slash `/preflight` — bash + 4 MCP-проверки (Figma/shadcn/preview/CodeConnect)
+│       ├── new-page.md       — slash `/new-page` — 4 вопроса + полный workflow до preview-screenshot
+│       └── update-page.md    — slash `/update-page` — 2 вопроса + diff с макетом
+│
+└── apps/demo/.claude/
+    └── page-recipe.yaml      — машинно-читаемые правила (контейнер, токены, запреты, верификация)
+                                 единый источник истины для slash-команд
+```
+
+**`package.json` aliases** (корень репы):
+
+| Скрипт | Что делает |
+|---|---|
+| `pnpm rollout:setup` | `bash scripts/setup.sh` — установка с нуля |
+| `pnpm rollout:preflight` | `bash scripts/preflight.sh` — диагностика |
+| `pnpm rollout:doctor` | `bash scripts/preflight.sh --verbose` — подробный вывод |
+| `pnpm rollout:new-page` | `bash scripts/new-page.sh` — interactive/argv-driven |
+| `pnpm rollout:update-page` | `bash scripts/update-page.sh` |
+
+**Совместимость интерфейсов.** Один результат, два входа:
+
+| Канал | Когда |
+|---|---|
+| `pnpm rollout:new-page` | вне Claude Code (другой LLM, ручной paste) — кладёт промпт в clipboard |
+| `/new-page` в Claude Code | внутри сессии — задаёт вопросы через `AskUserQuestion`, сразу вызывает MCP-инструменты (Figma, Preview) и доводит до screenshot-diff |
+
+Slash-команды **не дублируют** логику bash-скриптов: они либо вызывают `bash`
+через `Bash`-tool, либо реализуют то, что из bash не сделать (MCP-вызовы Figma,
+preview screenshot diff, обновление AGENTS.md).
+
+**Где править правила страницы.** Запреты (radix, deep imports, `shadcn add`,
+хардкод цветов), классы контейнера (`max-w-[576px]`, `pt-20`), список
+обязательных шагов верификации — всё в [`apps/demo/.claude/page-recipe.yaml`](.claude/page-recipe.yaml).
+При изменении yaml `/new-page` и `/update-page` подхватят новое поведение
+автоматически — **не нужно править промпт-шаблон в slash-команде**.
+
+**Логи.** Последний собранный промпт лежит в `~/rollout-ui/.claude/last-prompt.md`
+(перезаписывается при каждом `rollout:new-page` / `rollout:update-page`). Полезно
+для аудита того, что именно ушло агенту, если результат отличается от ожидаемого.
+
+**Совместимость с pre-flight шпаргалкой §0.6.** Bash-команда из §0.6 — это
+fallback для ситуаций, когда `pnpm rollout:preflight` недоступен (например,
+агент запущен не в каталоге репы или pnpm ещё не установлен). Канонический
+путь — `pnpm rollout:preflight` или `/preflight`; шпаргалка остаётся для
+самодостаточности документа.
+
+---
+
 ## 3. Дизайн-токены — `src/index.css`
 
 Тема живёт **только** в этом файле. **Не создавать** `tailwind.config.*`.
