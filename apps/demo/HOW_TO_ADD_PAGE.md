@@ -95,7 +95,7 @@ pnpm rollout:new-page "Личные данные" \
 
 1. Параллельно читает Figma — `mcp__figma__get_figma_data` (структура+токены) + `mcp__figma__download_figma_images` (PNG в `.tmp/figma-ref/`). Code Connect MCP не дёргается — см. [`AGENTS.md` §0.3](AGENTS.md).
 2. Сверяет компоненты со shadcn/ui MCP (эталон поведения и визуала).
-3. Создаёт `apps/demo/src/pages/<area>/<Name>Page.tsx` с контейнером `max-w-[576px] mx-auto pt-20 pb-8 gap-7`.
+3. Создаёт `apps/demo/src/pages/<area>/<Name>Page.tsx` с контейнером `max-w-[576px] mx-auto pt-20 pb-8 gap-7` (без `px-*` — edge-to-edge).
 4. NavBar по макету, токены — только переменные (Geist, `bg-accent`/`bg-muted`/`text-foreground`, без хексов).
 5. Реализация компонентов на `@base-ui/react` через `@rollout/ui-kit` (НЕ Radix, НЕ `pnpm dlx shadcn add`).
 6. Добавляет `<Route>` в `apps/demo/src/App.tsx` и заменяет элемент входа на `<Link to>` (НЕ `<a href>`).

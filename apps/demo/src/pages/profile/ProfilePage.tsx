@@ -89,7 +89,7 @@ function MenuRow({ icon: Icon, label, to }: MenuItem) {
 export function ProfilePage() {
   return (
     <div className="w-full">
-      <div className="max-w-[576px] mx-auto flex flex-col gap-6 py-4 pb-8 px-4">
+      <div className="max-w-[576px] mx-auto flex flex-col gap-6 py-4 pb-8">
         {/* Title + bell */}
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold text-foreground">Профиль</h1>

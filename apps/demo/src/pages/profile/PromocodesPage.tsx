@@ -21,7 +21,7 @@ export function PromocodesPage() {
 
   return (
     <div className="w-full">
-      <div className="mx-auto flex max-w-[576px] flex-col gap-7 px-4 pt-20 pb-8">
+      <div className="mx-auto flex max-w-[576px] flex-col gap-7 pt-20 pb-8">
         {/* NavBar (Figma 221:4124) */}
         <div className="flex w-full items-center gap-2">
           <Button

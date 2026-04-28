@@ -418,7 +418,7 @@ fallback для ситуаций, когда `pnpm rollout:preflight` недос
    - Если примитив отсутствует в ui-kit — добавляем (см. §4)
    - На странице импортируем из `@rollout/ui-kit`
    - Layout согласно макету (Tailwind классы)
-   - Для mobile-first контейнера: `mx-auto flex max-w-[576px] flex-col gap-7 px-4 py-4 pb-8`
+   - Для mobile-first контейнера: `mx-auto flex max-w-[576px] flex-col gap-7 pt-20 pb-8` — **без `px-*`** (страницы рендерятся edge-to-edge внутри 576-колонки; внутренние блоки сами добавляют гуттер при необходимости)
 
 5. **Точные токены 1-в-1** (см. §3):
    - Шрифт: Geist (Regular 400 / Medium 500 / SemiBold 600)
@@ -457,7 +457,7 @@ export function ExamplePage() {
 
   return (
     <div className="w-full">
-      <div className="mx-auto flex max-w-[576px] flex-col gap-7 px-4 py-4 pb-8">
+      <div className="mx-auto flex max-w-[576px] flex-col gap-7 pt-20 pb-8">
         {/* NavBar (если есть Title в макете) */}
         <div className="flex w-full items-start gap-2">
           <h1 className="flex-1 text-2xl font-semibold leading-8 text-foreground">Заголовок</h1>
@@ -475,7 +475,7 @@ export function ExamplePage() {
 
 ### Соглашения
 
-- **Контейнер**: `max-w-[576px] mx-auto`, `px-4`, gap из `gap-6` или `gap-7` (по Figma).
+- **Контейнер**: `max-w-[576px] mx-auto`, **без боковых `px-*`** (edge-to-edge внутри 576-колонки), gap из `gap-6` или `gap-7` (по Figma). Если внутреннему блоку нужен внутренний отступ — он добавляет себе сам.
 - **Заголовок**: `<h1 className="text-2xl font-semibold leading-8 text-foreground">` (для H3 в Figma DS).
 - **Известное расхождение**: глобальный `Header` (`fixed top-0`, ~72px) перекрывает первый блок страницы — это общая особенность `AppShell`, не Figma. Если макет требует — добавить контейнеру `pt-20`.
 - **Нижний отступ под TabBar (mobile-only)**:

@@ -7,10 +7,12 @@ version: 1
 
 # Page shell
 container:
-  classes: "mx-auto flex max-w-[576px] flex-col gap-7 px-4 pt-20 pb-8"
+  classes: "mx-auto flex max-w-[576px] flex-col gap-7 pt-20 pb-8"
   rationale: |
     pt-20 compensates the global fixed Header (~72px). Bottom padding for
     the mobile TabBar lives on AppShell, not on pages — never duplicate pb-tabbar.
+    No horizontal padding (px-*) — pages render edge-to-edge inside the
+    max-w-[576px] column. Internal blocks add their own gutters if needed.
 
 navbar:
   title_classes: "text-lg font-semibold leading-7 text-foreground"
