@@ -7,6 +7,7 @@ import { Header } from '@/components/layout/Header'
 import { FavoritesPage } from '@/pages/favorites/FavoritesPage'
 import { FinancePage } from '@/pages/finance/FinancePage'
 import { HomePage } from '@/pages/home/HomePage'
+import { PersonalDataPage } from '@/pages/profile/PersonalDataPage'
 import { ProfilePage } from '@/pages/profile/ProfilePage'
 import { FavoritesProvider } from '@/store/favorites'
 
@@ -22,6 +23,7 @@ export default function App() {
             <Route path="/finance" element={<FinancePage />} />
             <Route path="/cart" element={<ContentSlot />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/personal-data" element={<PersonalDataPage />} />
             <Route path="/assistant" element={<ContentSlot />} />
           </Routes>
           <Footer />

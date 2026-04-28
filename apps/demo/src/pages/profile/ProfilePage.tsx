@@ -14,23 +14,13 @@ import {
   ChevronRight,
   type LucideIcon,
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 import { Card } from '@rollout/ui-kit'
 import { Button } from '@rollout/ui-kit'
 import { Avatar, AvatarFallback } from '@rollout/ui-kit'
 
-/* ── data ── */
-
-const USER = {
-  name: 'Анжела К.',
-  email: 'akondrateva@gmail.ru',
-  avatarUrl: '/profile/avatar.png',
-}
-
-const WALLET = {
-  balance: '10 350 ₽',
-  label: 'На кошельке',
-}
+import { USER, WALLET } from './data'
 
 interface MenuItem {
   icon: LucideIcon
@@ -102,7 +92,10 @@ export function ProfilePage() {
         {/* Account */}
         <section className="flex flex-col gap-3">
           <p className="text-sm font-medium text-muted-foreground">Аккаунт</p>
-          <div className="flex items-center gap-3 w-full py-2 px-1 cursor-pointer">
+          <Link
+            to="/profile/personal-data"
+            className="flex items-center gap-3 w-full py-2 px-1 cursor-pointer rounded-md transition-colors hover:bg-muted/40"
+          >
             <Avatar className="size-12">
               <AvatarFallback className="bg-accent text-accent-foreground text-sm font-bold">АК</AvatarFallback>
             </Avatar>
@@ -111,7 +104,7 @@ export function ProfilePage() {
               <p className="text-xs text-muted-foreground">{USER.email}</p>
             </div>
             <ChevronRight className="size-4 text-muted-foreground flex-shrink-0" />
-          </div>
+          </Link>
         </section>
 
         {/* Finance */}
