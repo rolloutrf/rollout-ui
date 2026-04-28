@@ -2,9 +2,17 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "rollout-ui-demo",
+      "cwd": "apps/demo",
+      "runtimeExecutable": "/Users/avarentcov/.nvm/versions/node/v22.21.1/bin/node",
+      "runtimeArgs": ["./node_modules/vite/bin/vite.js"],
+      "port": 5173
+    },
+    {
       "name": "rollout-demo",
-      "runtimeExecutable": "/Users/avarentcov/.nvm/versions/node/v22.21.1/bin/pnpm",
-      "runtimeArgs": ["--filter", "@rollout/demo", "dev"],
+      "cwd": "apps/demo",
+      "runtimeExecutable": "/Users/avarentcov/.nvm/versions/node/v22.21.1/bin/node",
+      "runtimeArgs": ["./node_modules/vite/bin/vite.js"],
       "port": 5173
     }
   ]
