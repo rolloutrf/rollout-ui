@@ -9,6 +9,7 @@ import { FinancePage } from '@/pages/finance/FinancePage'
 import { HomePage } from '@/pages/home/HomePage'
 import { PersonalDataPage } from '@/pages/profile/PersonalDataPage'
 import { ProfilePage } from '@/pages/profile/ProfilePage'
+import { PromocodesPage } from '@/pages/profile/PromocodesPage'
 import { FavoritesProvider } from '@/store/favorites'
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/cart" element={<ContentSlot />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/profile/personal-data" element={<PersonalDataPage />} />
+            <Route path="/profile/promocodes" element={<PromocodesPage />} />
             <Route path="/assistant" element={<ContentSlot />} />
           </Routes>
           <Footer />

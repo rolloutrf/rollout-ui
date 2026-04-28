@@ -25,6 +25,7 @@ import { USER, WALLET } from './data'
 interface MenuItem {
   icon: LucideIcon
   label: string
+  to?: string
 }
 
 const MENU_SECTIONS: { title: string; items: MenuItem[] }[] = [
@@ -32,7 +33,7 @@ const MENU_SECTIONS: { title: string; items: MenuItem[] }[] = [
     title: '',
     items: [
       { icon: CreditCard, label: 'Способы оплаты' },
-      { icon: TicketPercent, label: 'Промокоды' },
+      { icon: TicketPercent, label: 'Промокоды', to: '/profile/promocodes' },
       { icon: Gift, label: 'Сертификаты' },
     ],
   },
@@ -65,13 +66,21 @@ const MENU_SECTIONS: { title: string; items: MenuItem[] }[] = [
 
 /* ── menu row ── */
 
-function MenuRow({ icon: Icon, label }: MenuItem) {
-  return (
-    <div className="flex items-center gap-3 w-full py-3 px-1 cursor-pointer">
+function MenuRow({ icon: Icon, label, to }: MenuItem) {
+  const content = (
+    <>
       <Icon className="size-5 text-muted-foreground flex-shrink-0" strokeWidth={1.5} />
       <span className="flex-1 text-sm font-medium text-foreground text-left">{label}</span>
       <ChevronRight className="size-4 text-muted-foreground flex-shrink-0" />
-    </div>
+    </>
+  )
+  const className = 'flex items-center gap-3 w-full py-3 px-1 cursor-pointer rounded-md'
+  return to ? (
+    <Link to={to} className={className}>
+      {content}
+    </Link>
+  ) : (
+    <div className={className}>{content}</div>
   )
 }
 
@@ -94,7 +103,7 @@ export function ProfilePage() {
           <p className="text-sm font-medium text-muted-foreground">Аккаунт</p>
           <Link
             to="/profile/personal-data"
-            className="flex items-center gap-3 w-full py-2 px-1 cursor-pointer rounded-md transition-colors hover:bg-muted/40"
+            className="flex items-center gap-3 w-full py-2 px-1 cursor-pointer rounded-md"
           >
             <Avatar className="size-12">
               <AvatarFallback className="bg-accent text-accent-foreground text-sm font-bold">АК</AvatarFallback>
