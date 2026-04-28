@@ -12,7 +12,7 @@ interface HeaderProps {
 
 export function Header({ actionSlot }: HeaderProps) {
   return (
-    <header className="flex justify-between items-center py-4 fixed top-0 left-0 right-0 z-50 bg-background/60 backdrop-blur-2xl backdrop-saturate-150 px-4">
+    <header className="flex justify-between items-center py-4 fixed top-0 left-1/2 -translate-x-1/2 z-50 w-full max-w-300 bg-background/60 backdrop-blur-2xl backdrop-saturate-150 px-4">
       <div className="w-10 h-10 flex items-center justify-center">
         <img src="/images/logo.svg" width={24} height={24} alt="ROLLOUT" className="invert dark:invert-0" />
       </div>
