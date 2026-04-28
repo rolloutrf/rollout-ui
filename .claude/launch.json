@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "rollout-demo",
+      "runtimeExecutable": "/Users/avarentcov/.nvm/versions/node/v22.21.1/bin/pnpm",
+      "runtimeArgs": ["--filter", "@rollout/demo", "dev"],
+      "port": 5173
+    }
+  ]
+}

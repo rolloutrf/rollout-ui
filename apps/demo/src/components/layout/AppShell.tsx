@@ -7,8 +7,8 @@ interface AppShellProps {
 
 export function AppShell({ children }: AppShellProps) {
   return (
-    <div className="w-full h-screen bg-background">
-      <div className="max-w-300 mx-auto h-full flex flex-col px-4 pb-tabbar md:pb-0">{children}</div>
+    <div className="w-full min-h-screen bg-background">
+      <div className="max-w-300 mx-auto min-h-screen flex flex-col px-4 pb-tabbar md:pb-0">{children}</div>
       <TabBar />
       <AssistantFAB />
     </div>
