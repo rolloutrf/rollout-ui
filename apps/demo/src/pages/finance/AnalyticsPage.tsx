@@ -24,7 +24,7 @@ import { useState } from 'react'
 import type { DateRange } from 'react-day-picker'
 import { useNavigate } from 'react-router-dom'
 
-import { EXPENSE_BREAKDOWN, EXPENSE_TOTAL, formatRub } from './data'
+import { EXPENSE_BREAKDOWN, EXPENSE_TOTAL, INCOME_BREAKDOWN, INCOME_TOTAL, formatRub, type ExpenseCategory } from './data'
 
 type Mode = 'expense' | 'income'
 type ChartView = 'pie' | 'bar'
@@ -81,8 +81,8 @@ export function AnalyticsPage() {
                     type="button"
                     className="flex h-10 shrink-0 items-center gap-2 rounded-2xl border border-border bg-background px-4 text-sm font-medium text-foreground"
                   >
-                    <CalendarDays className="size-4" strokeWidth={1.75} />
-                    {periodLabel}
+                    <CalendarDays className="size-4 shrink-0 translate-y-px" strokeWidth={1.75} />
+                    <span className="leading-none">{periodLabel}</span>
                   </button>
                 }
               />
@@ -99,82 +99,98 @@ export function AnalyticsPage() {
           </div>
 
           <TabsContent value="expense" className="flex flex-col gap-7">
-            {/* Chart view toggle */}
-            <div className="mt-4 flex w-full items-center justify-center gap-2">
-              <button
-                type="button"
-                aria-label="Круговая диаграмма"
-                aria-pressed={chart === 'pie'}
-                onClick={() => setChart('pie')}
-                className={
-                  'flex size-10 items-center justify-center rounded-xl border border-border ' +
-                  (chart === 'pie' ? 'bg-muted' : 'bg-background')
-                }
-              >
-                <PieChart className="size-5 text-foreground" strokeWidth={1.75} />
-              </button>
-              <button
-                type="button"
-                aria-label="Гистограмма"
-                aria-pressed={chart === 'bar'}
-                onClick={() => setChart('bar')}
-                className={
-                  'flex size-10 items-center justify-center rounded-xl border border-border ' +
-                  (chart === 'bar' ? 'bg-muted' : 'bg-background')
-                }
-              >
-                <BarChart3 className="size-5 text-foreground" strokeWidth={1.75} />
-              </button>
-            </div>
-
-            {/* Chart header + body — kept tight together, separated from neighbours by gap-7. */}
-            <div className="flex flex-col items-center gap-2">
-              <div className="flex flex-col items-center gap-1">
-                <p className="text-sm font-normal leading-5 text-muted-foreground">Расходы за декабрь</p>
-                <p className="text-2xl font-semibold leading-8 text-foreground">{formatRub(EXPENSE_TOTAL)}</p>
-              </div>
-              <div className="relative flex h-[240px] w-full items-center justify-center">
-              <button
-                type="button"
-                aria-label="Предыдущий период"
-                className="absolute left-0 top-1/2 flex size-8 -translate-y-1/2 items-center justify-center rounded-xl text-muted-foreground"
-              >
-                <ChevronLeft className="size-6" strokeWidth={1.75} />
-              </button>
-              {chart === 'pie' ? <Donut /> : <BarChartView />}
-              </div>
-            </div>
-
-            {/* Categories */}
-            <section className="flex w-full flex-col gap-2">
-              <h2 className="text-base font-semibold text-foreground">Категории</h2>
-              <ul className="flex w-full flex-col">
-                {EXPENSE_BREAKDOWN.map((cat) => (
-                  <li key={cat.title} className="flex w-full items-center gap-3 py-3">
-                    <div
-                      className={`flex size-10 shrink-0 items-center justify-center rounded-xl ${cat.iconBg}`}
-                    >
-                      <cat.Icon className={`size-5 ${cat.iconColor}`} strokeWidth={1.75} />
-                    </div>
-                    <div className="flex flex-1 min-w-0 flex-col gap-0.5">
-                      <p className="text-sm font-medium leading-5 text-foreground">{cat.title}</p>
-                      <p className="text-sm font-normal leading-5 text-muted-foreground">{cat.ops} операций</p>
-                    </div>
-                    <p className="shrink-0 text-sm font-normal leading-5 text-muted-foreground">
-                      {formatRub(cat.amount)}
-                    </p>
-                  </li>
-                ))}
-              </ul>
-            </section>
+            <BreakdownView data={EXPENSE_BREAKDOWN} total={EXPENSE_TOTAL} caption="Расходы за декабрь" chart={chart} setChart={setChart} />
           </TabsContent>
 
-          <TabsContent value="income" className="mt-8">
-            <p className="text-center text-sm text-muted-foreground">Нет данных о доходах за выбранный период.</p>
+          <TabsContent value="income" className="flex flex-col gap-7">
+            <BreakdownView data={INCOME_BREAKDOWN} total={INCOME_TOTAL} caption="Доходы за декабрь" chart={chart} setChart={setChart} />
           </TabsContent>
         </Tabs>
       </div>
     </div>
+  )
+}
+
+function BreakdownView({
+  data,
+  total,
+  caption,
+  chart,
+  setChart,
+}: {
+  data: ExpenseCategory[]
+  total: number
+  caption: string
+  chart: ChartView
+  setChart: (v: ChartView) => void
+}) {
+  return (
+    <>
+      {/* Chart view toggle */}
+      <div className="mt-4 flex w-full items-center justify-center gap-2">
+        <button
+          type="button"
+          aria-label="Круговая диаграмма"
+          aria-pressed={chart === 'pie'}
+          onClick={() => setChart('pie')}
+          className={
+            'flex size-10 items-center justify-center rounded-xl border border-border ' +
+            (chart === 'pie' ? 'bg-muted' : 'bg-background')
+          }
+        >
+          <PieChart className="size-5 text-foreground" strokeWidth={1.75} />
+        </button>
+        <button
+          type="button"
+          aria-label="Гистограмма"
+          aria-pressed={chart === 'bar'}
+          onClick={() => setChart('bar')}
+          className={
+            'flex size-10 items-center justify-center rounded-xl border border-border ' +
+            (chart === 'bar' ? 'bg-muted' : 'bg-background')
+          }
+        >
+          <BarChart3 className="size-5 text-foreground" strokeWidth={1.75} />
+        </button>
+      </div>
+
+      {/* Chart header + body */}
+      <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-1">
+          <p className="text-sm font-normal leading-5 text-muted-foreground">{caption}</p>
+          <p className="text-2xl font-semibold leading-8 text-foreground">{formatRub(total)}</p>
+        </div>
+        <div className="relative flex h-[240px] w-full items-center justify-center">
+          <button
+            type="button"
+            aria-label="Предыдущий период"
+            className="absolute left-0 top-1/2 flex size-8 -translate-y-1/2 items-center justify-center rounded-xl text-muted-foreground"
+          >
+            <ChevronLeft className="size-6" strokeWidth={1.75} />
+          </button>
+          {chart === 'pie' ? <Donut data={data} total={total} /> : <BarChartView data={data} />}
+        </div>
+      </div>
+
+      {/* Categories */}
+      <section className="flex w-full flex-col gap-2">
+        <h2 className="text-base font-semibold text-foreground">Категории</h2>
+        <ul className="flex w-full flex-col">
+          {data.map((cat) => (
+            <li key={cat.title} className="flex w-full items-center gap-3 py-3">
+              <div className={`flex size-10 shrink-0 items-center justify-center rounded-xl ${cat.iconBg}`}>
+                <cat.Icon className={`size-5 ${cat.iconColor}`} strokeWidth={1.75} />
+              </div>
+              <div className="flex flex-1 min-w-0 flex-col gap-0.5">
+                <p className="text-sm font-medium leading-5 text-foreground">{cat.title}</p>
+                <p className="text-sm font-normal leading-5 text-muted-foreground">{cat.ops} операций</p>
+              </div>
+              <p className="shrink-0 text-sm font-normal leading-5 text-muted-foreground">{formatRub(cat.amount)}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
   )
 }
 
@@ -198,12 +214,12 @@ function FilterChip({
   )
 }
 
-function BarChartView() {
-  const max = Math.max(...EXPENSE_BREAKDOWN.map((c) => c.amount))
+function BarChartView({ data }: { data: ExpenseCategory[] }) {
+  const max = Math.max(...data.map((c) => c.amount))
   return (
     <div className="mx-auto flex h-full w-1/2 flex-col justify-end">
       <div className="flex h-[200px] items-end gap-2">
-        {EXPENSE_BREAKDOWN.map((cat) => (
+        {data.map((cat) => (
           <div key={cat.title} className="flex h-full flex-1 items-end justify-center">
             <div
               className={`w-3/4 rounded-t-lg border-[1.5px] ${cat.borderClass} ${cat.chartBg}`}
@@ -214,7 +230,7 @@ function BarChartView() {
         ))}
       </div>
       <div className="mt-2 flex gap-2">
-        {EXPENSE_BREAKDOWN.map((cat) => (
+        {data.map((cat) => (
           <span
             key={cat.title}
             className="line-clamp-2 flex-1 text-center text-[10px] font-normal leading-3 text-muted-foreground"
@@ -227,15 +243,13 @@ function BarChartView() {
   )
 }
 
-function Donut() {
-  // Filled-path donut: rounded outer corners (like rounded-t-lg on bars), gaps between segments,
-  // segment angles proportional to category amount.
+function Donut({ data, total }: { data: ExpenseCategory[]; total: number }) {
   const rMid = 80
   const halfThickness = 11
   const rc = PIE_CORNER_RADIUS
   let cursorDeg = 0
-  const segments = EXPENSE_BREAKDOWN.map((cat) => {
-    const segDeg = (cat.amount / EXPENSE_TOTAL) * 360
+  const segments = data.map((cat) => {
+    const segDeg = (cat.amount / total) * 360
     const a1 = cursorDeg + PIE_GAP_DEG / 2
     const a2 = cursorDeg + segDeg - PIE_GAP_DEG / 2
     cursorDeg += segDeg

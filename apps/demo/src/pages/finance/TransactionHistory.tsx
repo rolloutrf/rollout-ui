@@ -1,5 +1,3 @@
-import { Clock4 } from 'lucide-react'
-
 import { Avatar, AvatarImage, AvatarFallback } from '@rollout/ui-kit'
 import { Badge } from '@rollout/ui-kit'
 import { Button } from '@rollout/ui-kit'
@@ -41,12 +39,9 @@ export function TransactionHistory() {
 
             {/* Right slot */}
             <div className="flex flex-col items-end gap-1 flex-shrink-0">
-              <div className="flex items-center gap-1">
-                <p className={`text-sm font-medium leading-4 ${tx.positive ? 'text-success' : 'text-foreground'}`}>
-                  {tx.amount}
-                </p>
-                {tx.pending && <Clock4 className="size-4 text-muted-foreground" strokeWidth={1.5} />}
-              </div>
+              <p className={`text-sm font-medium leading-4 ${tx.positive ? 'text-success' : 'text-foreground'}`}>
+                {tx.amount}
+              </p>
               {tx.bonusPoints && (
                 <Badge variant="default" className="rounded-full px-1.5 py-0 text-[10px]">
                   {tx.bonusPoints}

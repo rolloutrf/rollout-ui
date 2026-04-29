@@ -195,7 +195,7 @@ src/
     ├── electronics/
     │   └── ElectronicsPage.tsx   — /electronics: каталог категорий + промо-баннер + рекомендации
     ├── favorites/
-    │   └── FavoritesPage.tsx
+    │   └── FavoritesPage.tsx     — /favorites: NavBar + Tabs + filter-chips + sort + grid/list view + empty-CTA + рекомендации
     ├── finance/
     │   ├── FinancePage.tsx        — оркестратор; собирает виджеты ниже
     │   ├── AnalyticsPage.tsx      — /finance/analytics: Tabs Расходы/Доходы + chips + donut + категории
@@ -336,7 +336,10 @@ fallback для ситуаций, когда `pnpm rollout:preflight` недос
    - Активное состояние таб-бара
    - Любые элементы, где Figma явно показывает оранжевый акцент
 
-2. **Highlighted/hover в выпадающих списках, меню, командных панелях, items** — **`bg-muted text-foreground`**, НЕ `bg-accent`. Это shadcn-паттерн (см. [https://ui.shadcn.com/docs/components/base/select](https://ui.shadcn.com/docs/components/base/select)). Применено в [`packages/ui-kit/src/components/ui/select.tsx`](../../packages/ui-kit/src/components/ui/select.tsx) — повторять для всех новых меню/popover/combobox.
+2. **Highlighted/hover в выпадающих списках, меню, командных панелях, items** — **`bg-muted text-foreground`**, НЕ `bg-accent`. Это shadcn-паттерн (см. [https://ui.shadcn.com/docs/components/base/select](https://ui.shadcn.com/docs/components/base/select)). Применено в:
+   - [`packages/ui-kit/src/components/ui/select.tsx`](../../packages/ui-kit/src/components/ui/select.tsx) — `data-highlighted:bg-muted data-highlighted:text-foreground`
+   - [`packages/ui-kit/src/components/ui/dropdown-menu.tsx`](../../packages/ui-kit/src/components/ui/dropdown-menu.tsx) — то же на `DropdownMenuItem`, `DropdownMenuRadioItem`, `DropdownMenuCheckboxItem`, `DropdownMenuSubTrigger` (включая `data-popup-open` и `data-open` состояния)
+   Повторять для всех новых меню/popover/combobox. **Не использовать** `focus:bg-accent` или `focus:text-accent-foreground` для highlighted-состояний — это апстримный shadcn-default, который мы целенаправленно перебили (бренд-оранжевый зарезервирован под акценты, не под hover в списках).
 
 3. **Никогда не хардкодить** `bg-orange-500`, `bg-gray-200`, `text-[#0a0a0a]` и т.п. — только токены.
 

@@ -1,9 +1,11 @@
 import {
   Briefcase,
   Car,
+  Coins,
   CreditCard,
   Gamepad2,
   Home,
+  Laptop,
   MoreHorizontal,
   Pill,
   Plane,
@@ -11,6 +13,8 @@ import {
   ShoppingBag,
   ShoppingBasket,
   Smartphone,
+  TrendingUp,
+  Wallet,
   Wifi,
   Zap,
 } from 'lucide-react'
@@ -42,6 +46,16 @@ export const EXPENSE_BREAKDOWN: ExpenseCategory[] = [
 ]
 
 export const EXPENSE_TOTAL = EXPENSE_BREAKDOWN.reduce((sum, c) => sum + c.amount, 0)
+
+// Income categories — same shape as EXPENSE_BREAKDOWN, drives /finance/analytics Доходы tab.
+export const INCOME_BREAKDOWN: ExpenseCategory[] = [
+  { title: 'Зарплата', ops: 2, amount: 185000, Icon: Wallet, bgClass: 'bg-success', strokeClass: 'stroke-success', iconBg: 'bg-success/15', iconColor: 'text-success', borderClass: 'border-success', chartBg: 'bg-success/60' },
+  { title: 'Фриланс', ops: 5, amount: 42000, Icon: Laptop, bgClass: 'bg-cat-blue', strokeClass: 'stroke-cat-blue', iconBg: 'bg-cat-blue/15', iconColor: 'text-cat-blue', borderClass: 'border-cat-blue', chartBg: 'bg-cat-blue/60' },
+  { title: 'Инвестиции', ops: 6, amount: 38000, Icon: TrendingUp, bgClass: 'bg-accent', strokeClass: 'stroke-accent', iconBg: 'bg-accent/15', iconColor: 'text-accent', borderClass: 'border-accent', chartBg: 'bg-accent/60' },
+  { title: 'Кэшбэк', ops: 24, amount: 12500, Icon: Coins, bgClass: 'bg-cat-amber', strokeClass: 'stroke-cat-amber', iconBg: 'bg-cat-amber/15', iconColor: 'text-cat-amber', borderClass: 'border-cat-amber', chartBg: 'bg-cat-amber/60' },
+]
+
+export const INCOME_TOTAL = INCOME_BREAKDOWN.reduce((sum, c) => sum + c.amount, 0)
 
 export function formatRub(n: number): string {
   // ru-RU uses non-breaking space as thousands separator — render as-is.
@@ -312,15 +326,15 @@ export interface MoreProduct {
 export const MORE_PRODUCTS: MoreProduct[] = [
   {
     id: 1,
-    title: 'Skyeng',
-    subtitle: 'Мастерски качают английский',
-    imageUrl: '/finance/more-skyeng-photo.png',
+    title: 'Самокат',
+    subtitle: 'Продукты за 15 минут',
+    imageUrl: '/home/product-bananas.png',
   },
   {
     id: 2,
-    title: 'ЦУМ OUTLET',
-    subtitle: 'Скидки до 70%',
-    imageUrl: '/finance/more-tsum-photo.png',
+    title: 'Flowwow',
+    subtitle: 'Букеты с доставкой за час',
+    imageUrl: '/home/product-bouquet.png',
   },
   { id: 3, title: 'Ostrovok', subtitle: 'Отели от 2 000 ₽', imageUrl: '/home/product-hotel.png' },
   { id: 4, title: 'Летуаль', subtitle: 'Парфюм и уход', imageUrl: '/home/product-perfume.png' },
