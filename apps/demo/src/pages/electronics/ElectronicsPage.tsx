@@ -4,8 +4,9 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { SearchInput } from '@/components/ui/SearchInput'
-import { PRODUCTS } from '@/pages/home/data'
 import { ProductCard } from '@/pages/home/ProductCard'
+
+import { RECOMMENDED } from './data'
 
 interface CategoryItem {
   id: string
@@ -30,8 +31,6 @@ const CATEGORY_ROW_2: CategoryItem[] = [
 
 const BANNER_GRADIENT =
   'radial-gradient(at 80% 80%, rgba(93,95,230,1) 0%, rgba(79,76,178,1) 27%, rgba(65,58,126,1) 46%, rgba(50,39,73,1) 65%, rgba(36,20,21,1) 84%)'
-
-const SMARTPHONE = PRODUCTS.find((p) => p.id === 'p1')!
 
 export function ElectronicsPage() {
   const navigate = useNavigate()
@@ -117,8 +116,8 @@ export function ElectronicsPage() {
         <section className="flex w-full flex-col gap-3">
           <h2 className="text-xl font-semibold text-foreground">Вам может понравится</h2>
           <div className="grid grid-cols-2 gap-x-5 gap-y-7">
-            {[0, 1, 2, 3].map((i) => (
-              <ProductCard key={i} product={SMARTPHONE} />
+            {RECOMMENDED.map((p) => (
+              <ProductCard key={p.id} product={p} />
             ))}
           </div>
         </section>

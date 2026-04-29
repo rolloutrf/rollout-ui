@@ -10,7 +10,7 @@ import type { SliderProps } from '@features-src/shared/Slider/types/Slider.types
 import { SliderDots } from './SliderDots'
 import { SlideWrap } from './SlideWrap'
 
-export function Slider({ children, className, slideClassName, slideOnMouseMove = true }: SliderProps) {
+export function Slider({ children, className, slideClassName, slideOnMouseMove = true, showDots = false }: SliderProps) {
   const slides = Children.toArray(children)
   const { sliderRef, activeIndex, setSlideRef, onSelectSlide, onScroll, onMouseMove } = useSliderScroll({
     slideOnMouseMove,
@@ -40,7 +40,7 @@ export function Slider({ children, className, slideClassName, slideOnMouseMove =
         ))}
       </div>
 
-      <SliderDots slidesCount={slides.length} activeIndex={activeIndex} onSelect={onSelectSlide} />
+      {showDots && <SliderDots slidesCount={slides.length} activeIndex={activeIndex} onSelect={onSelectSlide} />}
     </div>
   )
 }

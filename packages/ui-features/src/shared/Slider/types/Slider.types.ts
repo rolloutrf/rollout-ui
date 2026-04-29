@@ -3,6 +3,8 @@ export type SliderProps = {
   className?: string
   slideClassName?: string
   slideOnMouseMove?: boolean
+  /** Show pagination dots under the slider. Defaults to `false`. */
+  showDots?: boolean
 }
 
 export type SliderSlideProps = {
