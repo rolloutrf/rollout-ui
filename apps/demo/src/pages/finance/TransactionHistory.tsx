@@ -42,7 +42,7 @@ export function TransactionHistory() {
             {/* Right slot */}
             <div className="flex flex-col items-end gap-1 flex-shrink-0">
               <div className="flex items-center gap-1">
-                <p className={`text-sm font-medium leading-4 ${tx.positive ? 'text-teal-600' : 'text-foreground'}`}>
+                <p className={`text-sm font-medium leading-4 ${tx.positive ? 'text-success' : 'text-foreground'}`}>
                   {tx.amount}
                 </p>
                 {tx.pending && <Clock4 className="size-4 text-muted-foreground" strokeWidth={1.5} />}

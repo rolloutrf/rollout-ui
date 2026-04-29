@@ -22,7 +22,7 @@ export function AccountCard() {
       <div className="flex flex-col items-center gap-4 w-full">
         <Avatar className="size-11">
           <AvatarImage src="/finance/logo-tbank.png" alt="T-Bank" />
-          <AvatarFallback className="bg-yellow-400 text-yellow-900 text-sm font-bold">Т</AvatarFallback>
+          <AvatarFallback className="bg-secondary text-foreground text-sm font-bold">Т</AvatarFallback>
         </Avatar>
 
         <div className="flex flex-col items-center gap-2 w-full text-center">
@@ -34,7 +34,7 @@ export function AccountCard() {
           </p>
         </div>
 
-        <Button variant="secondary" className="rounded-xl h-10 px-4 text-sm">
+        <Button variant="secondary" size="xl">
           Все счета
         </Button>
       </div>
@@ -43,7 +43,7 @@ export function AccountCard() {
       <div className="flex gap-6 items-start justify-center">
         {QUICK_ACTIONS.map(({ id, label, icon }) => (
           <div key={id} className="flex flex-col items-center gap-1.5">
-            <Button variant="secondary" size="icon" className="size-11 rounded-xl">
+            <Button variant="secondary" size="icon-xl">
               {icon}
             </Button>
             <span className="text-xs text-muted-foreground">{label}</span>

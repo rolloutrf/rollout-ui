@@ -28,6 +28,7 @@ export interface Category {
   wide: boolean
   imgOffsetY?: number // vertical offset in px, positive = down
   imgOffsetX?: number // horizontal offset in px, positive = right
+  to?: string // optional SPA link target — wraps the card in <Link>
 }
 
 export interface Banner {
@@ -53,7 +54,7 @@ export interface Product {
 }
 
 export const CATEGORY_ROW_1: Category[] = [
-  { id: 'c1', label: 'Электроника', imgUrl: '/home/cat-elektronika.png', wide: true },
+  { id: 'c1', label: 'Электроника', imgUrl: '/home/cat-elektronika.png', wide: true, to: '/electronics' },
   { id: 'c2', label: 'Одежда', imgUrl: '/home/cat-odezhda.png', wide: true },
   { id: 'c3', label: 'Косметика', imgUrl: '/home/cat-kosmetika.png', wide: true },
   {

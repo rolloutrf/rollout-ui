@@ -17,13 +17,13 @@ export function ProductsGrid() {
         {PRODUCTS.map((p) => (
           <Card
             key={p.id}
-            className="rounded-3xl overflow-hidden bg-card border border-border shadow-sm cursor-pointer h-[105px] relative"
+            className="rounded-3xl overflow-hidden bg-secondary cursor-pointer h-[105px] relative"
           >
             <div className="absolute top-4 left-4">
               <p className="text-sm font-medium text-foreground leading-none">{p.title}</p>
               {p.subtitle && <p className="text-sm font-medium text-foreground leading-none mt-1">{p.subtitle}</p>}
             </div>
-            <img src={p.imageUrl} alt={p.title} className="absolute right-0 top-1/2 -translate-y-1/2 h-[115%] w-auto" />
+            <img src={p.imageUrl} alt={p.title} className="absolute right-4 bottom-0 size-20 object-contain" />
           </Card>
         ))}
       </div>

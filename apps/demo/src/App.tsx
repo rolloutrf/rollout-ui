@@ -4,6 +4,7 @@ import { AppShell } from '@/components/layout/AppShell'
 import { ContentSlot } from '@/components/layout/ContentSlot'
 import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
+import { ElectronicsPage } from '@/pages/electronics/ElectronicsPage'
 import { FavoritesPage } from '@/pages/favorites/FavoritesPage'
 import { FinancePage } from '@/pages/finance/FinancePage'
 import { HomePage } from '@/pages/home/HomePage'
@@ -20,6 +21,7 @@ export default function App() {
           <Header />
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/electronics" element={<ElectronicsPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/finance" element={<FinancePage />} />
             <Route path="/cart" element={<ContentSlot />} />

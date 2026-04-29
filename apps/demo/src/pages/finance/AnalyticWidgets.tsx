@@ -8,7 +8,7 @@ export function AnalyticWidgets() {
   return (
     <div className="grid grid-cols-2 gap-3">
       {/* Analytics */}
-      <Card className="rounded-3xl p-6 flex flex-col gap-6 bg-card border-border shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_-1px_rgba(0,0,0,0.1)]">
+      <Card className="rounded-3xl p-6 flex flex-col gap-6 bg-secondary">
         <div className="flex flex-col gap-1">
           <p className="text-base font-bold text-foreground leading-tight">{ANALYTICS.amount}</p>
           <p className="text-xs text-muted-foreground leading-4">{ANALYTICS.label}</p>
@@ -21,7 +21,7 @@ export function AnalyticWidgets() {
       </Card>
 
       {/* Loyalty */}
-      <Card className="rounded-3xl p-6 flex flex-col gap-1 bg-card border-border shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]">
+      <Card className="rounded-3xl p-6 flex flex-col gap-1 bg-secondary">
         <div className="flex items-start justify-between">
           <p className="text-base font-bold text-foreground leading-tight">{LOYALTY.points}</p>
           <TicketPercent className="size-5 text-muted-foreground flex-shrink-0" strokeWidth={1.5} />

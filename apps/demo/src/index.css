@@ -23,6 +23,10 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-cat-blue: var(--cat-blue);
+  --color-cat-violet: var(--cat-violet);
+  --color-cat-amber: var(--cat-amber);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -47,6 +51,10 @@
   --accent: hsl(24 95% 53%);
   --accent-foreground: hsl(0 0% 98%);
   --destructive: hsl(0 72.2% 50.6%);
+  --success: hsl(142 71% 45%);
+  --cat-blue: hsl(217 91% 60%);
+  --cat-violet: hsl(258 90% 66%);
+  --cat-amber: hsl(38 92% 50%);
   --border: hsl(0 0% 89.8%);
   --input: hsl(0 0% 89.8%);
   --ring: hsl(0 0% 3.9%);
@@ -69,6 +77,10 @@
   --accent: hsl(24 95% 53%);
   --accent-foreground: hsl(0 0% 98%);
   --destructive: hsl(0 72.2% 50.6%);
+  --success: hsl(142 71% 50%);
+  --cat-blue: hsl(217 91% 65%);
+  --cat-violet: hsl(258 90% 70%);
+  --cat-amber: hsl(38 92% 55%);
   --border: hsl(0 0% 14.9%);
   --input: hsl(0 0% 14.9%);
   --ring: hsl(0 0% 83.1%);

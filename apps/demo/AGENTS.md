@@ -192,6 +192,8 @@ src/
     │   ├── Recommendations.tsx
     │   ├── ProductCard.tsx
     │   └── data.ts
+    ├── electronics/
+    │   └── ElectronicsPage.tsx   — /electronics: каталог категорий + промо-баннер + рекомендации
     ├── favorites/
     │   └── FavoritesPage.tsx
     ├── finance/
@@ -220,6 +222,7 @@ src/
 | path | element | Источник |
 |---|---|---|
 | `/` | `HomePage` | `pages/home/` |
+| `/electronics` | `ElectronicsPage` | `pages/electronics/` |
 | `/favorites` | `FavoritesPage` | `pages/favorites/` |
 | `/finance` | `FinancePage` | `pages/finance/` |
 | `/cart` | `ContentSlot` | плейсхолдер |
@@ -389,8 +392,58 @@ fallback для ситуаций, когда `pnpm rollout:preflight` недос
 
 - [`packages/ui-kit/src/components/ui/dropdown-menu.tsx`](../../packages/ui-kit/src/components/ui/dropdown-menu.tsx) — Portal + Positioner + Popup паттерн
 - [`packages/ui-kit/src/components/ui/select.tsx`](../../packages/ui-kit/src/components/ui/select.tsx) — Select на `@base-ui/react/select`
-- [`packages/ui-kit/src/components/ui/button.tsx`](../../packages/ui-kit/src/components/ui/button.tsx) — CVA + variants/sizes
+- [`packages/ui-kit/src/components/ui/button.tsx`](../../packages/ui-kit/src/components/ui/button.tsx) — CVA + variants/sizes (включая `xl` `h-10` и `icon-xl` `size-10` для 40px-кнопок).
+- [`packages/ui-kit/src/components/ui/tabs.tsx`](../../packages/ui-kit/src/components/ui/tabs.tsx) — Tabs на `@base-ui/react/tabs`, синхронизирован с registry shadcn-base-ui (`base-nova/tabs`) + калибровка под Figma «shadcn · actual» (см. ниже).
 - [`packages/ui-kit/src/components/ui/field.tsx`](../../packages/ui-kit/src/components/ui/field.tsx) — Field + FieldLabel + FieldDescription + FieldError
+
+### 4.1 Tabs — спецификация и правила использования
+
+Канонический Tabs живёт в [`packages/ui-kit/src/components/ui/tabs.tsx`](../../packages/ui-kit/src/components/ui/tabs.tsx) — ровно то, что отдает shadcn registry для base-ui (`https://ui.shadcn.com/r/styles/base-nova/tabs.json`), с двумя локальными отличиями:
+
+1. **Селекторы ориентации** заменены на рабочие на base-ui:
+   `data-horizontal:` → `data-[orientation=horizontal]:`, `data-vertical:` → `data-[orientation=vertical]:`,
+   `group-data-horizontal/tabs:` → `group-data-[orientation=horizontal]/tabs:`,
+   `group-data-vertical/tabs:` → `group-data-[orientation=vertical]/tabs:`.
+   Причина: `@base-ui/react/tabs` выставляет `data-orientation="horizontal"`, а не `data-horizontal=""` — upstream-селекторы shadcn не матчат.
+
+2. **Default-размеры калиброваны под Figma «shadcn · actual»** (file `Rf9NPBgJOgcj504cSoo8kg`, node `183:539`):
+
+| Параметр | Upstream shadcn | Наш default (Figma) |
+|---|---|---|
+| TabsList width | `inline-flex w-fit` | `flex w-full` |
+| TabsList height | `h-8` | `h-10` (40px) |
+| TabsList padding | `p-[3px]` | `p-1` (4px) |
+| TabsList radius | `rounded-lg` (8px) | `rounded-2xl` (16px) |
+| TabsList bg | `bg-muted` | `bg-secondary` |
+| TabsTrigger radius | `rounded-md` (6px) | `rounded-xl` (12px) |
+| Active в light | `data-active:bg-background data-active:shadow-sm` | `data-active:bg-background` (без shadow) |
+| Active в dark | `dark:data-active:border-input dark:data-active:bg-input/30` | `dark:data-active:border-foreground/15 dark:data-active:bg-input/30` (видимый бордер вместо невидимого `border-input == bg-secondary`) |
+
+Сохранены `variant="line"` (underline-стиль) и `tabsListVariants` экспорт из upstream.
+
+**Как использовать в новой странице:**
+
+```tsx
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@rollout/ui-kit'
+
+<Tabs defaultValue="a">
+  <TabsList>
+    <TabsTrigger value="a">Tab A</TabsTrigger>
+    <TabsTrigger value="b">Tab B</TabsTrigger>
+  </TabsList>
+  <TabsContent value="a">…</TabsContent>
+  <TabsContent value="b">…</TabsContent>
+</Tabs>
+```
+
+Никаких inline-overrides на TabsList / TabsTrigger. Если нужен **underline**-стиль (например, full-width chips или вкладки разделов) — `<TabsList variant="line">`. Если нужен другой визуал, который не покрывают `default` / `line` — добавляем новый variant в `tabs.tsx` (через `tabsListVariants` cva), а не оверрайдим в потребителе.
+
+**Действующий пример:** [`apps/demo/src/pages/finance/CurrencyRates.tsx`](src/pages/finance/CurrencyRates.tsx) — `<Tabs><TabsList><TabsTrigger>...` без props и без overrides, рендерит full-width pill 40h из коробки в обеих темах.
+
+**Запрещено:**
+- inline-классы вида `!w-full !h-[38px] rounded-full !bg-white/10 !shadow-none !opacity-100` — это симптом, что нужный variant не существует, добавляйте variant.
+- `text-xs` / `font-bold` / прочие тип-оверрайды на triggers — text-sm medium фиксирован спецификацией.
+- кастомные `data-[active]:` цвета на triggers — light/dark поведение задано в kit.
 
 ---
 
@@ -441,6 +494,133 @@ fallback для ситуаций, когда `pnpm rollout:preflight` недос
    - не подключать `radix-ui`
    - не «улучшать» макет от себя
    - не делать deep imports
+
+### 5.1 Картинки в страницах — два источника, по типу контента
+
+| Тип контента | Откуда брать | Почему |
+|---|---|---|
+| **Маленькие 3D-иконки** (категории, CTA-иконки 40×40 — Camcorder, Mixer, Router, дисконт-`%`, …) | **Graphic Library** (см. ниже) | в файле страницы они сырые 1024×1024 с прозрачным полем — приходится хакать `scale-*`. В библиотеке у каждого фила есть `cropTransform` → плотная обрезка, заполняет 40×40 edge-to-edge. |
+| **Большие сюжетные картинки** (промо-баннеры, hero, фото товаров, рекламные иллюстрации) | **Файл страницы** (Demo App `p2bAIyTB6oJTGWjjR8NwRB`) | для баннеров кадрирование задаёт сам макет, и картинка уникальная — её нет в библиотеке. Скачиваешь по `nodeId` напрямую (без `cropTransform`) — этого достаточно. |
+
+Эталоны путей: `apps/demo/public/<area>/cat-*.png` для иконок, `apps/demo/public/<area>/banner-*.png` (или `hero-*.png`, `product-*.png`) для крупных картинок. Существующий пример больших картинок — `/home/banner-1..3.png`, `/home/product-*.png` (используются и на `/electronics`).
+
+---
+
+**TL;DR (для иконок):** для любой новой страницы 3D-иконки берёшь из библиотеки → **матчишь** с макетом по имени компонента / визуалу → **вставляешь нужного размера** (как правило 40×40, через `<img className="size-10 object-contain" />`, без `scale-*` и без серых подложек).
+
+**Источники (web-ссылки, открываются в Figma):**
+
+- Категорийные иконки (3D-рендеры — Camcorder, Mixer, Router, ComputerParts, CarOld, Brush, Computer, Cat, Sneakers, finance-иконки, Safe, ...):
+  https://www.figma.com/design/sJt3Y7heQcL0PqT5h7mj8t/00.-Graphic-library?node-id=879-52895
+- Цветные кружки / CTA (красный 3D `%` для «Все скидки и акции» и аналогичные):
+  https://www.figma.com/design/sJt3Y7heQcL0PqT5h7mj8t/00.-Graphic-library?node-id=1248-4
+
+Для MCP это `fileKey: sJt3Y7heQcL0PqT5h7mj8t` и `nodeId: 879-52895` или `1248-4` соответственно.
+
+**Почему:** в файле страницы (`p2bAIyTB6oJTGWjjR8NwRB`) иконки лежат как сырые 1024×1024 PNG-фиктивы с ~30% прозрачного поля. Если скачать оттуда — внутри `size-10 object-contain` контент визуально схлопывается до ~28×28. Прежний хак `scale-[1.4]` — это симптом неправильного источника. Кроме того, в файле страницы один и тот же placeholder (`CarOld`, оранжевая машинка) подставлен под несколько нефинализированных категорий — без библиотеки не отличишь.
+
+В Graphic Library у каждой иконки в `globalVars.styles` филла лежит готовый `cropTransform` + `filenameSuffix`. Передаёшь их в MCP — получаешь плотно обрезанный PNG (~500–700 px), заполняющий 40×40 edge-to-edge.
+
+**Как применять:**
+
+1. `mcp__figma__get_figma_data({ fileKey: 'sJt3Y7heQcL0PqT5h7mj8t', nodeId: '879-52895' })` (или `1248-4`).
+2. Для каждой нужной иконки: компонент → child `Image` rectangle → `fills: fill_XXX`. Открой `globalVars.styles.fill_XXX.imageDownloadArguments` — там `imageRef`, `cropTransform`, `filenameSuffix`.
+3. Скачать пачкой:
+   ```ts
+   mcp__figma__download_figma_images({
+     fileKey: 'sJt3Y7heQcL0PqT5h7mj8t',
+     localPath: 'apps/demo/public/<area>',
+     pngScale: 2,
+     nodes: [{
+       nodeId: '<image-rect-id>',           // напр. '565:52258'
+       imageRef: '<imageRef hex>',
+       fileName: 'cat-<slug>.png',
+       needsCropping: true,
+       cropTransform: [[a,b,tx],[c,d,ty]],   // верба­тим из fill
+       filenameSuffix: '<suffix>',           // верба­тим из fill
+     }, /* ... */]
+   })
+   ```
+4. **Гоча MCP:** даже при заданном `fileName` к имени всё равно дописывается `-<filenameSuffix>`. После загрузки переименовываешь:
+   `mv -f apps/demo/public/<area>/cat-foo-<suffix>.png apps/demo/public/<area>/cat-foo.png`.
+5. В JSX — просто `<img src="…" className="size-10 shrink-0 object-contain" />`. Никаких `scale-*`, никакой `bg-muted`-обёртки.
+
+**Конвенция путей:** `apps/demo/public/<area>/cat-<slug>.png` (как уже для `/home/cat-*.png`, `/electronics/cat-*.png`).
+
+**Запрещено:**
+- скачивать иконки **только** через nodeId без `cropTransform` — получишь сырой PNG с прозрачным полем;
+- компенсировать прозрачное поле через `scale-[1.4]`, `transform: scale(...)`, оборачивать в `bg-muted` контейнер. Если иконка визуально маленькая — взял из неправильного файла, перекачай из Graphic Library.
+
+**Действующий пример маппинга — ElectronicsPage** (`/electronics`, `apps/demo/src/pages/electronics/ElectronicsPage.tsx`):
+
+| Слот в макете | Компонент в Graphic Library | Файл в `apps/demo/public/electronics/` |
+| --- | --- | --- |
+| Смартфоны и фототехника | `Camcorder` (`565:52300`) | `cat-smartfony.png` |
+| Бытовая техника | `Mixer` (`565:52301`) | `cat-bytovaya.png` |
+| Комплектация для ПК | `ComputerParts` (`565:52302`) | `cat-pc.png` |
+| Сетевое оборудование | `Router` (`565:52303`) | `cat-network.png` |
+| Красота / ТВ / ПК ноутбуки / Умный дом / Отдых | `CarOld` (`565:52293`) — placeholder в Figma, переиспользуется 5× | `cat-default.png` |
+| CTA «Все скидки и акции» | discount-`%` из секции `1248-4` (`570:52969 → 565:52954`) | `cta-discounts.png` |
+
+> Пять «нефинализированных» категорий специально используют один `CarOld` — это так и в самом Figma-файле, не наша вольность. Когда дизайнер выложит финальные иконки в Graphic Library, перевыкачаешь и заменишь `cat-default.png` на конкретные.
+
+**Действующий пример маппинга — FinancePage product cards** (`/finance`, `apps/demo/src/pages/finance/ProductsGrid.tsx` + `PartnersWidget.tsx`):
+
+| Слот в макете | Компонент в Graphic Library | Файл в `apps/demo/public/finance/` |
+| --- | --- | --- |
+| Займы | `Money` (`565:52329`) | `product-zaimy.png` |
+| Ипотека | `Box` (`565:52282`) | `product-ipoteka.png` |
+| Инвестиции | `PiggyBank` (`565:52327`) | `product-investitsii.png` |
+| Кредиты | `WalletMoney` (`565:52325`) | `product-kredity.png` |
+| Партнёры — Новинки | `Money` (`565:52329`) | переиспользует `product-zaimy.png` |
+| Партнёры — Акции | `DiagramMoney` (`565:52330`) | `partner-aktsii.png` |
+
+> На что это **не** распространяется (остаются как нарративные картинки из файла страницы или сторонние ассеты): `/home/cat-*.png` (многоэлементные сцены — телефоны+ноут+планшет, букеты и т.п.), `/home/banner-*.png`, `/home/product-*.png` (фото товаров), `/finance/promo-banner.png`, `/finance/more-*.png` (фото-композиции с моделями), `/finance/contact-*.png` / `tx-*.png` (аватары людей), `/finance/flag-*.png`, `/finance/logo-*.png`. Если эти картинки понадобится перевыкачать — берёшь их из файла страницы по `nodeId` без `cropTransform`.
+
+### 5.2 Горизонтальные карусели — карточки должны уходить за край экрана
+
+Любая горизонтально-скроллящаяся полоса (карточки категорий, чипы фильтров, карусель товаров и т.п.) должна **уходить за край экрана**, а не упираться в gutter контент-колонки. Это чёткий визуальный сигнал «здесь можно скроллить» и матчит макеты Figma.
+
+**Гоча:** [AppShell](src/components/layout/AppShell.tsx) добавляет к контент-колонке `px-4` (16px горизонтального gutter'а). Если просто навесить `flex gap-2 overflow-x-auto`, скролл-контейнер ограничится этим padding'ом и карточки **не дойдут до краёв экрана**.
+
+**Решение — break-out паттерн** (`-mx-4 px-4` на самом скролл-контейнере):
+
+```tsx
+<div className="-mx-4 flex gap-2 overflow-x-auto px-4 scrollbar-hide">
+  {items.map((it) => (
+    <button
+      key={it.id}
+      className="h-[72px] w-[208px] shrink-0 …"
+    >…</button>
+  ))}
+</div>
+```
+
+Что даёт каждый класс:
+
+- `-mx-4` — отрицательный margin компенсирует AppShell-овский `px-4` → контейнер растягивается до фактического края viewport.
+- `px-4` (внутри того же контейнера) — сохраняет 16px отступ первой и последней карточки в начальном/конечном положении скролла, чтобы карточки не лепились к самому краю экрана.
+- `flex-shrink-0` (или `shrink-0`) + фиксированная ширина (`w-[208px]` и т.п.) на каждой карточке — иначе flex их сожмёт и скролл вообще не появится.
+- `scrollbar-hide` — прячет нативный скроллбар в браузерах (плагин уже подключён).
+- **`scroll-px-4` обязательно, если используется `snap-x snap-mandatory`** — иначе браузер игнорирует `padding-left` для snap-выравнивания и авто-скроллит первый элемент в фактический край контейнера, съедая 16px gap. См. `MainCommercial.tsx`.
+
+**Поведение, которое должно получиться** (проверять руками на mobile preview):
+
+- В начальном положении первая карточка отступает от левого края на 16px, последняя обрезается за правым краем экрана.
+- При скролле вправо ушедшие карточки полностью уходят за левый край viewport (не «зависают» в 16px gutter'е).
+- Когда последняя карточка доскроллена в правый край, между ней и краем экрана остаётся 16px (это `pr-4` из `px-4`).
+
+**Запрещено:**
+
+- Заменять `-mx-4` на полное вынесение контейнера выше AppShell — `px-4` AppShell-а должен оставаться единым источником истины для gutter'а.
+- Хардкодить ширину карточки `w-screen` / `100vw` — поломает раскладку, мы скроллим карточки фиксированной ширины.
+- Класть `overflow-x-auto` на родителя без `flex` — без flex-row карточки лягут вертикально.
+
+**Действующие примеры в репо:**
+
+- [apps/demo/src/pages/electronics/ElectronicsPage.tsx](src/pages/electronics/ElectronicsPage.tsx) — две полосы категорий (`CATEGORY_ROW_1`, `CATEGORY_ROW_2`).
+- [apps/demo/src/pages/home/MainRubricator.tsx](src/pages/home/MainRubricator.tsx) — две полосы категорий на главной.
+- [apps/demo/src/pages/home/MainCommercial.tsx](src/pages/home/MainCommercial.tsx) — карусель промо-баннеров (с `snap-x snap-mandatory` поверх того же `-mx-4 px-4`).
 
 ---
 

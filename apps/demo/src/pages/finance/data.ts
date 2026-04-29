@@ -36,10 +36,10 @@ export const ANALYTICS = {
   amount: '100 089 ₽',
   label: 'Расходы за декабрь',
   bars: [
-    { color: 'bg-rose-500', width: 'w-[35%]' },
-    { color: 'bg-blue-500', width: 'w-[30%]' },
-    { color: 'bg-amber-500', width: 'w-[20%]' },
-    { color: 'bg-emerald-500', width: 'w-[15%]' },
+    { color: 'bg-destructive', width: 'w-[35%]' },
+    { color: 'bg-cat-blue', width: 'w-[30%]' },
+    { color: 'bg-cat-amber', width: 'w-[20%]' },
+    { color: 'bg-success', width: 'w-[15%]' },
   ],
 }
 
@@ -81,7 +81,7 @@ export const TRANSACTIONS: Transaction[] = [
     pending: true,
     avatarUrl: null,
     icon: ShoppingBasket,
-    iconColor: 'bg-amber-500',
+    iconColor: 'bg-cat-amber',
   },
   {
     id: 2,
@@ -178,24 +178,24 @@ export const PAYMENTS: Payment[] = [
     title: 'Мобильная связь',
     subtitle: 'МТС · Билайн · Мегафон',
     icon: Smartphone,
-    iconBg: 'bg-orange-500/15',
-    iconColor: 'text-orange-500',
+    iconBg: 'bg-accent/15',
+    iconColor: 'text-accent',
   },
   {
     id: 2,
     title: 'Квартплата',
     subtitle: 'ЖКХ · Коммунальные услуги',
     icon: Home,
-    iconBg: 'bg-blue-500/15',
-    iconColor: 'text-blue-500',
+    iconBg: 'bg-cat-blue/15',
+    iconColor: 'text-cat-blue',
   },
   {
     id: 3,
     title: 'Интернет и ТВ',
     subtitle: 'Ростелеком · Дом.ру · МТС',
     icon: Wifi,
-    iconBg: 'bg-violet-500/15',
-    iconColor: 'text-violet-500',
+    iconBg: 'bg-cat-violet/15',
+    iconColor: 'text-cat-violet',
   },
   {
     id: 4,
@@ -210,16 +210,16 @@ export const PAYMENTS: Payment[] = [
     title: 'Штрафы ГИБДД',
     subtitle: 'Автоматически по номеру авто',
     icon: Car,
-    iconBg: 'bg-rose-500/15',
-    iconColor: 'text-rose-500',
+    iconBg: 'bg-destructive/15',
+    iconColor: 'text-destructive',
   },
   {
     id: 6,
     title: 'Электроэнергия',
     subtitle: 'Мосэнергосбыт · ТНС Энерго',
     icon: Zap,
-    iconBg: 'bg-amber-500/15',
-    iconColor: 'text-amber-500',
+    iconBg: 'bg-cat-amber/15',
+    iconColor: 'text-cat-amber',
   },
 ]
 
@@ -262,7 +262,7 @@ export interface PartnerCard {
 
 export const PARTNER_CARDS: PartnerCard[] = [
   { id: 1, title: 'Новинки', imageUrl: '/finance/product-zaimy.png' },
-  { id: 2, title: 'Акции', imageUrl: '/finance/product-zaimy.png' },
+  { id: 2, title: 'Акции', imageUrl: '/finance/partner-aktsii.png' },
 ]
 
 export const CASHBACK = {

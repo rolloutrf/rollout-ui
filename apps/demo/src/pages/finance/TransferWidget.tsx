@@ -1,9 +1,10 @@
-import { Search, ChevronRight } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 import { useState } from 'react'
 
-import { Input } from '@rollout/ui-kit'
 import { Button } from '@rollout/ui-kit'
 import { Avatar, AvatarImage, AvatarFallback } from '@rollout/ui-kit'
+
+import { SearchInput } from '@/components/ui/SearchInput'
 
 import { CONTACTS } from './data'
 
@@ -14,16 +15,12 @@ export function TransferWidget() {
     <div className="flex flex-col gap-4">
       <h2 className="text-base font-semibold text-foreground">Перевод</h2>
 
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none z-10" />
-        <Input
-          placeholder="Введите номер или имя"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="h-10 pl-10 pr-9 rounded-xl shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]"
-        />
-        <ChevronRight className="absolute right-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground pointer-events-none" />
-      </div>
+      <SearchInput
+        value={query}
+        onChange={setQuery}
+        placeholder="Введите номер или имя"
+        rightSlot={<ChevronRight className="size-4" strokeWidth={1.5} aria-hidden={true} />}
+      />
 
       <div className="overflow-x-auto scrollbar-hide -mx-4 px-4">
         <div className="flex gap-4 w-max">
