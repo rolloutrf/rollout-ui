@@ -10,9 +10,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@rollout/ui-kit'
-import { ArrowLeft, ChevronRight, Package, Search } from 'lucide-react'
+import { ArrowLeft, ChevronRight, Package } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import { SearchInput } from '@/components/ui/SearchInput'
 
 import { USER } from './data'
 
@@ -81,18 +83,11 @@ export function PersonalDataPage() {
 
           <Field>
             <FieldLabel className="text-sm font-medium text-foreground">Адрес</FieldLabel>
-            <div className="relative">
-              <Search
-                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-                strokeWidth={1.5}
-              />
-              <Input
-                className="h-10 rounded-xl pl-9 pr-3 text-sm"
-                placeholder="Город, улица, дом"
-                value={form.address}
-                onChange={(e) => set('address', e.target.value)}
-              />
-            </div>
+            <SearchInput
+              value={form.address}
+              onChange={(v) => set('address', v)}
+              placeholder="Город, улица, дом"
+            />
           </Field>
 
           <Field>

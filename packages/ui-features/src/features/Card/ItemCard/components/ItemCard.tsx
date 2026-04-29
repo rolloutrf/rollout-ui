@@ -42,7 +42,7 @@ export function ItemCard({
 
         <ItemCardSeller seller={seller} rating={rating} reviewCount={reviewCount} />
 
-        {metaText && <p className="text-sm leading-5 text-muted-foreground truncate">{metaText}</p>}
+        {metaText && <p className="text-sm leading-5 text-muted-foreground line-clamp-2">{metaText}</p>}
 
         <ItemCardActions
           buttonText={buttonText}

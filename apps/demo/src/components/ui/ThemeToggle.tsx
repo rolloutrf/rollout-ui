@@ -8,7 +8,7 @@ export function ThemeToggle() {
 
   return (
     <button
-      className={cn('size-9')}
+      className={cn('inline-flex size-9 items-center justify-center')}
       aria-label="Toggle theme"
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
     >

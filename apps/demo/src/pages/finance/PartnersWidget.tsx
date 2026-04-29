@@ -51,7 +51,7 @@ export function PartnersWidget() {
         {PARTNER_CARDS.map((card) => (
           <Card
             key={card.id}
-            className="rounded-3xl overflow-hidden bg-card border border-border shadow-sm cursor-pointer h-[124px] relative"
+            className="rounded-3xl overflow-hidden bg-secondary cursor-pointer h-[124px] relative"
           >
             <div className="absolute top-6 left-6">
               <p className="text-base font-medium text-card-foreground leading-none">{card.title}</p>
@@ -59,14 +59,14 @@ export function PartnersWidget() {
             <img
               src={card.imageUrl}
               alt={card.title}
-              className="absolute right-0 top-1/2 -translate-y-1/2 h-[115%] w-auto"
+              className="absolute right-4 bottom-0 size-20 object-contain"
             />
           </Card>
         ))}
       </div>
 
       {/* Cashback card */}
-      <Card className="rounded-3xl p-6 flex flex-col gap-1 bg-card border border-border shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)]">
+      <Card className="rounded-3xl p-6 flex flex-col gap-1 bg-secondary">
         <div className="flex items-center justify-between w-full shrink-0">
           <p className="text-base font-medium text-card-foreground">{CASHBACK.title}</p>
           <TicketPercent className="size-6 text-muted-foreground" strokeWidth={1.5} />

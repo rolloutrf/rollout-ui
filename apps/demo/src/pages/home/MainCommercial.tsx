@@ -5,7 +5,7 @@ const GRADIENT =
 
 export function MainCommercial() {
   return (
-    <div className="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory">
+    <div className="-mx-4 flex gap-4 overflow-x-auto px-4 scroll-px-4 scrollbar-hide snap-x snap-mandatory">
       {BANNERS.map((b, i) => (
         <div
           key={b.id}

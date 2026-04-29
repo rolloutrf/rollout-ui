@@ -17,23 +17,9 @@ export function CurrencyRates() {
       </div>
 
       <Tabs defaultValue="currencies">
-        <TabsList className="!w-full flex bg-input rounded-full p-[4px] !h-[38px]">
-          <TabsTrigger
-            value="currencies"
-            className="flex-1 h-full rounded-full text-xs font-medium text-foreground text-center !shadow-none border border-transparent
-              opacity-50 data-[active]:!opacity-100
-              data-[active]:!bg-white/10 data-[active]:!border-white/10 data-[active]:!text-foreground"
-          >
-            Валюты
-          </TabsTrigger>
-          <TabsTrigger
-            value="metals"
-            className="flex-1 h-full rounded-full text-xs font-medium text-foreground text-center !shadow-none border border-transparent
-              opacity-50 data-[active]:!opacity-100
-              data-[active]:!bg-white/10 data-[active]:!border-white/10 data-[active]:!text-foreground"
-          >
-            Металлы
-          </TabsTrigger>
+        <TabsList>
+          <TabsTrigger value="currencies">Валюты</TabsTrigger>
+          <TabsTrigger value="metals">Металлы</TabsTrigger>
         </TabsList>
 
         <TabsContent value="currencies" className="mt-3">
@@ -55,12 +41,12 @@ export function CurrencyRates() {
                   <p className="text-xs text-muted-foreground">{c.name}</p>
                 </div>
                 <div className="w-20 flex items-center justify-end gap-0.5 flex-shrink-0">
-                  {c.trend === 'up' && <ChevronUp className="size-3.5 text-green-500" />}
+                  {c.trend === 'up' && <ChevronUp className="size-3.5 text-success" />}
                   {c.trend === 'down' && <ChevronDown className="size-3.5 text-destructive" />}
                   <p className="text-sm font-medium text-foreground">{c.buy}</p>
                 </div>
                 <div className="w-20 flex items-center justify-end gap-0.5 flex-shrink-0">
-                  {c.trend === 'up' && <ChevronUp className="size-3.5 text-green-500" />}
+                  {c.trend === 'up' && <ChevronUp className="size-3.5 text-success" />}
                   {c.trend === 'down' && <ChevronDown className="size-3.5 text-destructive" />}
                   <p className="text-sm font-medium text-foreground">{c.sell}</p>
                 </div>

@@ -34,14 +34,14 @@ export function TabBar() {
               end={path === '/'}
               className={({ isActive }) =>
                 cn(
-                  'flex-1 flex flex-col items-center justify-center gap-[4px]',
+                  'flex-1 flex flex-col items-center justify-center gap-[6px]',
                   'pt-3 pb-[34px]',
                   'transition-all active:scale-110 duration-150',
                   isActive ? 'text-orange-500' : 'text-muted-foreground'
                 )
               }
             >
-              <ItemIcon size={24} strokeWidth={1.5} />
+              <ItemIcon size={22} strokeWidth={1.5} />
               <span className="text-[10px] font-medium leading-none">{label}</span>
             </NavLink>
           ))}

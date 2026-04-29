@@ -8,7 +8,7 @@ export function ItemCardDetailImage({ imgUrls }: ItemCardDetailImgProps) {
   }
 
   return (
-    <Slider>
+    <Slider showDots>
       {imgUrls.map((src, index) => (
         <figure key={index} className="h-full w-full">
           <img
