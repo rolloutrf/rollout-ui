@@ -140,7 +140,7 @@ export function FavoritesPage() {
             <TabsTrigger value="stores">Магазины</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="items" className="flex flex-col gap-5">
+          <TabsContent value="items" className="flex min-h-[calc(100svh-380px)] flex-col gap-5">
             {!isEmpty && (
               <>
                 {/* Filter chips */}
@@ -207,7 +207,7 @@ export function FavoritesPage() {
             {isEmpty && <EmptyState />}
           </TabsContent>
 
-          <TabsContent value="collections" className="mt-2">
+          <TabsContent value="collections" className="flex min-h-[calc(100svh-380px)] flex-col">
             <PlaceholderState
               Icon={FolderHeart}
               title="Подборки скоро здесь появятся"
@@ -216,7 +216,7 @@ export function FavoritesPage() {
             />
           </TabsContent>
 
-          <TabsContent value="stores" className="mt-2">
+          <TabsContent value="stores" className="flex min-h-[calc(100svh-380px)] flex-col">
             <PlaceholderState
               Icon={Store}
               title="Нет избранных магазинов"
@@ -298,7 +298,7 @@ function PlaceholderState({
   ctaTo?: string
 }) {
   return (
-    <Empty className="min-h-[calc(100svh-380px)] border-0 py-8">
+    <Empty className="flex-1 border-0 py-8">
       <EmptyHeader>
         <EmptyMedia variant="icon" className="size-14 rounded-2xl">
           <Icon className="size-7" strokeWidth={1.5} />
