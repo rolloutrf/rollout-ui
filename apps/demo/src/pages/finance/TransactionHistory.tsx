@@ -21,8 +21,8 @@ export function TransactionHistory() {
           <div key={tx.id} className="flex items-start gap-4 py-4">
             {/* Media */}
             {tx.icon ? (
-              <div className={`size-10 rounded-lg flex items-center justify-center flex-shrink-0 ${tx.iconColor}`}>
-                <tx.icon className="size-4 text-white" strokeWidth={1.5} />
+              <div className={`size-10 rounded-xl flex items-center justify-center flex-shrink-0 ${tx.iconColor}/15`}>
+                <tx.icon className={`size-5 ${tx.iconColor.replace('bg-', 'text-')}`} strokeWidth={1.75} />
               </div>
             ) : (
               <Avatar className="size-10 flex-shrink-0 rounded-lg">

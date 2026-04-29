@@ -198,6 +198,7 @@ src/
     │   └── FavoritesPage.tsx
     ├── finance/
     │   ├── FinancePage.tsx        — оркестратор; собирает виджеты ниже
+    │   ├── AnalyticsPage.tsx      — /finance/analytics: Tabs Расходы/Доходы + chips + donut + категории
     │   ├── AccountCard.tsx
     │   ├── AnalyticWidgets.tsx
     │   ├── CurrencyRates.tsx
@@ -225,6 +226,7 @@ src/
 | `/electronics` | `ElectronicsPage` | `pages/electronics/` |
 | `/favorites` | `FavoritesPage` | `pages/favorites/` |
 | `/finance` | `FinancePage` | `pages/finance/` |
+| `/finance/analytics` | `AnalyticsPage` | `pages/finance/` |
 | `/cart` | `ContentSlot` | плейсхолдер |
 | `/profile` | `ProfilePage` | `pages/profile/` |
 | `/profile/personal-data` | `PersonalDataPage` | `pages/profile/` |
@@ -372,6 +374,28 @@ fallback для ситуаций, когда `pnpm rollout:preflight` недос
 ```
 
 Использовать `dark:bg-...`, `dark:text-...` в Tailwind. Не использовать `prefers-color-scheme`.
+
+### Единый нижний отступ страницы — `pb-8`
+
+Контейнер любой страницы — **строго `mx-auto flex max-w-[576px] flex-col gap-7 pt-20 pb-8`** (см. `page-recipe.yaml → container.classes`). Никаких `pb-[120px]`, `py-4`, `gap-6` и прочих локальных вариаций.
+
+**Почему именно `pb-8`** (а не `pb-[120px]` / `pb-tabbar` на странице):
+- Mobile-отступ под TabBar даёт **AppShell** через утилиту `pb-tabbar md:pb-0` — она уже учитывает 34px бара + 36px AssistantFAB + 28px дыхания + iOS safe-area (см. §6 «Нижний отступ под TabBar» и [AppShell.tsx:11](src/components/layout/AppShell.tsx)). Дублировать на странице не нужно — приведёт к 200+px пустоты внизу.
+- `pb-8` (32px) — косметический «дыхательный» отступ от последнего блока контента до Footer/края. Складывается с `pb-tabbar` AppShell-а на mobile и с нулём на desktop (`md:pb-0`).
+- `pt-20` (80px) — компенсирует fixed Header (~72px). Везде одинаково.
+- `gap-7` (28px) — единый межсекционный шаг внутри страницы.
+
+**How to apply:** при создании новой страницы — копировать контейнер из `page-recipe.yaml`. При правке существующей — если видишь `pb-[120px] md:pb-8`, `py-4`, `gap-6` на корневом контейнере страницы, это legacy — приводи к канону. Когда страница рендерится **вне** AppShell (отдельный layout, fullscreen-overlay, свой scroll-контейнер с `overflow-y-auto`) — тогда и только тогда добавляй `pb-tabbar md:pb-0` явно (см. §6).
+
+### Подзаголовки секций — единый размер 16px
+
+Любой подзаголовок секции внутри страницы (`<h2>`, или `<p>` в роли заголовка списка/группы — например «Категории», «Рекомендации», «Ваши промокоды», «Финансы», «Аккаунт», «Мои покупки», «Список операций», «Курсы валют», «Платежи», «Продукты», «Партнёры», «Самозанятость», «Перевод», «Вам может понравится» и т.п.) — **`text-base font-semibold text-foreground`** (16px / 600). Без `leading-*` — дефолта Tailwind достаточно.
+
+**Не использовать** для подзаголовков `text-xl` / `text-2xl` / `text-sm` / `font-medium` / `font-bold` / `text-muted-foreground` — это нарушает единый ритм. Заголовок страницы (`<h1>` в NavBar) — отдельная история, остаётся `text-lg font-semibold leading-7` (см. §6 / page-recipe.yaml `navbar.title_classes`).
+
+**Why:** до унификации подзаголовки скакали по 14/16/20/24px, страницы выглядели разнокалиберно. 16px / semibold — компромисс: достаточно крупный, чтобы группировать секции, и не конкурирует с h1 NavBar.
+
+**How to apply:** при создании новой страницы и при правке существующей — все «section labels» приводить к этому стилю. Если макет Figma явно требует другого размера для конкретного экрана — поднимать вопрос с дизайнером, не «улучшать» от себя.
 
 ---
 

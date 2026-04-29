@@ -1,24 +1,31 @@
 import { TicketPercent } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 import { Card } from '@rollout/ui-kit'
 
-import { ANALYTICS, LOYALTY } from './data'
+import { ANALYTICS, EXPENSE_BREAKDOWN, EXPENSE_TOTAL, LOYALTY } from './data'
 
 export function AnalyticWidgets() {
   return (
     <div className="grid grid-cols-2 gap-3">
       {/* Analytics */}
-      <Card className="rounded-3xl p-6 flex flex-col gap-6 bg-secondary">
-        <div className="flex flex-col gap-1">
-          <p className="text-base font-bold text-foreground leading-tight">{ANALYTICS.amount}</p>
-          <p className="text-xs text-muted-foreground leading-4">{ANALYTICS.label}</p>
-        </div>
-        <div className="flex h-10 w-full rounded-lg overflow-hidden">
-          {ANALYTICS.bars.map((bar, i) => (
-            <div key={i} className={`h-full ${bar.width} ${bar.color}`} />
-          ))}
-        </div>
-      </Card>
+      <Link to="/finance/analytics" className="block">
+        <Card className="rounded-3xl p-6 flex flex-col gap-6 bg-secondary">
+          <div className="flex flex-col gap-1">
+            <p className="text-base font-bold text-foreground leading-tight">{ANALYTICS.amount}</p>
+            <p className="text-xs text-muted-foreground leading-4">{ANALYTICS.label}</p>
+          </div>
+          <div className="flex h-8 w-full gap-1">
+            {EXPENSE_BREAKDOWN.map((cat) => (
+              <div
+                key={cat.title}
+                className={`h-full rounded-md border-[1.5px] ${cat.borderClass} ${cat.chartBg}`}
+                style={{ width: `${(cat.amount / EXPENSE_TOTAL) * 100}%` }}
+              />
+            ))}
+          </div>
+        </Card>
+      </Link>
 
       {/* Loyalty */}
       <Card className="rounded-3xl p-6 flex flex-col gap-1 bg-secondary">
