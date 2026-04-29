@@ -114,7 +114,7 @@ export function ElectronicsPage() {
 
         {/* Recommendations */}
         <section className="flex w-full flex-col gap-3">
-          <h2 className="text-xl font-semibold text-foreground">Вам может понравится</h2>
+          <h2 className="text-base font-semibold text-foreground">Вам может понравится</h2>
           <div className="grid grid-cols-2 gap-x-5 gap-y-7">
             {RECOMMENDED.map((p) => (
               <ProductCard key={p.id} product={p} />

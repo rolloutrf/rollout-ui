@@ -8,7 +8,7 @@ export function MoreProducts() {
   return (
     <div className="flex flex-col gap-7">
       <div className="flex items-center justify-between">
-        <h2 className="text-base font-medium text-foreground">Вам может понравится</h2>
+        <h2 className="text-base font-semibold text-foreground">Вам может понравится</h2>
         <Button variant="link" className="text-foreground p-0 h-auto text-sm font-medium">
           Ещё
         </Button>

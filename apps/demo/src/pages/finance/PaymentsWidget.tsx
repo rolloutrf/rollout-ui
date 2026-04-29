@@ -20,8 +20,8 @@ export function PaymentsWidget() {
             key={p.id}
             className="flex items-center gap-4 w-full p-4 rounded-3xl border border-border bg-transparent hover:bg-muted/50 transition-colors text-left"
           >
-            <div className={`size-10 rounded-full flex items-center justify-center flex-shrink-0 ${p.iconBg}`}>
-              <p.icon className={`size-5 ${p.iconColor}`} strokeWidth={1.5} />
+            <div className={`size-10 rounded-xl flex items-center justify-center flex-shrink-0 ${p.iconBg}`}>
+              <p.icon className={`size-5 ${p.iconColor}`} strokeWidth={1.75} />
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-foreground leading-4">{p.title}</p>

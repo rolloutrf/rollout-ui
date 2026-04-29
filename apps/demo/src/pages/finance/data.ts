@@ -1,17 +1,66 @@
 import {
-  SendHorizontal,
+  Briefcase,
+  Car,
+  Coins,
   CreditCard,
+  Gamepad2,
+  Home,
+  Laptop,
   MoreHorizontal,
+  Pill,
+  Plane,
+  SendHorizontal,
+  ShoppingBag,
   ShoppingBasket,
   Smartphone,
-  Home,
+  TrendingUp,
+  Wallet,
   Wifi,
-  Gamepad2,
-  Car,
   Zap,
 } from 'lucide-react'
 
 import type { LucideIcon } from 'lucide-react'
+
+// Expense categories — single source of truth for the December bar widget
+// (FinancePage → AnalyticWidgets) and the analytics page (pie + list).
+// Keep colors aligned with the icon bg in the category list: stroke-* matches bg-*.
+export interface ExpenseCategory {
+  title: string
+  ops: number
+  amount: number // RUB
+  Icon: LucideIcon
+  bgClass: string // solid background token class (bar widget + bar chart bars + pie fill via var)
+  strokeClass: string // matching SVG stroke token class (legacy)
+  iconBg: string // 15%-opacity background for category-list icon tile
+  iconColor: string // matching solid text color for category-list icon
+  borderClass: string // matching solid border color (chart bars + pie strokes)
+  chartBg: string // 20%-opacity background for chart bars
+}
+
+export const EXPENSE_BREAKDOWN: ExpenseCategory[] = [
+  { title: 'Супермаркеты', ops: 24, amount: 158000, Icon: ShoppingBasket, bgClass: 'bg-accent', strokeClass: 'stroke-accent', iconBg: 'bg-accent/15', iconColor: 'text-accent', borderClass: 'border-accent', chartBg: 'bg-accent/60' },
+  { title: 'Авиабилеты', ops: 3, amount: 145000, Icon: Plane, bgClass: 'bg-cat-teal', strokeClass: 'stroke-cat-teal', iconBg: 'bg-cat-teal/15', iconColor: 'text-cat-teal', borderClass: 'border-cat-teal', chartBg: 'bg-cat-teal/60' },
+  { title: 'Доставка еды', ops: 18, amount: 142320, Icon: ShoppingBag, bgClass: 'bg-cat-amber', strokeClass: 'stroke-cat-amber', iconBg: 'bg-cat-amber/15', iconColor: 'text-cat-amber', borderClass: 'border-cat-amber', chartBg: 'bg-cat-amber/60' },
+  { title: 'Путешествия и туры', ops: 2, amount: 112000, Icon: Briefcase, bgClass: 'bg-success', strokeClass: 'stroke-success', iconBg: 'bg-success/15', iconColor: 'text-success', borderClass: 'border-success', chartBg: 'bg-success/60' },
+  { title: 'Аптеки', ops: 14, amount: 98025, Icon: Pill, bgClass: 'bg-destructive', strokeClass: 'stroke-destructive', iconBg: 'bg-destructive/15', iconColor: 'text-destructive', borderClass: 'border-destructive', chartBg: 'bg-destructive/60' },
+]
+
+export const EXPENSE_TOTAL = EXPENSE_BREAKDOWN.reduce((sum, c) => sum + c.amount, 0)
+
+// Income categories — same shape as EXPENSE_BREAKDOWN, drives /finance/analytics Доходы tab.
+export const INCOME_BREAKDOWN: ExpenseCategory[] = [
+  { title: 'Зарплата', ops: 2, amount: 185000, Icon: Wallet, bgClass: 'bg-success', strokeClass: 'stroke-success', iconBg: 'bg-success/15', iconColor: 'text-success', borderClass: 'border-success', chartBg: 'bg-success/60' },
+  { title: 'Фриланс', ops: 5, amount: 42000, Icon: Laptop, bgClass: 'bg-cat-blue', strokeClass: 'stroke-cat-blue', iconBg: 'bg-cat-blue/15', iconColor: 'text-cat-blue', borderClass: 'border-cat-blue', chartBg: 'bg-cat-blue/60' },
+  { title: 'Инвестиции', ops: 6, amount: 38000, Icon: TrendingUp, bgClass: 'bg-accent', strokeClass: 'stroke-accent', iconBg: 'bg-accent/15', iconColor: 'text-accent', borderClass: 'border-accent', chartBg: 'bg-accent/60' },
+  { title: 'Кэшбэк', ops: 24, amount: 12500, Icon: Coins, bgClass: 'bg-cat-amber', strokeClass: 'stroke-cat-amber', iconBg: 'bg-cat-amber/15', iconColor: 'text-cat-amber', borderClass: 'border-cat-amber', chartBg: 'bg-cat-amber/60' },
+]
+
+export const INCOME_TOTAL = INCOME_BREAKDOWN.reduce((sum, c) => sum + c.amount, 0)
+
+export function formatRub(n: number): string {
+  // ru-RU uses non-breaking space as thousands separator — render as-is.
+  return `${n.toLocaleString('ru-RU')} ₽`
+}
 
 // Account
 export const ACCOUNT = {
@@ -31,16 +80,10 @@ export const QUICK_ACTIONS: QuickAction[] = [
   { icon: MoreHorizontal, label: 'Ещё' },
 ]
 
-// Analytics widget
+// Analytics widget — amount is the EXPENSE_TOTAL sum, bars come from EXPENSE_BREAKDOWN.
 export const ANALYTICS = {
-  amount: '100 089 ₽',
+  amount: formatRub(EXPENSE_TOTAL),
   label: 'Расходы за декабрь',
-  bars: [
-    { color: 'bg-destructive', width: 'w-[35%]' },
-    { color: 'bg-cat-blue', width: 'w-[30%]' },
-    { color: 'bg-cat-amber', width: 'w-[20%]' },
-    { color: 'bg-success', width: 'w-[15%]' },
-  ],
 }
 
 // Loyalty widget
@@ -283,15 +326,15 @@ export interface MoreProduct {
 export const MORE_PRODUCTS: MoreProduct[] = [
   {
     id: 1,
-    title: 'Skyeng',
-    subtitle: 'Мастерски качают английский',
-    imageUrl: '/finance/more-skyeng-photo.png',
+    title: 'Самокат',
+    subtitle: 'Продукты за 15 минут',
+    imageUrl: '/home/product-bananas.png',
   },
   {
     id: 2,
-    title: 'ЦУМ OUTLET',
-    subtitle: 'Скидки до 70%',
-    imageUrl: '/finance/more-tsum-photo.png',
+    title: 'Flowwow',
+    subtitle: 'Букеты с доставкой за час',
+    imageUrl: '/home/product-bouquet.png',
   },
   { id: 3, title: 'Ostrovok', subtitle: 'Отели от 2 000 ₽', imageUrl: '/home/product-hotel.png' },
   { id: 4, title: 'Летуаль', subtitle: 'Парфюм и уход', imageUrl: '/home/product-perfume.png' },

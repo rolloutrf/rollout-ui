@@ -15,7 +15,7 @@ import { SearchBar } from '@/pages/home/SearchBar'
 export function FinancePage() {
   return (
     <div className="w-full">
-      <div className="max-w-[576px] mx-auto flex flex-col gap-7 py-4 pb-[120px] md:pb-8">
+      <div className="max-w-[576px] mx-auto flex flex-col gap-7 pt-20 pb-8">
         <SearchBar />
         <div data-section="account">
           <AccountCard />

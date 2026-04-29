@@ -4,6 +4,7 @@ interface FavoritesCtx {
   ids: Set<string>
   toggle: (id: string) => void
   has: (id: string) => boolean
+  clear: () => void
 }
 
 const FavoritesContext = createContext<FavoritesCtx | null>(null)
@@ -32,7 +33,9 @@ export function FavoritesProvider({ children }: { children: ReactNode }) {
 
   const has = (id: string) => ids.has(id)
 
-  return <FavoritesContext.Provider value={{ ids, toggle, has }}>{children}</FavoritesContext.Provider>
+  const clear = () => setIds(new Set())
+
+  return <FavoritesContext.Provider value={{ ids, toggle, has, clear }}>{children}</FavoritesContext.Provider>
 }
 
 export function useFavorites() {

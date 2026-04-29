@@ -54,7 +54,7 @@ export function PromocodesPage() {
 
         {/* Your promo codes */}
         <section className="flex w-full flex-col gap-3">
-          <FieldLabel className="text-sm font-medium text-foreground">Ваши промокоды</FieldLabel>
+          <FieldLabel className="text-base font-semibold text-foreground">Ваши промокоды</FieldLabel>
           <ul className="flex w-full flex-col">
             {PROMOS.map((promo, i) => (
               <li

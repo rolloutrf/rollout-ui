@@ -6,6 +6,7 @@ import { Footer } from '@/components/layout/Footer'
 import { Header } from '@/components/layout/Header'
 import { ElectronicsPage } from '@/pages/electronics/ElectronicsPage'
 import { FavoritesPage } from '@/pages/favorites/FavoritesPage'
+import { AnalyticsPage } from '@/pages/finance/AnalyticsPage'
 import { FinancePage } from '@/pages/finance/FinancePage'
 import { HomePage } from '@/pages/home/HomePage'
 import { PersonalDataPage } from '@/pages/profile/PersonalDataPage'
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/electronics" element={<ElectronicsPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/finance" element={<FinancePage />} />
+            <Route path="/finance/analytics" element={<AnalyticsPage />} />
             <Route path="/cart" element={<ContentSlot />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/profile/personal-data" element={<PersonalDataPage />} />

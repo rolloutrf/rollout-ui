@@ -89,7 +89,7 @@ function MenuRow({ icon: Icon, label, to }: MenuItem) {
 export function ProfilePage() {
   return (
     <div className="w-full">
-      <div className="max-w-[576px] mx-auto flex flex-col gap-6 py-4 pb-8">
+      <div className="max-w-[576px] mx-auto flex flex-col gap-7 pt-20 pb-8">
         {/* Title + bell */}
         <div className="flex items-center justify-between">
           <h1 className="text-xl font-bold text-foreground">Профиль</h1>
@@ -100,7 +100,7 @@ export function ProfilePage() {
 
         {/* Account */}
         <section className="flex flex-col gap-3">
-          <p className="text-sm font-medium text-muted-foreground">Аккаунт</p>
+          <p className="text-base font-semibold text-foreground">Аккаунт</p>
           <Link
             to="/profile/personal-data"
             className="flex items-center gap-3 w-full py-2 px-1 cursor-pointer rounded-md"
@@ -118,7 +118,7 @@ export function ProfilePage() {
 
         {/* Finance */}
         <section className="flex flex-col gap-3">
-          <p className="text-sm font-medium text-foreground">Финансы</p>
+          <p className="text-base font-semibold text-foreground">Финансы</p>
           <Card className="rounded-3xl p-6 flex flex-col gap-6 bg-card border border-border shadow-sm">
             <div className="flex flex-col gap-1.5">
               <p className="text-2xl font-bold text-card-foreground">{WALLET.balance}</p>
@@ -133,7 +133,7 @@ export function ProfilePage() {
         {/* Menu sections */}
         {MENU_SECTIONS.map((section, si) => (
           <section key={si} className="flex flex-col gap-1">
-            {section.title && <p className="text-sm font-medium text-muted-foreground mb-2">{section.title}</p>}
+            {section.title && <p className="text-base font-semibold text-foreground mb-2">{section.title}</p>}
             {section.items.map((item, ii) => (
               <MenuRow key={ii} {...item} />
             ))}
