@@ -1,0 +1,58 @@
+name: Deploy Demo to YandexCloud
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build demo
+        run: pnpm --filter @rollout/demo build
+
+      - name: Configure AWS CLI for YandexCloud
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.YC_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.YC_SECRET_ACCESS_KEY }}
+          aws configure set region ru-central1
+
+      - name: Deploy to YandexCloud S3
+        run: |
+          aws s3 sync apps/demo/dist s3://rollout-ui-demo \
+            --endpoint-url https://storage.yandexcloud.net \
+            --delete \
+            --cache-control "max-age=31536000,immutable" \
+            --exclude "index.html"
+          
+          aws s3 cp apps/demo/dist/index.html s3://rollout-ui-demo/index.html \
+            --endpoint-url https://storage.yandexcloud.net \
+            --cache-control "max-age=0,no-cache,no-store,must-revalidate" \
+            --content-type "text/html"
+
+      - name: Invalidate CloudFront cache (if configured)
+        if: ${{ secrets.YC_CLOUDFRONT_DISTRIBUTION_ID }}
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.YC_CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
