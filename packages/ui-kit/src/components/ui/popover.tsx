@@ -3,16 +3,16 @@ import * as React from 'react'
 
 import { cn } from '@ui-kit/lib/utils'
 
-function Popover(props: PopoverPrimitive.Root.Props) {
+function Popover(props: React.ComponentProps<typeof PopoverPrimitive.Root>) {
   return <PopoverPrimitive.Root data-slot="popover" {...props} />
 }
 
-function PopoverTrigger(props: PopoverPrimitive.Trigger.Props) {
+function PopoverTrigger(props: React.ComponentProps<typeof PopoverPrimitive.Trigger>) {
   return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
 }
 
-type PopoverContentProps = PopoverPrimitive.Popup.Props &
-  Pick<PopoverPrimitive.Positioner.Props, 'align' | 'alignOffset' | 'side' | 'sideOffset'>
+type PopoverContentProps = React.ComponentProps<typeof PopoverPrimitive.Popup> &
+  Pick<React.ComponentProps<typeof PopoverPrimitive.Positioner>, 'align' | 'alignOffset' | 'side' | 'sideOffset'>
 
 function PopoverContent({
   className,
@@ -44,11 +44,11 @@ function PopoverContent({
   )
 }
 
-function PopoverTitle({ className, ...props }: PopoverPrimitive.Title.Props) {
+function PopoverTitle({ className, ...props }: React.ComponentProps<typeof PopoverPrimitive.Title>) {
   return <PopoverPrimitive.Title data-slot="popover-title" className={cn('font-medium', className)} {...props} />
 }
 
-function PopoverDescription({ className, ...props }: PopoverPrimitive.Description.Props) {
+function PopoverDescription({ className, ...props }: React.ComponentProps<typeof PopoverPrimitive.Description>) {
   return (
     <PopoverPrimitive.Description
       data-slot="popover-description"

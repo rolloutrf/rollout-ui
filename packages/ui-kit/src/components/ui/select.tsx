@@ -4,15 +4,15 @@ import * as React from 'react'
 
 import { cn } from '@ui-kit/lib/utils'
 
-function Select(props: SelectPrimitive.Root.Props) {
+function Select(props: React.ComponentProps<typeof SelectPrimitive.Root>) {
   return <SelectPrimitive.Root {...props} />
 }
 
-function SelectGroup(props: SelectPrimitive.Group.Props) {
+function SelectGroup(props: React.ComponentProps<typeof SelectPrimitive.Group>) {
   return <SelectPrimitive.Group data-slot="select-group" {...props} />
 }
 
-function SelectValue(props: SelectPrimitive.Value.Props) {
+function SelectValue(props: React.ComponentProps<typeof SelectPrimitive.Value>) {
   return <SelectPrimitive.Value data-slot="select-value" {...props} />
 }
 
@@ -20,7 +20,7 @@ function SelectTrigger({
   className,
   children,
   ...props
-}: SelectPrimitive.Trigger.Props) {
+}: React.ComponentProps<typeof SelectPrimitive.Trigger>) {
   return (
     <SelectPrimitive.Trigger
       data-slot="select-trigger"
@@ -50,8 +50,8 @@ function SelectContent({
   side = 'bottom',
   sideOffset = 4,
   ...props
-}: SelectPrimitive.Popup.Props &
-  Pick<SelectPrimitive.Positioner.Props, 'align' | 'side' | 'sideOffset' | 'alignOffset'>) {
+}: React.ComponentProps<typeof SelectPrimitive.Popup> &
+  Pick<React.ComponentProps<typeof SelectPrimitive.Positioner>, 'align' | 'side' | 'sideOffset' | 'alignOffset'>) {
   return (
     <SelectPrimitive.Portal>
       <SelectPrimitive.Positioner
@@ -77,7 +77,7 @@ function SelectContent({
   )
 }
 
-function SelectLabel({ className, ...props }: SelectPrimitive.GroupLabel.Props) {
+function SelectLabel({ className, ...props }: React.ComponentProps<typeof SelectPrimitive.GroupLabel>) {
   return (
     <SelectPrimitive.GroupLabel
       data-slot="select-label"
@@ -87,7 +87,7 @@ function SelectLabel({ className, ...props }: SelectPrimitive.GroupLabel.Props) 
   )
 }
 
-function SelectItem({ className, children, ...props }: SelectPrimitive.Item.Props) {
+function SelectItem({ className, children, ...props }: React.ComponentProps<typeof SelectPrimitive.Item>) {
   return (
     <SelectPrimitive.Item
       data-slot="select-item"
