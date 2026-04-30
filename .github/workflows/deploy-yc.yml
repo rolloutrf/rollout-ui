@@ -42,9 +42,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.YC_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: ${{ env.YC_REGION }}
         run: |
-          # Install AWS CLI if not available
-          apt-get update && apt-get install -y awscli
-          
           # Deploy static assets with long cache
           aws s3 sync apps/demo/dist s3://${{ env.YC_BUCKET }} \
             --endpoint-url https://storage.yandexcloud.net \
