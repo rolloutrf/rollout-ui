@@ -1,6 +1,7 @@
 import { Tabs as TabsPrimitive } from '@base-ui/react/tabs'
-import { cva, type VariantProps } from 'class-variance-authority'
+import { type VariantProps } from 'class-variance-authority'
 
+import { tabsListVariants } from '@ui-kit/components/ui/tabs-variants'
 import { cn } from '@ui-kit/lib/utils'
 
 function Tabs({ className, orientation = 'horizontal', ...props }: TabsPrimitive.Root.Props) {
@@ -13,21 +14,6 @@ function Tabs({ className, orientation = 'horizontal', ...props }: TabsPrimitive
     />
   )
 }
-
-const tabsListVariants = cva(
-  'group/tabs-list flex w-full items-center justify-center rounded-2xl p-1 text-muted-foreground group-data-[orientation=horizontal]/tabs:h-10 group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col data-[variant=line]:rounded-none',
-  {
-    variants: {
-      variant: {
-        default: 'bg-secondary',
-        line: 'gap-1 bg-transparent',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-    },
-  }
-)
 
 function TabsList({
   className,
@@ -62,12 +48,8 @@ function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
 
 function TabsContent({ className, ...props }: TabsPrimitive.Panel.Props) {
   return (
-    <TabsPrimitive.Panel
-      data-slot="tabs-content"
-      className={cn('flex-1 text-sm outline-none', className)}
-      {...props}
-    />
+    <TabsPrimitive.Panel data-slot="tabs-content" className={cn('flex-1 text-sm outline-none', className)} {...props} />
   )
 }
 
-export { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants }
+export { Tabs, TabsList, TabsTrigger, TabsContent }

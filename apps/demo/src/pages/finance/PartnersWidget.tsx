@@ -49,18 +49,11 @@ export function PartnersWidget() {
       {/* Partner cards */}
       <div className="grid grid-cols-2 gap-3">
         {PARTNER_CARDS.map((card) => (
-          <Card
-            key={card.id}
-            className="rounded-3xl overflow-hidden bg-secondary cursor-pointer h-[124px] relative"
-          >
+          <Card key={card.id} className="rounded-3xl overflow-hidden bg-secondary cursor-pointer h-[124px] relative">
             <div className="absolute top-6 left-6">
               <p className="text-base font-medium text-card-foreground leading-none">{card.title}</p>
             </div>
-            <img
-              src={card.imageUrl}
-              alt={card.title}
-              className="absolute right-4 bottom-0 size-20 object-contain"
-            />
+            <img src={card.imageUrl} alt={card.title} className="absolute right-4 bottom-0 size-20 object-contain" />
           </Card>
         ))}
       </div>

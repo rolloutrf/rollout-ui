@@ -21,11 +21,11 @@ prints the rest as actionable items. If exit code is 0, environment is green.
 
 Bash cannot reach Claude Code's MCP servers. Fire these three in parallel:
 
-| Call | Expected |
-|---|---|
-| `mcp__Shadcn_UI__list_components` | array of ~46 components |
-| `mcp__Claude_Preview__preview_list` | array (may be empty) |
-| `mcp__figma__get_figma_data({ fileKey: 'p2bAIyTB6oJTGWjjR8NwRB', nodeId: '221:4087' })` | YAML structure, no 403 |
+| Call                                                                                    | Expected                |
+| --------------------------------------------------------------------------------------- | ----------------------- |
+| `mcp__Shadcn_UI__list_components`                                                       | array of ~46 components |
+| `mcp__Claude_Preview__preview_list`                                                     | array (may be empty)    |
+| `mcp__figma__get_figma_data({ fileKey: 'p2bAIyTB6oJTGWjjR8NwRB', nodeId: '221:4087' })` | YAML structure, no 403  |
 
 > Code Connect MCP (`mcp__c0861a9b-…`) is intentionally NOT probed —
 > `/new-page` and `/update-page` don't use it (no published Code Connect

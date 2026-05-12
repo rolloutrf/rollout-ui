@@ -1,3 +1,9 @@
+import { format } from 'date-fns'
+import { ru } from 'date-fns/locale'
+import { ArrowLeft, BarChart3, CalendarDays, ChevronDown, ChevronLeft, PieChart, Search } from 'lucide-react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import {
   Button,
   Calendar,
@@ -9,22 +15,17 @@ import {
   TabsList,
   TabsTrigger,
 } from '@rollout/ui-kit'
-import { format } from 'date-fns'
-import { ru } from 'date-fns/locale'
-import {
-  ArrowLeft,
-  BarChart3,
-  CalendarDays,
-  ChevronDown,
-  ChevronLeft,
-  PieChart,
-  Search,
-} from 'lucide-react'
-import { useState } from 'react'
-import type { DateRange } from 'react-day-picker'
-import { useNavigate } from 'react-router-dom'
 
-import { EXPENSE_BREAKDOWN, EXPENSE_TOTAL, INCOME_BREAKDOWN, INCOME_TOTAL, formatRub, type ExpenseCategory } from './data'
+import {
+  EXPENSE_BREAKDOWN,
+  EXPENSE_TOTAL,
+  INCOME_BREAKDOWN,
+  INCOME_TOTAL,
+  formatRub,
+  type ExpenseCategory,
+} from './data'
+
+import type { DateRange } from 'react-day-picker'
 
 type Mode = 'expense' | 'income'
 type ChartView = 'pie' | 'bar'
@@ -99,11 +100,23 @@ export function AnalyticsPage() {
           </div>
 
           <TabsContent value="expense" className="flex flex-col gap-7">
-            <BreakdownView data={EXPENSE_BREAKDOWN} total={EXPENSE_TOTAL} caption="Расходы за декабрь" chart={chart} setChart={setChart} />
+            <BreakdownView
+              data={EXPENSE_BREAKDOWN}
+              total={EXPENSE_TOTAL}
+              caption="Расходы за декабрь"
+              chart={chart}
+              setChart={setChart}
+            />
           </TabsContent>
 
           <TabsContent value="income" className="flex flex-col gap-7">
-            <BreakdownView data={INCOME_BREAKDOWN} total={INCOME_TOTAL} caption="Доходы за декабрь" chart={chart} setChart={setChart} />
+            <BreakdownView
+              data={INCOME_BREAKDOWN}
+              total={INCOME_TOTAL}
+              caption="Доходы за декабрь"
+              chart={chart}
+              setChart={setChart}
+            />
           </TabsContent>
         </Tabs>
       </div>
@@ -194,13 +207,7 @@ function BreakdownView({
   )
 }
 
-function FilterChip({
-  children,
-  muted = false,
-}: {
-  children: React.ReactNode
-  muted?: boolean
-}) {
+function FilterChip({ children, muted = false }: { children: React.ReactNode; muted?: boolean }) {
   return (
     <button
       type="button"
@@ -253,7 +260,11 @@ function Donut({ data, total }: { data: ExpenseCategory[]; total: number }) {
     const a1 = cursorDeg + PIE_GAP_DEG / 2
     const a2 = cursorDeg + segDeg - PIE_GAP_DEG / 2
     cursorDeg += segDeg
-    return { fillVar: `var(--${cat.bgClass.replace('bg-', '')})`, title: cat.title, d: arcSegmentPath(a1, a2, rMid, halfThickness, rc) }
+    return {
+      fillVar: `var(--${cat.bgClass.replace('bg-', '')})`,
+      title: cat.title,
+      d: arcSegmentPath(a1, a2, rMid, halfThickness, rc),
+    }
   })
 
   return (

@@ -50,7 +50,7 @@ export default defineConfig([
         },
         {
           selector: 'parameter',
-          format: ['camelCase'],
+          format: ['camelCase', 'PascalCase'],
           leadingUnderscore: 'allow',
         },
         {

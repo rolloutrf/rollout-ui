@@ -13,9 +13,7 @@ export const ItemCardDetailProperties = ({ properties }: Pick<ItemCardDetailProp
             {Icon && <Icon />}
             <p className="text-sm font-medium text-foreground truncate">{text}</p>
           </div>
-          {rightContent && (
-            <div className="text-sm text-muted-foreground whitespace-nowrap">{rightContent}</div>
-          )}
+          {rightContent && <div className="text-sm text-muted-foreground whitespace-nowrap">{rightContent}</div>}
         </div>
       ))}
     </div>

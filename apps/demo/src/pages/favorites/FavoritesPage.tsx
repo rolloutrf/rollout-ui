@@ -1,4 +1,18 @@
 import {
+  ArrowLeft,
+  ArrowUpDown,
+  FolderHeart,
+  Heart,
+  LayoutGrid,
+  Rows3,
+  Store,
+  Trash2,
+  type LucideIcon,
+} from 'lucide-react'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+
+import {
   Button,
   DropdownMenu,
   DropdownMenuContent,
@@ -16,22 +30,10 @@ import {
   TabsList,
   TabsTrigger,
 } from '@rollout/ui-kit'
-import {
-  ArrowLeft,
-  ArrowUpDown,
-  FolderHeart,
-  Heart,
-  LayoutGrid,
-  Rows3,
-  Store,
-  Trash2,
-  type LucideIcon,
-} from 'lucide-react'
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+
+import type { Product } from '@/pages/home/data'
 
 import { PRODUCTS } from '@/pages/home/data'
-import type { Product } from '@/pages/home/data'
 import { ProductCard } from '@/pages/home/ProductCard'
 import { useFavorites } from '@/store/favorites'
 
@@ -256,11 +258,7 @@ function FilterChip({
 function ListRow({ product: p, onRemove }: { product: Product; onRemove: () => void }) {
   return (
     <div className="flex w-full items-center gap-3 py-3">
-      <img
-        src={p.imgUrl[0]}
-        alt={p.title}
-        className="size-20 shrink-0 rounded-xl bg-muted object-cover"
-      />
+      <img src={p.imgUrl[0]} alt={p.title} className="size-20 shrink-0 rounded-xl bg-muted object-cover" />
       <div className="flex flex-1 min-w-0 flex-col gap-0.5">
         <p className="line-clamp-2 text-sm font-medium leading-5 text-foreground">{p.title}</p>
         {p.seller && <p className="line-clamp-1 text-xs leading-4 text-muted-foreground">{p.seller}</p>}

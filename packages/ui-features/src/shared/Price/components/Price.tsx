@@ -37,9 +37,7 @@ export const Price = ({
 
   return (
     <div className={cn('inline-flex flex-col gap-0.5', className)} data-state="price">
-      <p className={cn('font-bold whitespace-nowrap', priceClassName.main)}>
-        {formattedCurrentPrice}
-      </p>
+      <p className={cn('font-bold whitespace-nowrap', priceClassName.main)}>{formattedCurrentPrice}</p>
 
       {(formattedOriginalPrice || discount !== undefined) && (
         <div className="flex items-center gap-1.5">
@@ -48,7 +46,9 @@ export const Price = ({
               {formattedOriginalPrice}
             </p>
           )}
-          {discount !== undefined && discount > 0 && <p className={cn('text-sm leading-5 text-destructive', priceClassName.percents)}>-{discount}%</p>}
+          {discount !== undefined && discount > 0 && (
+            <p className={cn('text-sm leading-5 text-destructive', priceClassName.percents)}>-{discount}%</p>
+          )}
         </div>
       )}
 

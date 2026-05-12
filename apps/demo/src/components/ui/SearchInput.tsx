@@ -1,5 +1,6 @@
-import { Button, Input, cn } from '@rollout/ui-kit'
 import { Search, X } from 'lucide-react'
+
+import { Button, Input, cn } from '@rollout/ui-kit'
 
 interface SearchInputProps {
   value: string

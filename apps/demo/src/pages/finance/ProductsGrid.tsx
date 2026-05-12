@@ -15,10 +15,7 @@ export function ProductsGrid() {
 
       <div className="grid grid-cols-2 gap-3">
         {PRODUCTS.map((p) => (
-          <Card
-            key={p.id}
-            className="rounded-3xl overflow-hidden bg-secondary cursor-pointer h-[105px] relative"
-          >
+          <Card key={p.id} className="rounded-3xl overflow-hidden bg-secondary cursor-pointer h-[105px] relative">
             <div className="absolute top-4 left-4">
               <p className="text-sm font-medium text-foreground leading-none">{p.title}</p>
               {p.subtitle && <p className="text-sm font-medium text-foreground leading-none mt-1">{p.subtitle}</p>}

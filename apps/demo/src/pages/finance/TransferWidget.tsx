@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { Button } from '@rollout/ui-kit'
 import { Avatar, AvatarImage, AvatarFallback } from '@rollout/ui-kit'
 
-import { SearchInput } from '@/components/ui/SearchInput'
-
 import { CONTACTS } from './data'
+
+import { SearchInput } from '@/components/ui/SearchInput'
 
 export function TransferWidget() {
   const [query, setQuery] = useState('')
