@@ -168,6 +168,57 @@ claude mcp add figma -- npx -y figma-developer-mcp --stdio
 До зелёного `/preflight` запускать `/new-page` бессмысленно — он
 остановится на Step 0.
 
+## 1.6 Глобальные slash-команды (опционально, один раз)
+
+По умолчанию `/new-page`, `/update-page`, `/preflight` и `/setup` живут в
+`~/rollout-ui/.claude/commands/` и доступны только когда Claude Code запущен
+**из корня репо** (`cd ~/rollout-ui && claude`). Если ты часто работаешь в
+других папках и хочешь, чтобы команды были глобальными — создай в
+`~/.claude/commands/` тонкие обёртки, которые сначала делают `cd ~/rollout-ui`,
+а потом делегируют исполнение оригинальной команде из репо.
+
+Команды-обёртки (можно создать вручную или попросить Claude Code один раз):
+
+| Имя глобальной команды | Что делает |
+|---|---|
+| `/new-page` | `cd ~/rollout-ui` → читает и выполняет `~/rollout-ui/.claude/commands/new-page.md` |
+| `/update-page` | то же, но для `update-page.md` |
+| `/preflight` | то же, но для `preflight.md` |
+| `/rollout-setup` | то же, но для `setup.md`. **Важно:** имя `/setup` зарезервировано Claude Code (auto-mode classifier блокирует запись в `~/.claude/commands/setup.md`), поэтому глобальная обёртка называется `/rollout-setup`. Внутри репо команда по-прежнему доступна как `/setup`. |
+
+Минимальный шаблон обёртки (например, `~/.claude/commands/new-page.md`):
+
+```markdown
+---
+description: Create a new page in apps/demo (auto-cd to ~/rollout-ui)
+---
+
+**Step -1.** Run via Bash: `cd ~/rollout-ui && pwd`. Если репо нет — HARD STOP с
+инструкцией `git clone https://github.com/rolloutrf/rollout-ui.git ~/rollout-ui`.
+Используй `~/rollout-ui` как рабочую директорию для всех последующих вызовов.
+
+**Step 0+.** Прочитай и выполни инструкции из
+`~/rollout-ui/.claude/commands/new-page.md` дословно.
+```
+
+Плюс этого подхода: оригинал команды в репо остаётся источником истины, обёртка
+ничего не дублирует — после `git pull` глобальная команда сразу подхватит
+обновлённую версию.
+
+### ⚠️ Обязательная перезагрузка Claude Code
+
+После создания (или правки) файлов в `~/.claude/commands/` Claude Code **не
+перечитывает их в горячем режиме**. Чтобы команда `/new-page` появилась в
+списке slash-команд из любой директории — **полностью перезапусти Claude Code**:
+
+1. `Cmd+Q` (macOS) или закрой окно полностью.
+2. Запусти `claude` заново.
+3. Проверь, что команды видны: набери `/` и в выпадающем списке должны быть
+   `new-page`, `update-page`, `preflight`, `rollout-setup`.
+
+Без рестарта команда не появится, и `/new-page` будет ругаться «unknown
+command». Это самая частая причина «у меня обёртки созданы, а не работают».
+
 ## 2. Pre-flight (обязательно после setup, потом — при сомнениях)
 
 ```bash
