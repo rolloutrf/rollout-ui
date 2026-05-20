@@ -1,4 +1,4 @@
-name: Deploy Storybook to GitHub Pages
+name: Deploy Storybook to YandexCloud
 
 on:
   push:
@@ -6,18 +6,14 @@ on:
       - main
   workflow_dispatch:
 
-permissions:
-  contents: read
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
+env:
+  YC_BUCKET: xn--80adsazqn.xn--80avakjqg.xn--p1ai
+  YC_REGION: ru-central1
+  PUBLIC_URL: https://xn--80adsazqn.xn--80avakjqg.xn--p1ai/
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     steps:
       - name: Checkout
@@ -34,31 +30,31 @@ jobs:
           node-version: 20
           cache: pnpm
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build Storybook
         run: pnpm build-storybook
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: apps/storybook/storybook-static
+      - name: Deploy to YandexCloud S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.YC_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.YC_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ env.YC_REGION }}
+        run: |
+          aws s3 sync apps/storybook/storybook-static s3://${{ env.YC_BUCKET }} \
+            --endpoint-url https://storage.yandexcloud.net \
+            --delete \
+            --exclude "index.html" \
+            --cache-control "public, max-age=31536000, immutable"
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+          aws s3 cp apps/storybook/storybook-static/index.html s3://${{ env.YC_BUCKET }}/index.html \
+            --endpoint-url https://storage.yandexcloud.net \
+            --cache-control "public, max-age=0, no-cache, no-store, must-revalidate" \
+            --content-type "text/html"
 
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deployment Summary
+        run: |
+          echo "Deployment completed!"
+          echo "Public URL: ${{ env.PUBLIC_URL }}"
+          echo "Bucket: s3://${{ env.YC_BUCKET }}"

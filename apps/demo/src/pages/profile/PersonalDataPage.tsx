@@ -1,3 +1,7 @@
+import { ArrowLeft, ChevronRight, Package } from 'lucide-react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
 import {
   Button,
   Field,
@@ -10,13 +14,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@rollout/ui-kit'
-import { ArrowLeft, ChevronRight, Package } from 'lucide-react'
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-
-import { SearchInput } from '@/components/ui/SearchInput'
 
 import { USER } from './data'
+
+import { SearchInput } from '@/components/ui/SearchInput'
 
 const GENDERS = ['Мужской', 'Женский']
 const COUNTRIES = ['Россия', 'Казахстан', 'Беларусь', 'Армения']
@@ -83,11 +84,7 @@ export function PersonalDataPage() {
 
           <Field>
             <FieldLabel className="text-sm font-medium text-foreground">Адрес</FieldLabel>
-            <SearchInput
-              value={form.address}
-              onChange={(v) => set('address', v)}
-              placeholder="Город, улица, дом"
-            />
+            <SearchInput value={form.address} onChange={(v) => set('address', v)} placeholder="Город, улица, дом" />
           </Field>
 
           <Field>

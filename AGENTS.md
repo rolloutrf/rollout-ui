@@ -82,6 +82,7 @@ export default function Particle() {
 - Deep imports are forbidden (for example, `@rollout/ui-kit/...` and `@rollout/ui-features/...`)
 - `@ui-kit/*` is a local alias for `packages/ui-kit` internals only and must not be used outside `packages/ui-kit`
 - Outside `packages/ui-kit`, import `cn` from `@rollout/ui-kit` root export
+- Keep reusable `*Variants` helpers in a dedicated file next to the component (for example, `button-variants.ts` рядом с `button.tsx`) and import from there where needed (for example, in `calendar.tsx` and `button.tsx`)
 
 ```tsx
 import { Button, Input, Field, FieldLabel, FieldError } from '@rollout/ui-kit'
@@ -367,6 +368,7 @@ import { Field, FieldLabel, FieldError, Input } from '@rollout/ui-kit';
 - ❌ Adding obvious section comments in JSX (for example: `/* Credit Section */` above `<ItemCardDetailCredit />`)
 - ❌ Deep-importing from `@rollout/ui-kit/*` or `@rollout/ui-features/*`
 - ❌ Using `@ui-kit/*` alias outside `packages/ui-kit`
+- ❌ Duplicating shared variant class maps inline across multiple components instead of reusing a colocated `*Variants` helper file
 - ❌ Using `return` inside JSX template iterators (`map`, etc.); prefer implicit return with parentheses
 
 ```tsx

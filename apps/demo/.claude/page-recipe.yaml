@@ -7,7 +7,7 @@ version: 1
 
 # Page shell
 container:
-  classes: "mx-auto flex max-w-[576px] flex-col gap-7 pt-20 pb-8"
+  classes: 'mx-auto flex max-w-[576px] flex-col gap-7 pt-20 pb-8'
   rationale: |
     pt-20 compensates the global fixed Header (~72px). Bottom padding for
     the mobile TabBar lives on AppShell, not on pages — never duplicate pb-tabbar.
@@ -15,56 +15,56 @@ container:
     max-w-[576px] column. Internal blocks add their own gutters if needed.
 
 navbar:
-  title_classes: "text-lg font-semibold leading-7 text-foreground"
-  action_size: "size-10"
-  action_radius: "rounded-xl"
-  rule: "Show Left/Right action 40×40 only if present in Figma — do not invent buttons."
+  title_classes: 'text-lg font-semibold leading-7 text-foreground'
+  action_size: 'size-10'
+  action_radius: 'rounded-xl'
+  rule: 'Show Left/Right action 40×40 only if present in Figma — do not invent buttons.'
 
 # Tokens (everything else is forbidden hardcoding)
 tokens:
-  font: "var(--font-sans)"        # Geist
+  font: 'var(--font-sans)' # Geist
   colors:
-    surface:        "bg-background"
-    text:           "text-foreground"
-    text_muted:     "text-muted-foreground"
-    border:         "border-input"
-    accent:         "bg-accent"   # hsl(24 95% 53%) — brand orange ONLY for accents
-    highlighted:    "bg-muted text-foreground"  # Select/menu hover, shadcn pattern
+    surface: 'bg-background'
+    text: 'text-foreground'
+    text_muted: 'text-muted-foreground'
+    border: 'border-input'
+    accent: 'bg-accent' # hsl(24 95% 53%) — brand orange ONLY for accents
+    highlighted: 'bg-muted text-foreground' # Select/menu hover, shadcn pattern
   radii:
-    md:  "rounded-md"   # 12
-    sm:  "rounded-sm"   # 8
-    "2xl": "rounded-2xl" # 24
-  spacing: "gap-1..gap-7"  # 4 / 8 / 12 / 16 / 20 / 24 / 28
+    md: 'rounded-md' # 12
+    sm: 'rounded-sm' # 8
+    '2xl': 'rounded-2xl' # 24
+  spacing: 'gap-1..gap-7' # 4 / 8 / 12 / 16 / 20 / 24 / 28
 
 # Source files / structure
 paths:
-  page_file:        "apps/demo/src/pages/<area>/<Name>Page.tsx"
-  router:           "apps/demo/src/App.tsx"
-  ui_kit_root:      "packages/ui-kit/src/index.ts"
-  new_primitive:    "packages/ui-kit/src/components/ui/<name>.tsx"
-  agents_doc:       "apps/demo/AGENTS.md"
+  page_file: 'apps/demo/src/pages/<area>/<Name>Page.tsx'
+  router: 'apps/demo/src/App.tsx'
+  ui_kit_root: 'packages/ui-kit/src/index.ts'
+  new_primitive: 'packages/ui-kit/src/components/ui/<name>.tsx'
+  agents_doc: 'apps/demo/AGENTS.md'
 
 # Component library
 ui_kit:
-  primitive_base: "@base-ui/react"
-  pattern:        "Portal+Positioner+Popup, data-* attrs (data-popup-open, data-highlighted, data-disabled, data-checked, data-open, data-closed, data-selected); active tab data-[active]: not data-[state=active]:"
-  reference_file: "packages/ui-kit/src/components/ui/select.tsx"
-  on_missing:     "ASK USER before adding a new primitive. After approval: implement, export via root index.ts, add `pnpm changeset` (minor for @rollout/ui-kit)."
+  primitive_base: '@base-ui/react'
+  pattern: 'Portal+Positioner+Popup, data-* attrs (data-popup-open, data-highlighted, data-disabled, data-checked, data-open, data-closed, data-selected); active tab data-[active]: not data-[state=active]:'
+  reference_file: 'packages/ui-kit/src/components/ui/select.tsx'
+  on_missing: 'ASK USER before adding a new primitive. After approval: implement, export via root index.ts, add `pnpm changeset` (minor for @rollout/ui-kit).'
 
 # Hard prohibitions
 forbidden:
-  - "deep_imports"             # never @rollout/ui-kit/components/...
-  - "radix-ui"                 # base-ui only
-  - "pnpm dlx shadcn add"      # use ui-kit, do not let CLI write into the kit
-  - "hardcoded_colors"         # no #hex, no bg-orange-500 etc — tokens only
-  - "hardcoded_fonts"          # no 'Geist' literal — var(--font-sans)
-  - "console.log_in_handlers"  # remove before commit
-  - "improvements_beyond_figma" # what is in the design IS what ships
+  - 'deep_imports' # never @rollout/ui-kit/components/...
+  - 'radix-ui' # base-ui only
+  - 'pnpm dlx shadcn add' # use ui-kit, do not let CLI write into the kit
+  - 'hardcoded_colors' # no #hex, no bg-orange-500 etc — tokens only
+  - 'hardcoded_fonts' # no 'Geist' literal — var(--font-sans)
+  - 'console.log_in_handlers' # remove before commit
+  - 'improvements_beyond_figma' # what is in the design IS what ships
 
 # Routing & navigation
 routing:
-  add_route_to: "apps/demo/src/App.tsx"
-  link_lib:     "react-router-dom"
+  add_route_to: 'apps/demo/src/App.tsx'
+  link_lib: 'react-router-dom'
   rule: |
     Replace the entry element on the source page with <Link to="<route>">.
     Preserve all visual classes and content; only the wrapper changes.
@@ -72,8 +72,8 @@ routing:
 
 # Form state
 state:
-  use:    "useState"
-  forbidden: ["react-hook-form", "zod", "API calls", "business logic"]
+  use: 'useState'
+  forbidden: ['react-hook-form', 'zod', 'API calls', 'business logic']
 
 # Design source — Framelink only (no Code Connect)
 # Rationale: this repo has no published Code Connect mappings, so the official
@@ -81,42 +81,42 @@ state:
 # Framelink, while consuming the View-seat tool-call quota on the ROLLOUT team.
 # Reintroduce its calls if/when we ship Code Connect mappings.
 design_source:
-  primary: "mcp__figma__get_figma_data"
-  screenshot: "mcp__figma__download_figma_images"
-  screenshot_local_path: ".tmp/figma-ref"
+  primary: 'mcp__figma__get_figma_data'
+  screenshot: 'mcp__figma__download_figma_images'
+  screenshot_local_path: '.tmp/figma-ref'
 
 # Verification (mandatory after implementation)
 verification:
   - id: preview_start
-    call: "mcp__Claude_Preview__preview_start"
-    args: { name: "rollout-ui-demo" }
+    call: 'mcp__Claude_Preview__preview_start'
+    args: { name: 'rollout-ui-demo' }
   - id: navigate
-    call: "mcp__Claude_Preview__preview_eval"
+    call: 'mcp__Claude_Preview__preview_eval'
     args: { expression: "window.location.href = '<route>'; 'go'" }
   - id: screenshot_diff
-    note: "Compare preview_screenshot ↔ .tmp/figma-ref/<slug>.png from download_figma_images."
+    note: 'Compare preview_screenshot ↔ .tmp/figma-ref/<slug>.png from download_figma_images.'
   - id: light_dark
-    note: "Run in both themes; toggle via ThemeToggle in Header."
+    note: 'Run in both themes; toggle via ThemeToggle in Header.'
   - id: mobile
-    call: "mcp__Claude_Preview__preview_resize"
-    args: { preset: "mobile" }
+    call: 'mcp__Claude_Preview__preview_resize'
+    args: { preset: 'mobile' }
   - id: console_clean
-    call: "mcp__Claude_Preview__preview_console_logs"
-    args: { level: "error" }
+    call: 'mcp__Claude_Preview__preview_console_logs'
+    args: { level: 'error' }
     expect: empty
 
 # Documentation hooks
 docs_to_update:
-  - file: "apps/demo/AGENTS.md"
-    section: "§2 (file tree) — add the new page with a one-line description"
-  - file: "apps/demo/AGENTS.md"
-    section: "§2 Routing table — only if App.tsx changed"
+  - file: 'apps/demo/AGENTS.md'
+    section: '§2 (file tree) — add the new page with a one-line description'
+  - file: 'apps/demo/AGENTS.md'
+    section: '§2 Routing table — only if App.tsx changed'
 
 # Source-of-truth pointers (when an agent needs more context than this file holds)
 references:
-  human_doc:   "apps/demo/HOW_TO_ADD_PAGE.md"
-  full_rules:  "apps/demo/AGENTS.md"
-  storybook:   "https://rolloutrf.github.io/rollout-ui"
+  human_doc: 'apps/demo/HOW_TO_ADD_PAGE.md'
+  full_rules: 'apps/demo/AGENTS.md'
+  storybook: 'https://rolloutrf.github.io/rollout-ui'
   figma_files:
-    demo_app:       "p2bAIyTB6oJTGWjjR8NwRB"
-    shadcn_actual:  "Rf9NPBgJOgcj504cSoo8kg"
+    demo_app: 'p2bAIyTB6oJTGWjjR8NwRB'
+    shadcn_actual: 'Rf9NPBgJOgcj504cSoo8kg'

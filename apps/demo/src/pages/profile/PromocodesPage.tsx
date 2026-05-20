@@ -1,7 +1,8 @@
-import { Button, Field, FieldLabel, Input } from '@rollout/ui-kit'
 import { ArrowLeft, Gift } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+
+import { Button, Field, FieldLabel, Input } from '@rollout/ui-kit'
 
 interface Promo {
   title: string
@@ -57,10 +58,7 @@ export function PromocodesPage() {
           <FieldLabel className="text-base font-semibold text-foreground">Ваши промокоды</FieldLabel>
           <ul className="flex w-full flex-col">
             {PROMOS.map((promo, i) => (
-              <li
-                key={i}
-                className="flex w-full items-center gap-2.5 px-3 py-3"
-              >
+              <li key={i} className="flex w-full items-center gap-2.5 px-3 py-3">
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-muted">
                   <Gift className="size-4 text-foreground" strokeWidth={1.5} />
                 </div>

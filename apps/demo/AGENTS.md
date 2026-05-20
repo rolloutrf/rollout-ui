@@ -20,28 +20,28 @@
 
 ### 0.1 Node + pnpm
 
-| Проверка | Команда | Если ОК | Если нет |
-|---|---|---|---|
-| Node ≥ 22.12 | `node -v` | продолжить | `nvm install 22.21.1 && nvm use 22.21.1` (версия из `.nvmrc` репы) |
-| pnpm 10.32.1 | `pnpm -v` | продолжить | `corepack enable && corepack prepare pnpm@10.32.1 --activate` |
+| Проверка                | Команда                                                                  | Если ОК    | Если нет                                                                |
+| ----------------------- | ------------------------------------------------------------------------ | ---------- | ----------------------------------------------------------------------- |
+| Node ≥ 22.12            | `node -v`                                                                | продолжить | `nvm install 22.21.1 && nvm use 22.21.1` (версия из `.nvmrc` репы)      |
+| pnpm 10.32.1            | `pnpm -v`                                                                | продолжить | `corepack enable && corepack prepare pnpm@10.32.1 --activate`           |
 | Native rolldown binding | `ls ~/rollout-ui/node_modules/.pnpm/ \| grep '@rolldown+binding-darwin'` | продолжить | `cd ~/rollout-ui && rm -rf node_modules && pnpm install` (под Node 22!) |
 
 **Подводный камень:** установка под Node 20 не подтянет нативный rolldown-биндинг (`@rolldown/binding-darwin-arm64`) → vite падает с `Cannot find native binding`. Лечится только переустановкой `node_modules` под Node 22.
 
 ### 0.2 Репозиторий
 
-| Проверка | Команда | Если нет |
-|---|---|---|
+| Проверка              | Команда                                         | Если нет                                                             |
+| --------------------- | ----------------------------------------------- | -------------------------------------------------------------------- |
 | Клон в `~/rollout-ui` | `git -C ~/rollout-ui rev-parse --show-toplevel` | `git clone https://github.com/rolloutrf/rollout-ui.git ~/rollout-ui` |
-| Текущая ветка | `git -C ~/rollout-ui branch --show-current` | переключиться/создать ветку под фичу |
+| Текущая ветка         | `git -C ~/rollout-ui branch --show-current`     | переключиться/создать ветку под фичу                                 |
 
 ### 0.3 MCP-серверы
 
-| MCP | Имя | Назначение | Как проверить |
-|---|---|---|---|
-| **Figma-Context-MCP** | `figma` | `get_figma_data` (структура нода) + `download_figma_images` (PNG для диффа) | `mcp__figma__get_figma_data({fileKey:'p2bAIyTB6oJTGWjjR8NwRB', nodeId:'221:4087'})` — YAML-структура, не 403 |
-| **shadcn/ui MCP** | `Shadcn_UI` | Эталон поведения компонентов | `mcp__Shadcn_UI__list_components` — массив с 46 компонентами |
-| **Claude Preview MCP** | `Claude_Preview` | Локальный dev-сервер для верификации | `mcp__Claude_Preview__preview_list` — массив (может быть пустой) |
+| MCP                    | Имя              | Назначение                                                                  | Как проверить                                                                                                |
+| ---------------------- | ---------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| **Figma-Context-MCP**  | `figma`          | `get_figma_data` (структура нода) + `download_figma_images` (PNG для диффа) | `mcp__figma__get_figma_data({fileKey:'p2bAIyTB6oJTGWjjR8NwRB', nodeId:'221:4087'})` — YAML-структура, не 403 |
+| **shadcn/ui MCP**      | `Shadcn_UI`      | Эталон поведения компонентов                                                | `mcp__Shadcn_UI__list_components` — массив с 46 компонентами                                                 |
+| **Claude Preview MCP** | `Claude_Preview` | Локальный dev-сервер для верификации                                        | `mcp__Claude_Preview__preview_list` — массив (может быть пустой)                                             |
 
 > **Figma Dev Mode / Code Connect MCP (`c0861a9b-…`) намеренно НЕ используется
 > в `/new-page` и `/update-page`.** В репозитории нет опубликованных Code
@@ -60,10 +60,10 @@
 
 ### 0.4 Preview launch.json
 
-| Проверка | Команда |
-|---|---|
-| Конфиг `rollout-ui-demo` есть | `grep -A4 '"name": "rollout-ui-demo"' ~/.claude/launch.json` |
-| `cwd` корректен | в выводе grep'а должно быть `/Users/<you>/rollout-ui/apps/demo` |
+| Проверка                      | Команда                                                         |
+| ----------------------------- | --------------------------------------------------------------- |
+| Конфиг `rollout-ui-demo` есть | `grep -A4 '"name": "rollout-ui-demo"' ~/.claude/launch.json`    |
+| `cwd` корректен               | в выводе grep'а должно быть `/Users/<you>/rollout-ui/apps/demo` |
 
 **Не путать с конфигом `rollout-demo`** в том же файле — он указывает на старый проект `~/ROLLOUT Demo app /` (другой репозиторий) и не имеет отношения к этой монорепе. Если запросить preview по имени `rollout-demo` — поднимется чужой Vite 5 на порту 5174 с другим приложением.
 
@@ -83,8 +83,8 @@
 
 ### 0.5 Figma access
 
-| Что | Как проверить |
-|---|---|
+| Что                                                              | Как проверить                                                                                                         |
+| ---------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
 | `figd_…` ключ имеет доступ к Demo App (`p2bAIyTB6oJTGWjjR8NwRB`) | `mcp__figma__get_figma_data({fileKey:'p2bAIyTB6oJTGWjjR8NwRB', nodeId:'221:4087'})` — структура NavBar/Layout без 403 |
 
 Если `figma` MCP недоступен (ключ просрочен / 403) — работа с макетами невозможна, эскалировать пользователю в Telegram `@rolloutrf` и не пытаться «угадать» макет.
@@ -106,6 +106,7 @@ echo "launch:  $(grep -c '\"name\": \"rollout-ui-demo\"' ~/.claude/launch.json 2
 ```
 
 Ожидаемый вывод (всё ОК):
+
 ```
 Node:    v22.21.1
 pnpm:    10.32.1
@@ -123,19 +124,19 @@ launch:  1
 
 ## 1. Стек и инфраструктура
 
-| Слой | Версия / Решение |
-|---|---|
-| Node | **22.21.1** (`.nvmrc` в корне репы) — обязателен; Vite 8/rolldown требуют ≥22.12 |
+| Слой             | Версия / Решение                                                                                                                       |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| Node             | **22.21.1** (`.nvmrc` в корне репы) — обязателен; Vite 8/rolldown требуют ≥22.12                                                       |
 | Менеджер пакетов | **pnpm 10.32.1** (`packageManager` в root `package.json`); включён через `corepack enable && corepack prepare pnpm@10.32.1 --activate` |
-| Сборщик | **Vite 8** (`vite@8.0.0`) с `@vitejs/plugin-react` и `@tailwindcss/vite` |
-| Стили | **Tailwind CSS v4** — **без `tailwind.config.*` и без PostCSS**; вся тема в `src/index.css` через `@theme inline` |
-| UI primitives | **`@base-ui/react`** (НЕ Radix) + локальный `@rollout/ui-kit` |
-| Фичи | `@rollout/ui-features` (composite-блоки) |
-| Роутинг | `react-router-dom` 6.x (`BrowserRouter`) |
-| Иконки | `lucide-react` |
-| Шрифт | **Geist Variable** через `@fontsource-variable/geist` |
-| State | Локальный `useState` + Context (`ThemeProvider`, `FavoritesProvider`); никаких Redux/Zustand |
-| Данные | Статика в `src/pages/*/data.ts`; никаких fetch/API/Zod-валидаций в demo |
+| Сборщик          | **Vite 8** (`vite@8.0.0`) с `@vitejs/plugin-react` и `@tailwindcss/vite`                                                               |
+| Стили            | **Tailwind CSS v4** — **без `tailwind.config.*` и без PostCSS**; вся тема в `src/index.css` через `@theme inline`                      |
+| UI primitives    | **`@base-ui/react`** (НЕ Radix) + локальный `@rollout/ui-kit`                                                                          |
+| Фичи             | `@rollout/ui-features` (composite-блоки)                                                                                               |
+| Роутинг          | `react-router-dom` 6.x (`BrowserRouter`)                                                                                               |
+| Иконки           | `lucide-react`                                                                                                                         |
+| Шрифт            | **Geist Variable** через `@fontsource-variable/geist`                                                                                  |
+| State            | Локальный `useState` + Context (`ThemeProvider`, `FavoritesProvider`); никаких Redux/Zustand                                           |
+| Данные           | Статика в `src/pages/*/data.ts`; никаких fetch/API/Zod-валидаций в demo                                                                |
 
 **Ловушка:** если поставить зависимости под Node 20, нативный биндинг `@rolldown/binding-darwin-arm64` не подтянется и dev-сервер упадёт. Лечится `rm -rf node_modules && pnpm install` под Node 22.
 
@@ -145,6 +146,7 @@ launch:  1
 
 > **Правило: дерево ниже — живое, поддерживается синхронно с кодом.**
 > При **любом** изменении файлов в `apps/demo/src/` (добавление страницы, нового виджета, модуля в `lib/`/`store/`/`config/`, или удаление существующего) — **в той же правке обязательно обновить:**
+>
 > 1. Дерево файлов в этой секции (с одной строкой-описанием для нового файла);
 > 2. Таблицу **Routing** ниже, если изменился `App.tsx` (новый/убранный/переименованный `<Route>`);
 > 3. §11 Чек-лист — если паттерн новой страницы добавляет новый шаг.
@@ -221,21 +223,22 @@ src/
 
 **Routing (`App.tsx`):**
 
-| path | element | Источник |
-|---|---|---|
-| `/` | `HomePage` | `pages/home/` |
-| `/electronics` | `ElectronicsPage` | `pages/electronics/` |
-| `/favorites` | `FavoritesPage` | `pages/favorites/` |
-| `/finance` | `FinancePage` | `pages/finance/` |
-| `/finance/analytics` | `AnalyticsPage` | `pages/finance/` |
-| `/finance/history` | `HistoryPage` | `pages/finance/` |
-| `/cart` | `ContentSlot` | плейсхолдер |
-| `/profile` | `ProfilePage` | `pages/profile/` |
-| `/profile/personal-data` | `PersonalDataPage` | `pages/profile/` |
-| `/profile/promocodes` | `PromocodesPage` | `pages/profile/` |
-| `/assistant` | `ContentSlot` | плейсхолдер |
+| path                     | element            | Источник             |
+| ------------------------ | ------------------ | -------------------- |
+| `/`                      | `HomePage`         | `pages/home/`        |
+| `/electronics`           | `ElectronicsPage`  | `pages/electronics/` |
+| `/favorites`             | `FavoritesPage`    | `pages/favorites/`   |
+| `/finance`               | `FinancePage`      | `pages/finance/`     |
+| `/finance/analytics`     | `AnalyticsPage`    | `pages/finance/`     |
+| `/finance/history`       | `HistoryPage`      | `pages/finance/`     |
+| `/cart`                  | `ContentSlot`      | плейсхолдер          |
+| `/profile`               | `ProfilePage`      | `pages/profile/`     |
+| `/profile/personal-data` | `PersonalDataPage` | `pages/profile/`     |
+| `/profile/promocodes`    | `PromocodesPage`   | `pages/profile/`     |
+| `/assistant`             | `ContentSlot`      | плейсхолдер          |
 
 **Алиасы** (`vite.config.ts` + `tsconfig.json`):
+
 - `@/` → `apps/demo/src/`
 - `@rollout/ui-kit`, `@rollout/ui-features` — workspace-пакеты (НЕ deep imports)
 
@@ -270,19 +273,19 @@ src/
 
 **`package.json` aliases** (корень репы):
 
-| Скрипт | Что делает |
-|---|---|
-| `pnpm rollout:setup` | `bash scripts/setup.sh` — установка с нуля |
-| `pnpm rollout:preflight` | `bash scripts/preflight.sh` — диагностика |
-| `pnpm rollout:doctor` | `bash scripts/preflight.sh --verbose` — подробный вывод |
-| `pnpm rollout:new-page` | `bash scripts/new-page.sh` — interactive/argv-driven |
-| `pnpm rollout:update-page` | `bash scripts/update-page.sh` |
+| Скрипт                     | Что делает                                              |
+| -------------------------- | ------------------------------------------------------- |
+| `pnpm rollout:setup`       | `bash scripts/setup.sh` — установка с нуля              |
+| `pnpm rollout:preflight`   | `bash scripts/preflight.sh` — диагностика               |
+| `pnpm rollout:doctor`      | `bash scripts/preflight.sh --verbose` — подробный вывод |
+| `pnpm rollout:new-page`    | `bash scripts/new-page.sh` — interactive/argv-driven    |
+| `pnpm rollout:update-page` | `bash scripts/update-page.sh`                           |
 
 **Совместимость интерфейсов.** Один результат, два входа:
 
-| Канал | Когда |
-|---|---|
-| `pnpm rollout:new-page` | вне Claude Code (другой LLM, ручной paste) — кладёт промпт в clipboard |
+| Канал                     | Когда                                                                                                                                |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `pnpm rollout:new-page`   | вне Claude Code (другой LLM, ручной paste) — кладёт промпт в clipboard                                                               |
 | `/new-page` в Claude Code | внутри сессии — задаёт вопросы через `AskUserQuestion`, сразу вызывает MCP-инструменты (Figma, Preview) и доводит до screenshot-diff |
 
 Slash-команды **не дублируют** логику bash-скриптов: они либо вызывают `bash`
@@ -313,22 +316,22 @@ fallback для ситуаций, когда `pnpm rollout:preflight` недос
 
 ### CSS-переменные
 
-| Токен | Light | Dark | Назначение |
-|---|---|---|---|
-| `--background` | `hsl(0 0% 100%)` | `hsl(0 0% 3.9%)` | фон страницы |
-| `--foreground` | `hsl(0 0% 3.9%)` | `hsl(0 0% 98%)` | основной текст |
-| `--card` | `hsl(0 0% 100%)` | `hsl(0 0% 8%)` | поверхность карточек |
-| `--popover` | `hsl(0 0% 100%)` | `hsl(0 0% 3.9%)` | поповеры/select content |
-| `--primary` | `hsl(0 0% 9%)` | `hsl(0 0% 98%)` | основная кнопка |
-| `--secondary` | `hsl(0 0% 96.1%)` | `hsl(0 0% 14.9%)` | вторичная поверхность |
-| `--muted` | `hsl(0 0% 96.1%)` | `hsl(0 0% 14.9%)` | приглушённая поверхность (highlighted в меню) |
-| `--muted-foreground` | `hsl(0 0% 45.1%)` | `hsl(0 0% 63.9%)` | helper-текст, плейсхолдеры |
-| **`--accent`** | **`hsl(24 95% 53%)`** | **`hsl(24 95% 53%)`** | **бренд-оранжевый (orange-500)** |
-| `--destructive` | `hsl(0 72.2% 50.6%)` | `hsl(0 72.2% 50.6%)` | ошибки/удаление |
-| `--border` / `--input` | `hsl(0 0% 89.8%)` | `hsl(0 0% 14.9%)` | бордеры, инпуты |
-| `--ring` | `hsl(0 0% 3.9%)` | `hsl(0 0% 83.1%)` | focus-ring |
-| `--radius` | `0.5rem` | — | базовый радиус |
-| **`--font-sans`** | `'Geist Variable', ui-sans-serif, system-ui, sans-serif` | то же | глобальный шрифт |
+| Токен                  | Light                                                    | Dark                  | Назначение                                    |
+| ---------------------- | -------------------------------------------------------- | --------------------- | --------------------------------------------- |
+| `--background`         | `hsl(0 0% 100%)`                                         | `hsl(0 0% 3.9%)`      | фон страницы                                  |
+| `--foreground`         | `hsl(0 0% 3.9%)`                                         | `hsl(0 0% 98%)`       | основной текст                                |
+| `--card`               | `hsl(0 0% 100%)`                                         | `hsl(0 0% 8%)`        | поверхность карточек                          |
+| `--popover`            | `hsl(0 0% 100%)`                                         | `hsl(0 0% 3.9%)`      | поповеры/select content                       |
+| `--primary`            | `hsl(0 0% 9%)`                                           | `hsl(0 0% 98%)`       | основная кнопка                               |
+| `--secondary`          | `hsl(0 0% 96.1%)`                                        | `hsl(0 0% 14.9%)`     | вторичная поверхность                         |
+| `--muted`              | `hsl(0 0% 96.1%)`                                        | `hsl(0 0% 14.9%)`     | приглушённая поверхность (highlighted в меню) |
+| `--muted-foreground`   | `hsl(0 0% 45.1%)`                                        | `hsl(0 0% 63.9%)`     | helper-текст, плейсхолдеры                    |
+| **`--accent`**         | **`hsl(24 95% 53%)`**                                    | **`hsl(24 95% 53%)`** | **бренд-оранжевый (orange-500)**              |
+| `--destructive`        | `hsl(0 72.2% 50.6%)`                                     | `hsl(0 72.2% 50.6%)`  | ошибки/удаление                               |
+| `--border` / `--input` | `hsl(0 0% 89.8%)`                                        | `hsl(0 0% 14.9%)`     | бордеры, инпуты                               |
+| `--ring`               | `hsl(0 0% 3.9%)`                                         | `hsl(0 0% 83.1%)`     | focus-ring                                    |
+| `--radius`             | `0.5rem`                                                 | —                     | базовый радиус                                |
+| **`--font-sans`**      | `'Geist Variable', ui-sans-serif, system-ui, sans-serif` | то же                 | глобальный шрифт                              |
 
 ### Правила использования цвета
 
@@ -341,7 +344,7 @@ fallback для ситуаций, когда `pnpm rollout:preflight` недос
 2. **Highlighted/hover в выпадающих списках, меню, командных панелях, items** — **`bg-muted text-foreground`**, НЕ `bg-accent`. Это shadcn-паттерн (см. [https://ui.shadcn.com/docs/components/base/select](https://ui.shadcn.com/docs/components/base/select)). Применено в:
    - [`packages/ui-kit/src/components/ui/select.tsx`](../../packages/ui-kit/src/components/ui/select.tsx) — `data-highlighted:bg-muted data-highlighted:text-foreground`
    - [`packages/ui-kit/src/components/ui/dropdown-menu.tsx`](../../packages/ui-kit/src/components/ui/dropdown-menu.tsx) — то же на `DropdownMenuItem`, `DropdownMenuRadioItem`, `DropdownMenuCheckboxItem`, `DropdownMenuSubTrigger` (включая `data-popup-open` и `data-open` состояния)
-   Повторять для всех новых меню/popover/combobox. **Не использовать** `focus:bg-accent` или `focus:text-accent-foreground` для highlighted-состояний — это апстримный shadcn-default, который мы целенаправленно перебили (бренд-оранжевый зарезервирован под акценты, не под hover в списках).
+     Повторять для всех новых меню/popover/combobox. **Не использовать** `focus:bg-accent` или `focus:text-accent-foreground` для highlighted-состояний — это апстримный shadcn-default, который мы целенаправленно перебили (бренд-оранжевый зарезервирован под акценты, не под hover в списках).
 
 3. **Никогда не хардкодить** `bg-orange-500`, `bg-gray-200`, `text-[#0a0a0a]` и т.п. — только токены.
 
@@ -361,8 +364,12 @@ fallback для ситуаций, когда `pnpm rollout:preflight` недос
 }
 
 @layer base {
-  html { font-family: var(--font-sans); }
-  body { @apply ... font-sans; }
+  html {
+    font-family: var(--font-sans);
+  }
+  body {
+    @apply ... font-sans;
+  }
 }
 ```
 
@@ -385,6 +392,7 @@ fallback для ситуаций, когда `pnpm rollout:preflight` недос
 Контейнер любой страницы — **строго `mx-auto flex max-w-[576px] flex-col gap-7 pt-20 pb-8`** (см. `page-recipe.yaml → container.classes`). Никаких `pb-[120px]`, `py-4`, `gap-6` и прочих локальных вариаций.
 
 **Почему именно `pb-8`** (а не `pb-[120px]` / `pb-tabbar` на странице):
+
 - Mobile-отступ под TabBar даёт **AppShell** через утилиту `pb-tabbar md:pb-0` — она уже учитывает 34px бара + 36px AssistantFAB + 28px дыхания + iOS safe-area (см. §6 «Нижний отступ под TabBar» и [AppShell.tsx:11](src/components/layout/AppShell.tsx)). Дублировать на странице не нужно — приведёт к 200+px пустоты внизу.
 - `pb-8` (32px) — косметический «дыхательный» отступ от последнего блока контента до Footer/края. Складывается с `pb-tabbar` AppShell-а на mobile и с нулём на desktop (`md:pb-0`).
 - `pt-20` (80px) — компенсирует fixed Header (~72px). Везде одинаково.
@@ -437,16 +445,16 @@ fallback для ситуаций, когда `pnpm rollout:preflight` недос
 
 2. **Default-размеры калиброваны под Figma «shadcn · actual»** (file `Rf9NPBgJOgcj504cSoo8kg`, node `183:539`):
 
-| Параметр | Upstream shadcn | Наш default (Figma) |
-|---|---|---|
-| TabsList width | `inline-flex w-fit` | `flex w-full` |
-| TabsList height | `h-8` | `h-10` (40px) |
-| TabsList padding | `p-[3px]` | `p-1` (4px) |
-| TabsList radius | `rounded-lg` (8px) | `rounded-2xl` (16px) |
-| TabsList bg | `bg-muted` | `bg-secondary` |
-| TabsTrigger radius | `rounded-md` (6px) | `rounded-xl` (12px) |
-| Active в light | `data-active:bg-background data-active:shadow-sm` | `data-active:bg-background` (без shadow) |
-| Active в dark | `dark:data-active:border-input dark:data-active:bg-input/30` | `dark:data-active:border-foreground/15 dark:data-active:bg-input/30` (видимый бордер вместо невидимого `border-input == bg-secondary`) |
+| Параметр           | Upstream shadcn                                              | Наш default (Figma)                                                                                                                    |
+| ------------------ | ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| TabsList width     | `inline-flex w-fit`                                          | `flex w-full`                                                                                                                          |
+| TabsList height    | `h-8`                                                        | `h-10` (40px)                                                                                                                          |
+| TabsList padding   | `p-[3px]`                                                    | `p-1` (4px)                                                                                                                            |
+| TabsList radius    | `rounded-lg` (8px)                                           | `rounded-2xl` (16px)                                                                                                                   |
+| TabsList bg        | `bg-muted`                                                   | `bg-secondary`                                                                                                                         |
+| TabsTrigger radius | `rounded-md` (6px)                                           | `rounded-xl` (12px)                                                                                                                    |
+| Active в light     | `data-active:bg-background data-active:shadow-sm`            | `data-active:bg-background` (без shadow)                                                                                               |
+| Active в dark      | `dark:data-active:border-input dark:data-active:bg-input/30` | `dark:data-active:border-foreground/15 dark:data-active:bg-input/30` (видимый бордер вместо невидимого `border-input == bg-secondary`) |
 
 Сохранены `variant="line"` (underline-стиль) и `tabsListVariants` экспорт из upstream.
 
@@ -455,7 +463,7 @@ fallback для ситуаций, когда `pnpm rollout:preflight` недос
 ```tsx
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@rollout/ui-kit'
 
-<Tabs defaultValue="a">
+;<Tabs defaultValue="a">
   <TabsList>
     <TabsTrigger value="a">Tab A</TabsTrigger>
     <TabsTrigger value="b">Tab B</TabsTrigger>
@@ -470,6 +478,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@rollout/ui-kit'
 **Действующий пример:** [`apps/demo/src/pages/finance/CurrencyRates.tsx`](src/pages/finance/CurrencyRates.tsx) — `<Tabs><TabsList><TabsTrigger>...` без props и без overrides, рендерит full-width pill 40h из коробки в обеих темах.
 
 **Запрещено:**
+
 - inline-классы вида `!w-full !h-[38px] rounded-full !bg-white/10 !shadow-none !opacity-100` — это симптом, что нужный variant не существует, добавляйте variant.
 - `text-xs` / `font-bold` / прочие тип-оверрайды на triggers — text-sm medium фиксирован спецификацией.
 - кастомные `data-[active]:` цвета на triggers — light/dark поведение задано в kit.
@@ -526,10 +535,10 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@rollout/ui-kit'
 
 ### 5.1 Картинки в страницах — два источника, по типу контента
 
-| Тип контента | Откуда брать | Почему |
-|---|---|---|
-| **Маленькие 3D-иконки** (категории, CTA-иконки 40×40 — Camcorder, Mixer, Router, дисконт-`%`, …) | **Graphic Library** (см. ниже) | в файле страницы они сырые 1024×1024 с прозрачным полем — приходится хакать `scale-*`. В библиотеке у каждого фила есть `cropTransform` → плотная обрезка, заполняет 40×40 edge-to-edge. |
-| **Большие сюжетные картинки** (промо-баннеры, hero, фото товаров, рекламные иллюстрации) | **Файл страницы** (Demo App `p2bAIyTB6oJTGWjjR8NwRB`) | для баннеров кадрирование задаёт сам макет, и картинка уникальная — её нет в библиотеке. Скачиваешь по `nodeId` напрямую (без `cropTransform`) — этого достаточно. |
+| Тип контента                                                                                     | Откуда брать                                          | Почему                                                                                                                                                                                   |
+| ------------------------------------------------------------------------------------------------ | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Маленькие 3D-иконки** (категории, CTA-иконки 40×40 — Camcorder, Mixer, Router, дисконт-`%`, …) | **Graphic Library** (см. ниже)                        | в файле страницы они сырые 1024×1024 с прозрачным полем — приходится хакать `scale-*`. В библиотеке у каждого фила есть `cropTransform` → плотная обрезка, заполняет 40×40 edge-to-edge. |
+| **Большие сюжетные картинки** (промо-баннеры, hero, фото товаров, рекламные иллюстрации)         | **Файл страницы** (Demo App `p2bAIyTB6oJTGWjjR8NwRB`) | для баннеров кадрирование задаёт сам макет, и картинка уникальная — её нет в библиотеке. Скачиваешь по `nodeId` напрямую (без `cropTransform`) — этого достаточно.                       |
 
 Эталоны путей: `apps/demo/public/<area>/cat-*.png` для иконок, `apps/demo/public/<area>/banner-*.png` (или `hero-*.png`, `product-*.png`) для крупных картинок. Существующий пример больших картинок — `/home/banner-1..3.png`, `/home/product-*.png` (используются и на `/electronics`).
 
@@ -560,14 +569,19 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@rollout/ui-kit'
      fileKey: 'sJt3Y7heQcL0PqT5h7mj8t',
      localPath: 'apps/demo/public/<area>',
      pngScale: 2,
-     nodes: [{
-       nodeId: '<image-rect-id>',           // напр. '565:52258'
-       imageRef: '<imageRef hex>',
-       fileName: 'cat-<slug>.png',
-       needsCropping: true,
-       cropTransform: [[a,b,tx],[c,d,ty]],   // верба­тим из fill
-       filenameSuffix: '<suffix>',           // верба­тим из fill
-     }, /* ... */]
+     nodes: [
+       {
+         nodeId: '<image-rect-id>', // напр. '565:52258'
+         imageRef: '<imageRef hex>',
+         fileName: 'cat-<slug>.png',
+         needsCropping: true,
+         cropTransform: [
+           [a, b, tx],
+           [c, d, ty],
+         ], // верба­тим из fill
+         filenameSuffix: '<suffix>', // верба­тим из fill
+       } /* ... */,
+     ],
    })
    ```
 4. **Гоча MCP:** даже при заданном `fileName` к имени всё равно дописывается `-<filenameSuffix>`. После загрузки переименовываешь:
@@ -577,32 +591,33 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@rollout/ui-kit'
 **Конвенция путей:** `apps/demo/public/<area>/cat-<slug>.png` (как уже для `/home/cat-*.png`, `/electronics/cat-*.png`).
 
 **Запрещено:**
+
 - скачивать иконки **только** через nodeId без `cropTransform` — получишь сырой PNG с прозрачным полем;
 - компенсировать прозрачное поле через `scale-[1.4]`, `transform: scale(...)`, оборачивать в `bg-muted` контейнер. Если иконка визуально маленькая — взял из неправильного файла, перекачай из Graphic Library.
 
 **Действующий пример маппинга — ElectronicsPage** (`/electronics`, `apps/demo/src/pages/electronics/ElectronicsPage.tsx`):
 
-| Слот в макете | Компонент в Graphic Library | Файл в `apps/demo/public/electronics/` |
-| --- | --- | --- |
-| Смартфоны и фототехника | `Camcorder` (`565:52300`) | `cat-smartfony.png` |
-| Бытовая техника | `Mixer` (`565:52301`) | `cat-bytovaya.png` |
-| Комплектация для ПК | `ComputerParts` (`565:52302`) | `cat-pc.png` |
-| Сетевое оборудование | `Router` (`565:52303`) | `cat-network.png` |
-| Красота / ТВ / ПК ноутбуки / Умный дом / Отдых | `CarOld` (`565:52293`) — placeholder в Figma, переиспользуется 5× | `cat-default.png` |
-| CTA «Все скидки и акции» | discount-`%` из секции `1248-4` (`570:52969 → 565:52954`) | `cta-discounts.png` |
+| Слот в макете                                  | Компонент в Graphic Library                                       | Файл в `apps/demo/public/electronics/` |
+| ---------------------------------------------- | ----------------------------------------------------------------- | -------------------------------------- |
+| Смартфоны и фототехника                        | `Camcorder` (`565:52300`)                                         | `cat-smartfony.png`                    |
+| Бытовая техника                                | `Mixer` (`565:52301`)                                             | `cat-bytovaya.png`                     |
+| Комплектация для ПК                            | `ComputerParts` (`565:52302`)                                     | `cat-pc.png`                           |
+| Сетевое оборудование                           | `Router` (`565:52303`)                                            | `cat-network.png`                      |
+| Красота / ТВ / ПК ноутбуки / Умный дом / Отдых | `CarOld` (`565:52293`) — placeholder в Figma, переиспользуется 5× | `cat-default.png`                      |
+| CTA «Все скидки и акции»                       | discount-`%` из секции `1248-4` (`570:52969 → 565:52954`)         | `cta-discounts.png`                    |
 
 > Пять «нефинализированных» категорий специально используют один `CarOld` — это так и в самом Figma-файле, не наша вольность. Когда дизайнер выложит финальные иконки в Graphic Library, перевыкачаешь и заменишь `cat-default.png` на конкретные.
 
 **Действующий пример маппинга — FinancePage product cards** (`/finance`, `apps/demo/src/pages/finance/ProductsGrid.tsx` + `PartnersWidget.tsx`):
 
-| Слот в макете | Компонент в Graphic Library | Файл в `apps/demo/public/finance/` |
-| --- | --- | --- |
-| Займы | `Money` (`565:52329`) | `product-zaimy.png` |
-| Ипотека | `Box` (`565:52282`) | `product-ipoteka.png` |
-| Инвестиции | `PiggyBank` (`565:52327`) | `product-investitsii.png` |
-| Кредиты | `WalletMoney` (`565:52325`) | `product-kredity.png` |
-| Партнёры — Новинки | `Money` (`565:52329`) | переиспользует `product-zaimy.png` |
-| Партнёры — Акции | `DiagramMoney` (`565:52330`) | `partner-aktsii.png` |
+| Слот в макете      | Компонент в Graphic Library  | Файл в `apps/demo/public/finance/` |
+| ------------------ | ---------------------------- | ---------------------------------- |
+| Займы              | `Money` (`565:52329`)        | `product-zaimy.png`                |
+| Ипотека            | `Box` (`565:52282`)          | `product-ipoteka.png`              |
+| Инвестиции         | `PiggyBank` (`565:52327`)    | `product-investitsii.png`          |
+| Кредиты            | `WalletMoney` (`565:52325`)  | `product-kredity.png`              |
+| Партнёры — Новинки | `Money` (`565:52329`)        | переиспользует `product-zaimy.png` |
+| Партнёры — Акции   | `DiagramMoney` (`565:52330`) | `partner-aktsii.png`               |
 
 > На что это **не** распространяется (остаются как нарративные картинки из файла страницы или сторонние ассеты): `/home/cat-*.png` (многоэлементные сцены — телефоны+ноут+планшет, букеты и т.п.), `/home/banner-*.png`, `/home/product-*.png` (фото товаров), `/finance/promo-banner.png`, `/finance/more-*.png` (фото-композиции с моделями), `/finance/contact-*.png` / `tx-*.png` (аватары людей), `/finance/flag-*.png`, `/finance/logo-*.png`. Если эти картинки понадобится перевыкачать — берёшь их из файла страницы по `nodeId` без `cropTransform`.
 
@@ -617,10 +632,9 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@rollout/ui-kit'
 ```tsx
 <div className="-mx-4 flex gap-2 overflow-x-auto px-4 scrollbar-hide">
   {items.map((it) => (
-    <button
-      key={it.id}
-      className="h-[72px] w-[208px] shrink-0 …"
-    >…</button>
+    <button key={it.id} className="h-[72px] w-[208px] shrink-0 …">
+      …
+    </button>
   ))}
 </div>
 ```
@@ -723,6 +737,7 @@ pnpm --filter @rollout/demo dev   # localhost:5173
 ### Через preview MCP (Claude Code)
 
 В `~/.claude/launch.json` есть конфиг **`rollout-ui-demo`**:
+
 ```json
 {
   "name": "rollout-ui-demo",

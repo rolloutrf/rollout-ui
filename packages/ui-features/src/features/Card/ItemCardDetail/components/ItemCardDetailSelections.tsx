@@ -37,7 +37,7 @@ const resolveColor = (option: ItemCardDetailColorOption) => {
 
 type ButtonRadioProps = {
   defaultValue?: string
-  items: { label: React.ReactNode; value: string; }[]
+  items: { label: React.ReactNode; value: string }[]
   onChange?: (value: string) => void
 }
 
@@ -79,15 +79,19 @@ export const ItemCardDetailSelections = ({
   defaultVolume,
   onVolumeChange,
 }: ItemCardDetailSelectionsProps) => {
-  const innerColors = useMemo(() => colors.map((option) => ({
-    label: (
-      <div className="flex items-center gap-2">
-        <Circle className="size-4 fill-current" style={{ color: resolveColor(option) }} />
-        {option.label}
-      </div>
-    ),
-    value: option.value,
-  })), [colors])
+  const innerColors = useMemo(
+    () =>
+      colors.map((option) => ({
+        label: (
+          <div className="flex items-center gap-2">
+            <Circle className="size-4 fill-current" style={{ color: resolveColor(option) }} />
+            {option.label}
+          </div>
+        ),
+        value: option.value,
+      })),
+    [colors]
+  )
 
   return (
     <div className="flex flex-col gap-3 w-full" data-state="selections-section">
@@ -103,7 +107,7 @@ export const ItemCardDetailSelections = ({
       {volumes.length > 0 && (
         <div className="flex flex-col gap-3 w-full">
           <p className="text-sm font-medium text-foreground">{volumeLabel}</p>
-          <ButtonGroup className='w-full'>
+          <ButtonGroup className="w-full">
             <ButtonRadio items={volumes} defaultValue={defaultVolume} onChange={onVolumeChange} />
           </ButtonGroup>
         </div>

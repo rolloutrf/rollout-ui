@@ -1,12 +1,13 @@
-import { Button } from '@rollout/ui-kit'
 import { ArrowLeft, ChevronRight } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { SearchInput } from '@/components/ui/SearchInput'
-import { ProductCard } from '@/pages/home/ProductCard'
+import { Button } from '@rollout/ui-kit'
 
 import { RECOMMENDED } from './data'
+
+import { SearchInput } from '@/components/ui/SearchInput'
+import { ProductCard } from '@/pages/home/ProductCard'
 
 interface CategoryItem {
   id: string
