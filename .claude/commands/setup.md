@@ -14,9 +14,11 @@ pnpm rollout:setup
 is interactive only when `nvm` itself is missing — at that point it stops and
 prints the install line for the user to run.)
 
-After `setup.sh` finishes it automatically chains into preflight. If preflight
-exits non-zero, follow up with `/preflight` for the MCP-side checks Bash cannot
-do (Figma key, shadcn list, preview list, design context whoami).
+After `setup.sh` finishes it automatically chains into preflight. **Then —
+regardless of bash-preflight exit code — run `/preflight` in Claude Code once
+before `/new-page`.** MCP plugins (Framelink Figma, Shadcn_UI, Claude_Preview)
+are NOT installed by setup; without them `/new-page` will hard-stop on its
+Step 0 precheck. See `apps/demo/HOW_TO_ADD_PAGE.md §1.5`.
 
 ## What setup does (no questions asked)
 

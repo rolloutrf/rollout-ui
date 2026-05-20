@@ -4,11 +4,44 @@ description: Create a new page in apps/demo from a Figma design — agent does t
 
 # /new-page — autonomous new-page workflow
 
-You will create a new page in `apps/demo` from a Figma frame. Ask the user
-exactly four questions, then carry out the full workflow without further prompts
-unless one of the **HARD STOPS** below is triggered.
+You will create a new page in `apps/demo` from a Figma frame. First run the MCP
+precheck (Step 0), then collect five inputs from the user (Step 1), then carry
+out the full workflow without further prompts unless one of the **HARD STOPS**
+below is triggered.
 
-## Step 1 — Ask the user 4 questions (single AskUserQuestion call, four `questions[]`)
+## Step 0 — MCP precheck (do this before anything else)
+
+This workflow depends on three MCP servers being connected in the current
+Claude Code session. Verify that all three of these tools are available:
+
+- `mcp__figma__get_figma_data` (Framelink Figma)
+- `mcp__Shadcn_UI__list_components` (Shadcn_UI)
+- `mcp__Claude_Preview__preview_list` (Claude_Preview)
+
+If **any** of them is missing from your available tools, **HARD STOP**. Print
+exactly:
+
+> Missing MCP plugin(s): `<list of missing tool prefixes>`. Run `/preflight`
+> first; install steps are in `apps/demo/HOW_TO_ADD_PAGE.md §1.5`
+> (Framelink Figma, Shadcn_UI, Claude_Preview). I will not ask the 5 questions
+> until the precheck passes — collecting inputs without MCPs is pointless.
+
+Do not proceed to Step 1.
+
+## Step 1 — Collect five inputs from the user (plain text, no tool call)
+
+Print one line first so the user has visible feedback:
+
+> Starting `/new-page` — задам 5 вопросов.
+
+Then send a single plain-text message that lists the five fields below, one
+per line with the example, and **stop and wait for the user's reply**. Do
+**not** call `AskUserQuestion` — its schema requires multi-choice `options[]`
+and it is the wrong tool for free-text input. Parse the user's reply yourself.
+If any field is missing or ambiguous, ask a targeted plain-text follow-up.
+Only after all five are resolved, proceed to Step 2.
+
+The five fields:
 
 1. **Название экрана** (`name`) — заголовок, как в Figma. Пример: `Личные данные`.
 2. **Figma URL** (`figma_url`) — прямая ссылка на frame, обязательно с `?node-id=…`.
@@ -17,8 +50,6 @@ unless one of the **HARD STOPS** below is triggered.
 4. **На каком элементе** (`entry_desc`) — описание блока/кнопки в человеческом
    виде (маркер-текст, визуальные приметы), без номеров строк.
 5. **Новый route** (`route`) — путь, например `/profile/personal-data`.
-
-(Use `multiSelect: false` and `freeForm: true` for all five.)
 
 ## Step 2 — Load the rules
 
@@ -91,6 +122,8 @@ and a `pnpm changeset` mention if a new ui-kit primitive was added.
 
 ## HARD STOPS — pause and ask the user
 
+- Required MCP unavailable (`figma` / `Shadcn_UI` / `Claude_Preview`) — direct
+  the user to `/preflight` and `apps/demo/HOW_TO_ADD_PAGE.md §1.5`, then stop.
 - The needed component is **not** in `@rollout/ui-kit` — describe what you'd add
   (shadcn name → `@base-ui/react/<primitive>`) and wait for confirmation.
 - Figma MCP returns **403** (invalid token) — direct the user to
