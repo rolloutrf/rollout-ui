@@ -1,6 +1,6 @@
 import { Avatar, AvatarImage, AvatarFallback } from '@rollout/ui-kit'
 import { Badge } from '@rollout/ui-kit'
-import { Button } from '@rollout/ui-kit'
+import { Link } from 'react-router-dom'
 
 import { TRANSACTIONS } from './data'
 
@@ -9,9 +9,12 @@ export function TransactionHistory() {
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <h2 className="text-base font-semibold text-foreground">Список операций</h2>
-        <Button variant="ghost" size="sm" className="text-primary">
+        <Link
+          to="/finance/history"
+          className="inline-flex h-7 items-center rounded-md px-2.5 text-[0.8rem] font-medium text-primary hover:bg-muted"
+        >
           Все
-        </Button>
+        </Link>
       </div>
 
       <div className="flex flex-col">

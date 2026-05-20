@@ -199,6 +199,7 @@ src/
     ├── finance/
     │   ├── FinancePage.tsx        — оркестратор; собирает виджеты ниже
     │   ├── AnalyticsPage.tsx      — /finance/analytics: Tabs Расходы/Доходы + chips + donut + категории
+    │   ├── HistoryPage.tsx        — /finance/history: dark summary card + Фильтры + операции по датам
     │   ├── AccountCard.tsx
     │   ├── AnalyticWidgets.tsx
     │   ├── CurrencyRates.tsx
@@ -227,6 +228,7 @@ src/
 | `/favorites` | `FavoritesPage` | `pages/favorites/` |
 | `/finance` | `FinancePage` | `pages/finance/` |
 | `/finance/analytics` | `AnalyticsPage` | `pages/finance/` |
+| `/finance/history` | `HistoryPage` | `pages/finance/` |
 | `/cart` | `ContentSlot` | плейсхолдер |
 | `/profile` | `ProfilePage` | `pages/profile/` |
 | `/profile/personal-data` | `PersonalDataPage` | `pages/profile/` |
