@@ -44,7 +44,7 @@ interface MenuSection {
 const FINANCE_ITEMS: MenuItem[] = [
   { icon: HandCoins, label: 'Способы оплаты' },
   { icon: TicketPercent, label: 'Промокоды', to: '/profile/promocodes' },
-  { icon: FileBadge, label: 'Сертификаты' },
+  { icon: FileBadge, label: 'Сертификаты', to: '/profile/certificate' },
 ]
 
 const MENU_SECTIONS: MenuSection[] = [

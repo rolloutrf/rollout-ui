@@ -11,6 +11,7 @@ import { FinancePage } from '@/pages/finance/FinancePage'
 import { HistoryPage } from '@/pages/finance/HistoryPage'
 import { HomePage } from '@/pages/home/HomePage'
 import { PersonalDataPage } from '@/pages/profile/PersonalDataPage'
+import { ProfileCertificate } from '@/pages/profile/ProfileCertificate'
 import { ProfilePage } from '@/pages/profile/ProfilePage'
 import { PromocodesPage } from '@/pages/profile/PromocodesPage'
 import { FavoritesProvider } from '@/store/favorites'
@@ -30,6 +31,7 @@ export default function App() {
             <Route path="/finance/history" element={<HistoryPage />} />
             <Route path="/cart" element={<ContentSlot />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/certificate" element={<ProfileCertificate />} />
             <Route path="/profile/personal-data" element={<PersonalDataPage />} />
             <Route path="/profile/promocodes" element={<PromocodesPage />} />
             <Route path="/assistant" element={<ContentSlot />} />
